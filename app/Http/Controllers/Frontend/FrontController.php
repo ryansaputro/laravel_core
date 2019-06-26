@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Backend\Banner;
+use App\Model\Backend\Menu;
+use App\Model\Backend\Article;
+use DB;
 
 
 
@@ -18,7 +21,15 @@ class FrontController extends Controller
     public function index(Request $request)
     {
         $banners = Banner::where('status', 1)->get();
-        return view('frontend.front.home', compact('banners'));
+        $dataQuery = Menu::all();
+        $articles = DB::table('articles')
+                    ->select('articles.*', 'users.name', 'articles_category.name AS category')
+                    ->join('users', 'users.id', '=', 'articles.created_by')
+                    ->join('articles_category', 'articles_category.id', '=', 'articles.id_category')
+                    ->where('articles.status', 1)
+                    ->orderBy('articles.created_at', 'DESC')
+                    ->get();
+        return view('frontend.front.home', compact('banners', 'dataQuery', 'articles'));
     }
 
 

@@ -43,16 +43,16 @@
     <div class="row">
         @yield('content')
       <!-- Sidebar Widgets Column -->
-      <div class="col-md-4">
+      {{-- <div class="col-md-2"> --}}
 
         <!-- ads one -->
-            @include('frontend.layouts.ads-one')
+            {{-- @include('frontend.layouts.ads-one') --}}
         <!-- ads two -->
-            @include('frontend.layouts.ads-two')
+            {{-- @include('frontend.layouts.ads-two') --}}
         <!-- ads three -->
-            @include('frontend.layouts.ads-two')
+            {{-- @include('frontend.layouts.ads-three') --}}
 
-      </div>
+      {{-- </div> --}}
 
     </div>
     <!-- /.row -->

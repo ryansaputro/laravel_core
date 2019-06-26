@@ -6,7 +6,7 @@
     $explode[3] = !empty($explode[3]) ? '/'.$explode[3] : '/';
  ?>
  <!-- Navigation -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background: #1869b9!important;">
    <div class="container">
      <a class="navbar-brand" href="/">{{config('app.name')}}</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

@@ -35,6 +35,7 @@ Route::post('administrator/menus/ajaxSave', ['uses' => 'Backend\MenuController@a
 Route::post('administrator/menus/ajaxEdit', ['uses' => 'Backend\MenuController@ajaxEdit', 'middleware' => ['permission:menu-edit']]);
 Route::post('administrator/menus/ajaxDelete', ['uses' => 'Backend\MenuController@ajaxDelete', 'middleware' => ['permission:menu-delete']]);
 Route::post('administrator/pages/ajaxFieldPages', ['uses' => 'Backend\PageController@ajaxFieldPages', 'middleware' => ['permission:pages-create']]);
+Route::get('administrator/article/ajaxFieldArticle', ['uses' => 'Backend\ArticleController@ajaxFieldArticle', 'middleware' => ['permission:pages-create']]);
 $routesB = DB::table('routes')->select('*')->where('uses_controller', 'LIKE', '%Backend%')->get();
 foreach($routesB as $k => $v){
     Route::resource($v->url, $v->uses_controller);

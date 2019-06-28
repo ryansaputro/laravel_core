@@ -6,7 +6,21 @@ Home
 <link href="https://fonts.googleapis.com/css?family=Rokkitt" rel="stylesheet"> 
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="{{ asset('/css/frontend/style.css') }}" rel="stylesheet">
+<style>
+	/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
 
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
   <!-- Post Content Column -->
 		<div class="col-lg-12">
 			<!-- Preview Image -->
@@ -58,7 +72,8 @@ Home
 			<div class="container">
 				<div class="row">
           @foreach ($articles as $k => $v)
-                    @php
+			
+					@php
                         $date = date_create($v->created_at);
                     @endphp
 					<div class="col-lg-12">
@@ -100,7 +115,32 @@ Home
 								</div>
 								<!--/ cardbox-heading -->
 								<div class="cardbox-item">
-									<img class="img-fluid" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/1.jpg" alt="Image">
+									@foreach ($media->where('id_articles', $v->id) as $ke => $ve)
+									@php
+										$div = count($media->where('id_articles', $v->id));	
+									@endphp
+									@if($ve->extension == 'jpg' || $ve->extension == 'jpeg' || $ve->extension == 'png' || $ve->extension == 'gif')
+										@if ($div == 1)
+												<img class="img-fluid" src="{{asset('articles/'.$ve->media)}}" alt="Image">
+										@elseif($div == 2)
+												<div class="column" style="width:49.3% !important;height: 300px;background-repeat: no-repeat;background-size: contain;background-image:url('{{asset('/articles/'.$ve->media)}}')">
+												</div>
+										@elseif($div == 3)
+												<div class="column" style="height: 300px;background-repeat: no-repeat;background-size: contain;background-image:url('{{asset('/articles/'.$ve->media)}}')">
+												</div>
+										@endif
+									@else
+										<video width="100%" controls id="video-id">
+											<source src="{{asset('/articles/'.$ve->media)}}" type="video/{{$ve->extension}}">
+											Your browser does not support HTML5 video.
+										</video>
+
+									@endif
+									@endforeach
+									</div>
+									<div>
+										<p style="padding:10px;">{{$v->description}}</p>
+
 									</div>
 									<!--/ cardbox-item -->
 									<div class="cardbox-base">
@@ -212,5 +252,7 @@ Home
 @include('frontend.layouts.login')    
  @endsection
  @push('scripts')
+ <script>
+ </script>
 @endpush
  

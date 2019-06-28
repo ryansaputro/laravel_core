@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Backend\Article;
+use App\Model\Backend\ArticleMedia;
 use App\Model\Backend\Category;
 use DB;
 use Auth;
@@ -61,17 +62,18 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        dd($request->all());
+    {
         $this->validate($request, [
             'title' => 'required|max:100|unique:articles,title',
             'description' => 'required',
         ]);
-
+        //     print_r(public_path());
+        // dd($request->all());
+            // dd();
         DB::beginTransaction();
         try {
             //code...
-            Article::create(
+            $data = Article::create(
                 [
                     'title' => $request->title,
                     'id_category' => $request->id_category,
@@ -81,6 +83,27 @@ class ArticleController extends Controller
 
                 ]
             );
+
+            $file = $request->file('uploadFile');
+            $destinationPath = public_path('articles');
+            if($file != null){
+                $this->validate($request, [
+                    'uploadFile' => 'array',
+                    'uploadFile.*' => 'mimes:jpg,jpeg,png,bmp,mov,mp4,ogg|max:2000'
+                ]);
+                foreach ($file as $key => $value) {
+                    $imageName = uniqid() . '.' . $value->getClientOriginalExtension();
+                    $value->move($destinationPath, $imageName);
+                    ArticleMedia::create([
+                        'id_articles' => $data->id,
+                        'media' => $imageName,
+                        'extension' => $value->getClientOriginalExtension()
+                    ]);
+                }
+
+            }
+
+            
         } catch (\Illuminate\Database\QueryException $ex) {
             //throw $th;
             DB::rollback();

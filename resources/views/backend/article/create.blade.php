@@ -49,7 +49,8 @@ input[type="file"] {
 			</ul>
 		</div>
 	@endif
-	{!! Form::open(array('route' => 'article.store','method'=>'POST')) !!}
+	{!! Form::open(array('route' => 'article.store','method'=>'POST', 'enctype' => "multipart/form-data")) !!}
+	  @csrf
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -126,14 +127,16 @@ input[type="file"] {
 		var file = event.target.files[i];
 		var fileReader = new FileReader();
 		if (file.type.match('image')) {
-			fileReader.onload = function() {
-			var img = document.createElement('img');
-			img.src = fileReader.result;
-			$('#image_preview').append(img)
+			//fileReader.onload = function() {
+			//var img = document.createElement('img');
+			//img.src = fileReader.result;
+			//$('#image_preview').append(img)
 			//document.getElementsById('image_preview')[0].appendChild(img);
-			document.getElementsByTagName('div')[0].appendChild(img);
-			};
-			fileReader.readAsDataURL(file);
+			//document.getElementsByTagName('div')[0].appendChild(img);
+			$('#image_preview').append("<img id='"+i+"' src='"+URL.createObjectURL(event.target.files[i])+"'>");
+
+			//};
+			//fileReader.readAsDataURL(file);
 		} else {
 			fileReader.onload = function() {
 			var blob = new Blob([fileReader.result], {type: file.type});
@@ -158,10 +161,11 @@ input[type="file"] {
 				var image = canvas.toDataURL();
 				var success = image.length > 100000;
 				if (success) {
-				var img = document.createElement('img');
-				img.src = image;
-				document.getElementsByTagName('div')[0].appendChild(img);
-				URL.revokeObjectURL(url);
+				//var img = document.createElement('img');
+				//img.src = image;
+				//document.getElementsByTagName('div')[0].appendChild(img);
+				//URL.revokeObjectURL(url);
+				$('#image_preview').append("<img id='"+i+"' src='"+image+"'>");
 				}
 				return success;
 			};
@@ -179,11 +183,6 @@ input[type="file"] {
 
 
   });
-
-  $('form').ajaxForm(function() 
-   {
-    alert("Uploaded SuccessFully");
-   }); 
 
 
 </script>

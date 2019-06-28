@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Backend\Banner;
 use App\Model\Backend\Menu;
 use App\Model\Backend\Article;
+use App\Model\Backend\ArticleMedia;
 use DB;
 
 
@@ -29,7 +30,8 @@ class FrontController extends Controller
                     ->where('articles.status', 1)
                     ->orderBy('articles.created_at', 'DESC')
                     ->get();
-        return view('frontend.front.home', compact('banners', 'dataQuery', 'articles'));
+        $media = ArticleMedia::get();
+        return view('frontend.front.home', compact('banners', 'dataQuery', 'articles', 'media'));
     }
 
 

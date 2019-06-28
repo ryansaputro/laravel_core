@@ -1,3 +1,10 @@
+/**
+ * @author ryan saputro
+ * @email ryansaputro52@gmail.com
+ * @create date 2019-06-28 08:35:42
+ * @modify date 2019-06-28 08:35:42
+ * @desc [description]
+ */
 <?php
 namespace App\Http\Controllers\Frontend;
 

@@ -1,3 +1,5 @@
+<?php
+
 /**
  * @author ryan saputro
  * @email ryansaputro52@gmail.com
@@ -5,8 +7,6 @@
  * @modify date 2019-06-28 08:34:46
  * @desc [description]
  */
-<?php
-
 namespace App\Http\Controllers\Backend;
 
 

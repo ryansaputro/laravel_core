@@ -26,6 +26,9 @@ Route::group(['as' => 'user.'], function () use ($routes) {
         Route::resource($v->url, $v->uses_controller);
     }
 });
+Route::post('/articles/likes/', 'Frontend\FrontController@likes');
+Route::post('/articles/likeShow/', 'Frontend\FrontController@likeShow');
+Route::post('/articles/comments/', 'Frontend\FrontController@comments');
 Route::auth();
 
 Route::group(['middleware' => ['auth']], function () {

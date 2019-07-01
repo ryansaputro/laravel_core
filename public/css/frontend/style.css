@@ -302,8 +302,9 @@
      .search {
          position: relative;
          border: 2px solid #f4f4f4;
-         width: 80%;
+         width: 89%;
          overflow: hidden;
+         border-radius: 50px;
      }
 
      .search input[type="text"] {
@@ -312,8 +313,9 @@
          padding: 15px 60px 20px 10px;
          border: none;
          border-radius: 4px;
-         width: 80%;
-
+         width: 100%;
+        outline: none;
+        box-shadow:none !important;
          font-size: 14px;
          color: #8d8d8d;
          height: inherit;
@@ -371,9 +373,13 @@
      }
 
      @media (max-width: 768px) {
+         .column {
+             height: 200px;
+         }
          .search {
              float: right;
-             margin-top: 10px;
+             margin-top: 0px;
+             width: 80%;
          }
 
          .trend-topic {
@@ -392,11 +398,13 @@
              bottom: 135px;
              right: 15px;
              color: #FFF;
-             border-radius: 50px;
+             /* border-radius: 50px; */
              text-align: center;
              font-size: 30px;
-             box-shadow: 2px 2px 3px #0e6963;
+             /* box-shadow: 2px 2px 3px #0e6963; */
              z-index: 100;
+             background: #1869b90f;
+             cursor: cell;
          }
 
          .my-float {
@@ -405,4 +413,84 @@
          }
      }
 
-     }
+    .column {
+        height: 300px;
+    }
+
+.comments {
+    margin: 2.5rem auto 0;
+    max-width: 60.75rem;
+    padding: 0 1.25rem;
+}
+
+.comment-wrap {
+    padding-left: 15px;
+    margin-bottom: 1.25rem;
+    display: table;
+    width: 100%;
+    min-height: 5.3125rem;
+}
+
+.photo {
+    padding-top: 0.625rem;
+    display: table-cell;
+    width: 3.5rem;
+}
+
+.photo .avatar {
+    height: 2.25rem;
+    width: 2.25rem;
+    border-radius: 50%;
+    background-size: contain;
+}
+
+.comment-block {
+    padding: 1rem;
+    background-color: #fff;
+    display: table-cell;
+    vertical-align: top;
+    border-radius: 0.1875rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.comment-block textarea {
+    width: 100%;
+    resize: none;
+}
+
+.comment-text {
+    margin-bottom: 1.25rem;
+}
+
+.bottom-comment {
+    color: #acb4c2;
+    font-size: 0.875rem;
+}
+
+.comment-date {
+    float: left;
+}
+
+.comment-actions {
+    float: right;
+}
+
+.comment-actions li {
+    display: inline;
+    margin: -2px;
+    cursor: pointer;
+}
+
+.comment-actions li.complain {
+    padding-right: 0.75rem;
+    border-right: 1px solid #e1e5eb;
+}
+
+.comment-actions li.reply {
+    padding-left: 0.75rem;
+    padding-right: 0.125rem;
+}
+
+.comment-actions li:hover {
+    color: #0095ff;
+}

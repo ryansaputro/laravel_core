@@ -6,7 +6,6 @@ Artikel
 @can('article-create')
 <a href="article/create" class="dropdown-toggle" style="border: 2px solid #9cd13a;padding: 5px; border-radius: 5px; color: #9cd13a;">
 	<i class="fa fa-plus"></i> Tambah
-	<p class="hidden-lg hidden-md">Dashboard</p>
 </a>
 @endcan
 @endsection
@@ -26,7 +25,6 @@ Artikel
 				<th>No</th>
 				<th>Name</th>
 				<th>Description</th>
-				<th>Content</th>
 				<th>Status</th>
 				<th>Action</th>
 			</tr>
@@ -35,9 +33,8 @@ Artikel
 			@foreach ($data as $key => $val)
 			<tr>
 				<td>{{ $key+1}}</td>
-				<td>{{ $val->name }}</td>
+				<td>{{ $val->title }}</td>
 				<td>{{ $val->description }}</td>
-				<td>{{ $val->content }}</td>
 				<td><label class="badge badge-{{ $val->status == '1' ? 'success' : 'danger'}}">{{ $val->status == '1' ? 'Aktif' : 'Non Aktif'}}</label></td>
 				<td>
 					<a class="btn btn-info" href="{{ route('article.show',$val->id) }}">Show</a>
@@ -57,6 +54,7 @@ Artikel
 @endsection
 
 @push('scripts')
+
 <script>
 
 $(document).ready(function() {

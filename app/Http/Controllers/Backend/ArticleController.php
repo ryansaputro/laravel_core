@@ -75,17 +75,15 @@ class ArticleController extends Controller
             'title' => 'required|max:100|unique:articles,title',
             'description' => 'required',
         ]);
-        //     print_r(public_path());
-        // dd($request->all());
-            // dd();
+
         DB::beginTransaction();
         try {
-            //code...
             $data = Article::create(
                 [
                     'title' => $request->title,
                     'id_category' => $request->id_category,
                     'description' => $request->description,
+                    'youtube_link' => $request->youtube_link,
                     'status' => '1',
                     'created_by' => Auth::user()->id,
 

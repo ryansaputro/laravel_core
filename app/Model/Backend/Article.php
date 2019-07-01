@@ -12,7 +12,7 @@ class Article extends Model
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = true;
-    public $fillable = ['id', 'title', 'description', 'status', 'id_category', 'created_by', 'created_at', 'updated_at'];
+    public $fillable = ['id', 'title', 'description', 'status', 'id_category', 'youtube_link', 'created_by', 'created_at', 'updated_at'];
 
 
 }

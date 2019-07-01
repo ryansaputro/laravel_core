@@ -71,6 +71,12 @@ input[type="file"] {
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Youtube Link</strong>
+               <input type="text" class="form-control" name="youtube_link" placeholder="youtube link">
+            </div>
+		</div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Konten:</strong>
                {!! Form::textarea('description', null,  array('class' => 'form-control')) !!}
             </div>

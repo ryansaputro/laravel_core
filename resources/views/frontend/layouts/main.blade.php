@@ -26,12 +26,7 @@
   {{--  <script src="{{ asset('js/app.js') }}" defer></script>  --}}
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-8588459032506014",
-      enable_page_level_ads: true
-    });
-  </script>
+
   <style>
     /* Start by setting display:none to make this hidden.
    Then we position it in relation to the viewport window

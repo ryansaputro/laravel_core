@@ -20,6 +20,50 @@ Home
   clear: both;
   display: table;
 }
+
+.st-btn{
+	border: none !important;
+}
+.st-btn > svg{
+	top:-8px !important;
+}
+.st-btn[data-network='sharethis'] svg{
+	fill: #b5b5b5 !important;
+}
+.st-btn[data-network='facebook'] svg{
+	{{-- fill: #b5b5b5 !important; --}}
+}
+.st-btn[data-network='twitter'] svg{
+	{{-- fill: #b5b5b5 !important; --}}
+}
+.st-btn[data-network='whatsapp'] svg{
+	{{-- fill: #b5b5b5 !important; --}}
+}
+
+.st-btn[data-network='sharethis']{
+	background-color: #fff0 !important;
+}
+.st-btn[data-network='facebook']{
+	background-color: #fff0 !important;
+
+}
+.st-btn[data-network='twitter']{
+	background-color: #fff0 !important;
+}
+.st-btn[data-network='whatsapp']{
+	background-color: #fff0 !important;
+	top:-15px !important;
+}
+.cardbox .float-right a:hover{
+	background-color: #fff0 !important;
+}
+.st-btn.st-last.st-remove-label{
+	display: inline-block !important;
+}
+
+.st-total {
+	display: none !important;
+}
 </style>
   <!-- Post Content Column -->
 		<div class="col-lg-12">
@@ -89,7 +133,7 @@ Home
 				<div class="cardbox shadow-lg bg-white" id="{{$v->id}}">
 					<div class="cardbox-heading">
 						<!-- START dropdown-->
-						<div class="dropdown float-right">
+						<div class="dropdown float-right button-three">
 							<button class="btn btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
 								<em class="fa fa-ellipsis-h"></em>
 							</button>
@@ -148,6 +192,12 @@ Home
 
 							@endif
 							@endforeach
+							@if($v->youtube_link != null)
+								<iframe width="100%" height="315" 
+										src="{{str_replace('https://youtu.be/', 'https://www.youtube.com/embed/', $v->youtube_link)}}" 
+										frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+								</iframe>
+							@endif
 							</div>
 							<div>
 								<p style="padding:10px;">{{$v->description}}</p>
@@ -167,7 +217,7 @@ Home
 										</a>
 									</li>
 									<li>
-										<a class="sharethis-inline-share-buttons" href="#comment-form-{{md5($v->id)}}">
+										<a class="sharethis-inline-share-buttons" href="#{{$v->id}}">
 											<i class="fa fa-share-alt"></i>
 										</a>
 									</li>
@@ -279,7 +329,14 @@ Home
 							<div class="col-lg-12">
 								<div class=" cardbox shadow-lg bg-white">
 									<h5 class="card-header">Iklan</h5>
-									<div class="card-body"></div>
+									<div class="card-body">
+										  <script>
+												(adsbygoogle = window.adsbygoogle || []).push({
+												google_ad_client: "ca-pub-8588459032506014",
+												enable_page_level_ads: true
+												});
+											</script>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -306,11 +363,11 @@ Home
       </div>
     </div>
   </div>
-<div class="sharethis-inline-share-buttons"></div>						
+{{-- <div class="sharethis-inline-share-buttons"></div>						 --}}
 @include('frontend.layouts.login')    
 @endsection
 @push('scripts')
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d1a04f255a8b200110cdf12&product='inline-share-buttons' async='async'></script>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d1a04f255a8b200110cdf12&product=inline-share-buttons' async='async'></script>
 <script>
 	function show_comment(a){
 		var data = $('#comment-list-'+a).attr('data-id');

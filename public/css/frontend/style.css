@@ -374,7 +374,7 @@
 
      @media (max-width: 768px) {
          .column {
-             height: 200px;
+             height: 200px !important;
          }
          .search {
              float: right;

@@ -138,7 +138,7 @@ class FrontController extends Controller
             Artisan::call('view:clear');
             
         } catch (\Throwable $th) {
-            dd($th);
+            
             DB::rollback();
             return view('installation.step2');
         }

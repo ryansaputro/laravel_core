@@ -66,21 +66,6 @@
       <div class="load"></div>
       {{-- <img src="https://www.mehruyan.com/image/loading.gif" id="loading-indicator" style="display:none" /> --}}
         @yield('content')
-<<<<<<< HEAD
-=======
-      <!-- Sidebar Widgets Column -->
-      {{-- <div class="col-md-2"> --}}
-
-        <!-- ads one -->
-            {{-- @include('frontend.layouts.ads-one') --}}
-        <!-- ads two -->
-            {{-- @include('frontend.layouts.ads-two') --}}
-        <!-- ads three -->
-            {{-- @include('frontend.layouts.ads-three') --}}
-
-      {{-- </div> --}}
-
->>>>>>> c8b8e18cb8cbfcfd48c2780cbb520e22b1d78bef
     </div>
     <!-- /.row -->
 @include('frontend.layouts.login')    
@@ -100,21 +85,9 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-=======
-  <script>
-    $body = $("body");
-
-    $(document).on({
-        ajaxStart: function() { $body.addClass("loading");    },
-        ajaxStop: function() { $body.removeClass("loading"); }    
-    });
-  </script>
-
->>>>>>> c8b8e18cb8cbfcfd48c2780cbb520e22b1d78bef
   <!--custom js-->
   @stack('scripts')
 

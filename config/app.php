@@ -183,7 +183,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
 
         //browser detect
-        \hisorange\BrowserDetect\ServiceProvider::class,
+        // \hisorange\BrowserDetect\ServiceProvider::class,
 
     ],
 
@@ -241,7 +241,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         //browser detect
-        'Browser' => \hisorange\BrowserDetect\Facade::class,
+        // 'Browser' => \hisorange\BrowserDetect\Facade::class,
         
 
     ],

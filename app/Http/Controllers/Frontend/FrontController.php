@@ -31,11 +31,11 @@ class FrontController extends Controller
     public function index(Request $request)
     {
         // $dataQuery = Menu::all();
-        if (DB::connection()->getDatabaseName()) {
-            echo "conncted sucessfully to database " . DB::connection()->getDatabaseName();
-        }else{
-            echo "gagal";
-        }
+        // if (DB::connection()->getDatabaseName()) {
+        //     echo "conncted sucessfully to database " . DB::connection()->getDatabaseName();
+        // }else{
+        //     echo "gagal";
+        // }
         return view('frontend.front.home');
     }
 

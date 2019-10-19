@@ -376,6 +376,9 @@
          .column {
              height: 200px !important;
          }
+         .loadall{
+             margin-left: 35% !important;
+         }
          .search {
              float: right;
              margin-top: 0px;
@@ -494,3 +497,82 @@
 .comment-actions li:hover {
     color: #0095ff;
 }
+/* mulai */
+/*Profile Card CSS*/
+
+.profile-card {
+    background: linear-gradient(to bottom, rgba(39, 170, 225, .8), rgba(28, 117, 188, .8)), url(../images/covers/1.jpg) no-repeat;
+    background-size: cover;
+    width: 230px;
+    min-height: 90px;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+.profile-card img.profile-photo {
+    border: 7px solid #fff;
+    float: left;
+    margin-right: 20px;
+    position: relative;
+    top: -30px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.profile-card h5 a {
+    font-size: 15px;
+}
+
+.profile-card a {
+    font-size: 12px;
+}
+
+/*==================================================
+  Create Post Box CSS
+  ==================================================*/
+
+.create-post {
+    width: 100%;
+    min-height: 90px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f2f2;
+}
+
+.create-post .form-group {
+    margin-bottom: 0;
+    display: inline-flex;
+}
+
+.create-post .form-group .form-control {
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.create-post .form-group img.profile-photo-md {
+    margin-right: 10px;
+}
+
+.create-post .tools {
+    padding: 8px 0 10px;
+}
+
+.create-post .tools ul.publishing-tools {
+    display: inline-block;
+    text-align: left;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.create-post .tools ul.publishing-tools li a {
+    color: #6d6e71;
+    font-size: 18px;
+}
+
+.create-post .tools ul.publishing-tools li a:hover {
+    color: #27aae1;
+}
+

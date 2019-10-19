@@ -99,11 +99,41 @@ Home
 				</a>
 			</div>
 		</div>
+		<div class="create-post">
+            	<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="cardbox shadow-lg bg-white" style="padding:10px !important;">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<textarea name="texts" style="display:inline !important;border-radius: 45px; border:2px solid #ccc;" id="exampleTextarea" rows=4 cols=150 class="form-control" placeholder="Write what you wish"></textarea>
+								</div>
+							</div>
+							<div>
+								<span>
+									<button class="btn btn-sm btn-round btn-primary" style="border-radius:45px;">Foto</button>
+									<button class="btn btn-sm btn-round btn-success" style="border-radius:45px;">Video</button>
+									<button class="btn btn-sm btn-round btn-warning" style="border-radius:45px;">Dokumen</button>
+									<button class="btn btn-sm btn-round btn-danger" style="border-radius:45px;">Url</button>
+	
+								</span>
+								<span style="float:right;"><button class="btn btn-sm btn-primary">Posting</button></span>
+
+							</div>
+						</div>
+					</div>
+            	</div>
+			</div>
+			
+			{{--    --}}
+			
+			{{--    --}}
+
+
 		<?php
 			$sessLog = !isset(Auth::user()->id) ? 'xxx' : Auth::user()->id;
 		?>
 		<div class="col-lg-3 hero box-right">
-			<div class="container">
+			{{--  <div class="container">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class=" cardbox shadow-lg bg-white">
@@ -118,7 +148,36 @@ Home
 						</div>
 					</div>
 				</div>
+			</div>  --}}
+			{{--  begin  --}}
+			<div class="col-md-3 static">
+            <div class="profile-card">
+            	<img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/4.jpg" alt="user" class="profile-photo">
+            	<h5><a href="timeline.html" class="text-white">Sarah Cruiz</a></h5>
+            	<a href="#" class="text-white"><i class="ion ion-android-person-add"></i> 1,299 followers</a>
+			</div><!--profile card ends-->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class=" cardbox shadow-lg bg-white" style="width:230px;">
+						<h5 class="card-header">Kategori</h5>
+						<div class="card-body trend-topic">
+							<ul class="nav-news-feed">
+							<li><i class="icon ion-ios-paper"></i><div><a href="newsfeed.html">My Newsfeed</a></div></li>
+							<li><i class="icon ion-ios-people"></i><div><a href="newsfeed-people-nearby.html">People Nearby</a></div></li>
+							<li><i class="icon ion-ios-people-outline"></i><div><a href="newsfeed-friends.html">Friends</a></div></li>
+							<li><i class="icon ion-chatboxes"></i><div><a href="newsfeed-messages.html">Messages</a></div></li>
+							<li><i class="icon ion-images"></i><div><a href="newsfeed-images.html">Images</a></div></li>
+							<li><i class="icon ion-ios-videocam"></i><div><a href="newsfeed-videos.html">Videos</a></div></li>
+							</ul><!--news-feed links ends-->
+						</div>
+					</div>
+				</div>
 			</div>
+            <div id="chat-block" class="" style="">
+              <div class="title">Chat online</div>
+            </div><!--chat block ends-->
+          </div>
+			{{--  endbegin  --}}
 		</div>
 		<!--/ col-lg-3 -->
 		<div class="col-md-6 hero" style="width:100%;">
@@ -130,7 +189,7 @@ Home
 				$date = date_create($v->created_at);
 			@endphp
 			<div class="col-lg-12">
-				<div class="cardbox shadow-lg bg-white" id="{{$v->id}}">
+				<div class="cardbox shadow-lg bg-white" id="{{md5($v->id)}}">
 					<div class="cardbox-heading">
 						<!-- START dropdown-->
 						<div class="dropdown float-right button-three">
@@ -264,7 +323,7 @@ Home
 									<!--/ cardbox-base -->
 									@if (isset($comment[$v->id]))
 									<div class="cardbox">
-										<a href="#comment-list-{{$v->id}}" class="show_comment show_comment_{{$v->id}}" onclick="show_comment({{$v->id}})" style="color:#b5b5b5;padding-left:15px;"><i class="fa fa-angle-right" aria-hidden="true"></i> tampilkan komentar</a>
+										<a href="#{{md5($v->id)}}" class="show_comment show_comment_{{$v->id}}" onclick="show_comment({{$v->id}})" style="color:#b5b5b5;padding-left:15px;"><i class="fa fa-angle-right" aria-hidden="true"></i> tampilkan</a>
 									</div>
 									<div class="comment-box-{{$v->id}}">
 										@foreach($comment[$v->id] as $item => $y)
@@ -311,6 +370,11 @@ Home
 								<!--/ cardbox -->
 							</div>
 							<!--/ col-lg-6 -->	
+								@if ($k == 2)
+								<div style="text-align:center;  margin-left: 40%; margin-bottom: 20px;" class="loadall">
+									<a class="btn btn-block btn-primary" style="border-radius: 50px;  color: #fff; text-align: center;"><i class="fa fa-long-arrow-down" aria-hidden="true"></i> semuanya <i class="fa fa-long-arrow-down" aria-hidden="true"></i></a>
+								</div>
+								@endif
 							@endforeach 
 						</div>
 						<!--/ row -->
@@ -364,21 +428,26 @@ Home
     </div>
   </div>
 {{-- <div class="sharethis-inline-share-buttons"></div>						 --}}
-@include('frontend.layouts.login')    
 @endsection
 @push('scripts')
 <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d1a04f255a8b200110cdf12&product=inline-share-buttons' async='async'></script>
 <script>
+	$(document).ready(function(){
+    $( "a.show_comment" ).click(function( event ) {
+        event.preventDefault();
+        $("html, body").animate({ scrollTop: $($(this).attr("href")).offset().top }, 500);
+    });
+});
 	function show_comment(a){
 		var data = $('#comment-list-'+a).attr('data-id');
 		if(data == 'hide'){
 			$('.comment-list-'+a).attr('data-id', 'show');
 			$('.comment-list-'+a).css('display', '');
-			$('.show_comment_'+a).text("> sembunyikan komentar")
+			$('.show_comment_'+a).text("> sembunyikan")
 		}else{
 			$('.comment-list-'+a).attr('data-id', 'hide');
 			$('.comment-list-'+a).css('display', 'none');
-			$('.show_comment_'+a).text("> tampilkan komentar")
+			$('.show_comment_'+a).text("> tampilkan")
 		}
 	}
 
@@ -482,7 +551,6 @@ Home
 				"_token": "{{ csrf_token() }}",
 			},
 			success: function(result){
-				console.log(result)
 				if(result.status == 200){
 						var data = "<ul>";
 						if(result.like.length > 0){

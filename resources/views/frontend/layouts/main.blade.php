@@ -62,7 +62,7 @@
 
 </head>
 
-<body>
+<body style="background:#f8f9fa !important;">
   <!-- Navigation -->
     @extends('frontend.layouts.navigation')
   <!-- Page Content -->
@@ -85,6 +85,7 @@
 
     </div>
     <!-- /.row -->
+@include('frontend.layouts.login')    
 
   </div>
   <!-- /.container -->

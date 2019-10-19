@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @author ryan saputro
+ * @email ryansaputro52@gmail.com
+ * @create date 2019-06-28 08:36:05
+ * @modify date 2019-06-28 08:36:05
+ * @desc [description]
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;

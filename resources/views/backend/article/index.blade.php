@@ -1,4 +1,5 @@
 @extends('backend.layouts.main')
+<<<<<<< HEAD
 
 @section('title')
 Meta
@@ -8,6 +9,15 @@ Meta
 <a href="meta/create" class="dropdown-toggle" style="border: 2px solid #9cd13a;padding: 5px; border-radius: 5px; color: #9cd13a;">
 	<i class="fa fa-plus"></i> Tambah
 	<p class="hidden-lg hidden-md">Dashboard</p>
+=======
+@section('title')
+Artikel
+@endsection
+@section('new')
+@can('article-create')
+<a href="article/create" class="dropdown-toggle" style="border: 2px solid #9cd13a;padding: 5px; border-radius: 5px; color: #9cd13a;">
+	<i class="fa fa-plus"></i> Tambah
+>>>>>>> c8b8e18cb8cbfcfd48c2780cbb520e22b1d78bef
 </a>
 @endcan
 @endsection
@@ -27,7 +37,10 @@ Meta
 				<th>No</th>
 				<th>Name</th>
 				<th>Description</th>
+<<<<<<< HEAD
 				<th>Content</th>
+=======
+>>>>>>> c8b8e18cb8cbfcfd48c2780cbb520e22b1d78bef
 				<th>Status</th>
 				<th>Action</th>
 			</tr>
@@ -36,6 +49,7 @@ Meta
 			@foreach ($data as $key => $val)
 			<tr>
 				<td>{{ $key+1}}</td>
+<<<<<<< HEAD
 				<td>{{ $val->name }}</td>
 				<td>{{ $val->description }}</td>
 				<td>{{ $val->content }}</td>
@@ -47,6 +61,18 @@ Meta
 					@endcan
 					@can('meta-delete')
 					{!! Form::open(['method' => 'DELETE','route' => ['meta.destroy', $val->id],'style'=>'display:inline']) !!}
+=======
+				<td>{{ $val->title }}</td>
+				<td>{{ $val->description }}</td>
+				<td><label class="badge badge-{{ $val->status == '1' ? 'success' : 'danger'}}">{{ $val->status == '1' ? 'Aktif' : 'Non Aktif'}}</label></td>
+				<td>
+					<a class="btn btn-info" href="{{ route('article.show',$val->id) }}">Show</a>
+					@can('article-edit')
+					<a class="btn btn-primary" href="{{ route('article.edit',$val->id) }}">Edit</a>
+					@endcan
+					@can('article-delete')
+					{!! Form::open(['method' => 'DELETE','route' => ['article.destroy', $val->id],'style'=>'display:inline']) !!}
+>>>>>>> c8b8e18cb8cbfcfd48c2780cbb520e22b1d78bef
 					{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 					{!! Form::close() !!}
 					@endcan
@@ -58,6 +84,10 @@ Meta
 @endsection
 
 @push('scripts')
+<<<<<<< HEAD
+=======
+
+>>>>>>> c8b8e18cb8cbfcfd48c2780cbb520e22b1d78bef
 <script>
 
 $(document).ready(function() {

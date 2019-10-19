@@ -1,4 +1,4 @@
- @extends('frontend.layouts.main')
+@extends('frontend.layouts.main')
 @section('title')
 Home
 @endsection

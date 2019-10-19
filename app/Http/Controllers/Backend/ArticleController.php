@@ -1,15 +1,21 @@
 <?php
+
+/**
+ * @author ryan saputro
+ * @email ryansaputro52@gmail.com
+ * @create date 2019-06-28 08:34:18
+ * @modify date 2019-06-28 08:34:18
+ * @desc [description]
+ */
 namespace App\Http\Controllers\Backend;
 
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Backend\Banner;
-use Carbon\Carbon;
-use Intervention\Image\ImageManagerStatic as Image;
-use File;
+use App\Model\Backend\Article;
+use App\Model\Backend\ArticleMedia;
+use App\Model\Backend\Category;
 use DB;
-use Illuminate\Validation\Rule;
 use Auth;
 
 
@@ -35,7 +41,7 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $data = Banner::where('status', 1)->orderBy('created_at', 'DESC')->get();
+        $data = Article::where('status', 1)->orderBy('created_at', 'DESC')->get();
         return view('backend.article.index', compact('data'));
     }
 
@@ -47,7 +53,13 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('backend.banner.create');
+        $category = Category::where('status','1')->get();
+        return view('backend.article.create', compact('category'));
+    }
+
+
+    public function ajaxFieldArticle(Request $request){
+        dd($request->all());
     }
 
 
@@ -58,58 +70,60 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        
+    {
+        $this->validate($request, [
+            'title' => 'required|max:100|unique:articles,title',
+            'description' => 'required',
+        ]);
+
         DB::beginTransaction();
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'description' => 'required',
-                'image' => 'required|image|mimes:jpg,png,jpeg'
-            ]);
-		
-            if (!File::isDirectory($this->path)) {
-                File::makeDirectory($this->path,777, true);
-            }
-            
-            $file = $request->file('image');
-            $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            Image::make($file)->save($this->path . '/' . $fileName);
-		
-            foreach ($this->dimensions as $row) {
-                $canvas = Image::canvas($row, $row);
-                $resizeImage = Image::make($file)->resize($row, $row, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-			
-                if (!File::isDirectory($this->path . '/' . $row)) {
-                    File::makeDirectory($this->path . '/' . $row);
+            $data = Article::create(
+                [
+                    'title' => $request->title,
+                    'id_category' => $request->id_category,
+                    'description' => $request->description,
+                    'youtube_link' => $request->youtube_link,
+                    'status' => '1',
+                    'created_by' => Auth::user()->id,
+
+                ]
+            );
+
+            $file = $request->file('uploadFile');
+            $destinationPath = public_path('articles');
+            if($file != null){
+                $this->validate($request, [
+                    'uploadFile' => 'array',
+                    'uploadFile.*' => 'mimes:jpg,jpeg,png,bmp,mov,mp4,ogg|max:2000'
+                ]);
+                foreach ($file as $key => $value) {
+                    $imageName = uniqid() . '.' . $value->getClientOriginalExtension();
+                    $value->move($destinationPath, $imageName);
+                    ArticleMedia::create([
+                        'id_articles' => $data->id,
+                        'media' => $imageName,
+                        'extension' => $value->getClientOriginalExtension()
+                    ]);
                 }
-        	
-                $canvas->insert($resizeImage, 'center');
-                $canvas->save($this->path . '/' . $row . '/' . $fileName);
+
             }
-        
-            Banner::create([
-                'name' => $request->name,
-                'description' => $request->description ,
-                'data' => $fileName,
-                'dimension' => implode('|', $this->dimensions),
-                'path' => $this->path,
-                'status' => '1',
-                'created_by' => Auth::user()->id
-            ]);
+
             
         } catch (\Illuminate\Database\QueryException $ex) {
+            //throw $th;
             DB::rollback();
-            return redirect()->route('banner.index')
-                ->with('danger', 'Banner created failed');
+            dd($ex->getMessage());
+            return redirect()->route('article.index')
+                ->with('danger', 'Artikel updated failed');
+
         }
-        
+
         DB::commit();
-        
-        return redirect()->route('banner.index')
-                        ->with('success','Banner created successfully');
+
+        return redirect()->route('article.index')
+            ->with('success', 'Artikel updated successfully');
+
     }
 
 

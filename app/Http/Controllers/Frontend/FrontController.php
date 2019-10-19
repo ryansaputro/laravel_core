@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @author ryan saputro
+ * @email ryansaputro52@gmail.com
+ * @create date 2019-06-28 08:35:42
+ * @modify date 2019-06-28 08:35:42
+ * @desc [description]
+ */
 namespace App\Http\Controllers\Frontend;
 
 
@@ -192,9 +200,103 @@ class FrontController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function comments(Request $request)
     {
-        return view('ItemCRUD2.create');
+        if ($request->ajax()) {
+            
+            DB::beginTransaction();
+            
+            try {
+                //code...
+                $id = $request->id;
+                $comment = $request->data;
+                $id_user = Auth::user()->id;
+                $name = User::find($id_user)->value('name');
+        
+                $server = $_SERVER['HTTP_USER_AGENT'];
+                if (isset($_SERVER['HTTP_CLIENT_IP']))
+                    $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+                else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+                    $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                else if (isset($_SERVER['HTTP_X_FORWARDED']))
+                    $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+                else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+                    $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+                else if (isset($_SERVER['HTTP_FORWARDED']))
+                    $ipaddress = $_SERVER['HTTP_FORWARDED'];
+                else if (isset($_SERVER['REMOTE_ADDR']))
+                    $ipaddress = $_SERVER['REMOTE_ADDR'];
+                else
+                    $ipaddress = 'UNKNOWN';
+    
+                $platform = Browser::platformName();
+                $browser = Browser::browserName();
+                $userAgent = Browser::userAgent();
+                ArticleComment::create([
+                    'id_articles' => $id,
+                    'id_user' => $id_user,
+                    'comment' => $comment,
+                    'ip_address' => $ipaddress,
+                    'browser' => $platform,
+                    'platform' => $browser,
+                    'status' => 1
+                ]);
+                $TotComent = ArticleComment::select('id_articles', DB::raw('COUNT(id_articles) AS total'))->where('id_articles', $id)->where('status', '1')->groupBy('id_articles')->count();
+            } catch (\Illuminate\Database\QueryException $ex) {
+                DB::rollback();
+                dd($ex->getMessage());
+                return redirect()->route('article.index')
+                    ->with('danger', 'Artikel updated failed');
+
+            }            
+            
+            DB::commit();
+        
+        }
+        return response()->json(["status" => 200, 'comment' => $comment, 'name' => $name, 'total' => $TotComent]);
+
+    }
+
+    public function likes(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->data;
+            $id_user = Auth::user()->id;
+
+            $status = ArticleLike::where('id_articles', $id)->where('id_user', $id_user)->where('status', '1')->count();
+            $status = ($status == 1) ? '0' : '1';
+
+            $server = $_SERVER['HTTP_USER_AGENT'];
+            if (isset($_SERVER['HTTP_CLIENT_IP']))
+                $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+            else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            else if (isset($_SERVER['HTTP_X_FORWARDED']))
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+            else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+                $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+            else if (isset($_SERVER['HTTP_FORWARDED']))
+                $ipaddress = $_SERVER['HTTP_FORWARDED'];
+            else if (isset($_SERVER['REMOTE_ADDR']))
+                $ipaddress = $_SERVER['REMOTE_ADDR'];
+            else
+                $ipaddress = 'UNKNOWN';
+
+            $platform = Browser::platformName();
+            $browser = Browser::browserName();
+            $userAgent = Browser::userAgent();
+            ArticleLike::updateOrCreate([
+                'id_articles' => $id,
+                'id_user' => $id_user],[
+                'ip_address' => $ipaddress,
+                'browser' => $platform,
+                'platform' => $browser,
+                'status' => $status
+            ]);
+            $Totlike = ArticleLike::select('id_articles', DB::raw('COUNT(id_articles) AS total'))->where('id_articles', $id)->where('status', '1')->groupBy('id_articles')->count();
+
+        }
+        return response()->json(["status" => 200, 'data' => $status, 'like' => $Totlike]);
     }
 
 
@@ -204,19 +306,20 @@ class FrontController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function likeShow(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+        if ($request->ajax()) {
+            $id = $request->data;
 
+            $like = DB::table('articles_likes')
+                ->select('articles_likes.updated_at', 'users.name')
+                ->join('users', 'users.id', 'articles_likes.id_user')
+                ->where('id_articles', $id)
+                ->where('status', '1')
+                ->get();
+        }
+        return response()->json(["status" => 200, 'like' => $like]);
 
-        Item::create($request->all());
-
-
-        return redirect()->route('itemCRUD2.index')
-                        ->with('success','Item created successfully');
     }
 
 

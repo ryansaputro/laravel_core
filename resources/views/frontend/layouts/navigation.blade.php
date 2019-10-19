@@ -1,4 +1,5 @@
  <?php
+if(isset(Auth::user()->id)) :
  $menusPrimary = DB::table('menus')->select('*')->where('menu_role', '<>', '17')->where('status', '1')->where('id_parent', '0')->get();
  $menusSekundery = DB::table('menus')->select('*')->where('menu_role', '<>', '17')->where('status', '1')->get();
     $url = url()->current();
@@ -87,3 +88,5 @@
       </div>
     </div>
   </nav>
+  <?php
+  endif;

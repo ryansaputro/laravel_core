@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Backend\Banner;
+use App\Model\Backend\Menu;
+use App\Model\Backend\DataApotek;
+use DB;
+use Artisan;
+
 
 
 
@@ -17,10 +22,170 @@ class FrontController extends Controller
      */
     public function index(Request $request)
     {
-        $banners = Banner::where('status', 1)->get();
-        return view('frontend.front.home', compact('banners'));
+        // $dataQuery = Menu::all();
+        if (DB::connection()->getDatabaseName()) {
+            echo "conncted sucessfully to database " . DB::connection()->getDatabaseName();
+        }else{
+            echo "gagal";
+        }
+        return view('frontend.front.home');
     }
 
+    public function step1(Request $request)
+    {
+        if (DB::connection()->getDatabaseName()) {
+            $data = DataApotek::all()->count();
+            if ($data == 0)
+                return view('installation.step1');
+            else
+                return redirect('/');
+        } else {
+            return view('installation.step1');
+        }
+    }
+
+    public function step2(Request $request)
+    {
+        // $new = base_path('.env');
+        // if (file_exists($new)) {
+        //     return redirect('/');
+        // }
+
+        return view('installation.step2');
+    }
+
+    public function step2Checking(Request $request)
+    {
+        DB::beginTransaction();
+        
+        try {
+            $this->validate($request, [
+                'nama' => 'required',
+                'username' => 'required',
+            ]);
+
+            $new = base_path('.env');
+            // $del = unlink($new);
+
+            $myfile = fopen($new, "w") or die("Unable to open file!");
+            $txt = 'APP_NAME=Laravel
+                    APP_ENV=local
+                    APP_KEY=base64:oYIShHR4b/qAT8+Qk8vTrNlQiey5BOeRSDoqW+RACJQ=
+                    APP_DEBUG=true
+                    APP_URL=http://localhost
+
+                    TWITTER_ID=
+                    TWITTER_SECRET=
+                    TWITTER_URL=
+
+                    FORCE_HTTPS=true
+
+                    FB_ID=410986022813111
+                    FB_SECRET=8c25989af2eab46952c2632532ce14e7
+                    FB_URL=https://127.0.0.1:8000/auth/facebook/callback
+
+                    GOOGLE_ID=
+                    GOOGLE_SECRET=
+                    GOOGLE_URL=
+
+                    LOG_CHANNEL=stack
+
+                    DB_CONNECTION=mysql
+                    DB_HOST=127.0.0.1
+                    DB_PORT=3306
+                    DB_DATABASE=' . $request->nama . '
+                    DB_USERNAME=' . $request->username . '
+                    DB_PASSWORD=' . $request->password . '
+
+                    BROADCAST_DRIVER=log
+                    CACHE_DRIVER=array
+                    QUEUE_CONNECTION=sync
+                    SESSION_DRIVER=file
+                    SESSION_LIFETIME=120
+
+                    REDIS_HOST=127.0.0.1
+                    REDIS_PASSWORD=null
+
+                    MAIL_DRIVER=smtp
+                    MAIL_HOST=smtp.mailtrap.io
+                    MAIL_PORT=2525
+                    MAIL_USERNAME=null
+                    MAIL_PASSWORD=null
+                    MAIL_ENCRYPTION=null
+
+                    AWS_ACCESS_KEY_ID=
+                    AWS_SECRET_ACCESS_KEY=
+                    AWS_DEFAULT_REGI=us-east-1
+                    AWS_BUCKET=
+
+                    PUSHER_APP_ID=
+                    PUSHER_APP_KEY=
+
+                    MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+                    MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"';
+            fwrite($myfile, $txt);
+            $data = fclose($myfile);
+            Artisan::call('cache:clear');
+            Artisan::call('config:clear');
+            Artisan::call('view:clear');
+            
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollback();
+            return view('installation.step2');
+        }
+        
+        DB::commit();
+        return view('installation.step3');
+        
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function step3Checking(Request $request)
+    {
+        
+        DB::beginTransaction();
+        
+        try {
+            $this->validate($request, [
+                'kode' => 'required|unique:hd-data_apotek|max:20',
+                'nama' => 'required',
+                'telepon' => 'required|unique:hd-data_apotek|max:12',
+                'email' => 'required|unique:hd-data_apotek',
+                'alamat' => 'required',
+                'noreg' => 'required',
+                'penanggung_jawab' => 'required',
+            ]);
+
+            DataApotek::create([
+                'kode' => $request->kode,
+                'nama' => $request->nama,
+                'telepon' => $request->telepon,
+                'email' => $request->email,
+                'alamat' => $request->alamat,
+                'noreg' =>  $request->noreg,
+                'penanggung_jawab' => $request->penanggung_jawab,
+            ]);
+
+            Artisan::call('migrate');
+            Artisan::call('db:seed');
+            //code...
+        } catch (\Illuminate\Database\QueryException $ex) {
+            dd($ex->getMessage()); 
+            DB::rollback();
+
+            // return view('installation.step3');
+        }
+        DB::commit();
+
+        return view('installation.step4');
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -30,13 +30,16 @@ class FrontController extends Controller
      */
     public function index(Request $request)
     {
-        // $dataQuery = Menu::all();
-        // if (DB::connection()->getDatabaseName()) {
-        //     echo "conncted sucessfully to database " . DB::connection()->getDatabaseName();
-        // }else{
-        //     echo "gagal";
-        // }
-        return view('frontend.front.home');
+        if (DB::connection()->getDatabaseName()) {
+            $data = DataApotek::all()->count();
+            if ($data == 0)
+                return view('installation.step1');
+            else
+                return redirect('/login');
+        } else {
+            return view('installation.step1');
+        }
+
     }
 
     public function step1(Request $request)
@@ -54,12 +57,16 @@ class FrontController extends Controller
 
     public function step2(Request $request)
     {
-        // $new = base_path('.env');
-        // if (file_exists($new)) {
-        //     return redirect('/');
-        // }
+        if (DB::connection()->getDatabaseName()) {
+            $data = DataApotek::all()->count();
+            if ($data == 0)
+                return view('installation.step2');
+            else
+                return redirect('/');
+        } else {
+            return view('installation.step2');
+        }
 
-        return view('installation.step2');
     }
 
     public function step2Checking(Request $request)
@@ -73,7 +80,7 @@ class FrontController extends Controller
             ]);
 
             $new = base_path('.env');
-            // $del = unlink($new);
+            $del = unlink($new);
 
             $myfile = fopen($new, "w") or die("Unable to open file!");
             $txt = 'APP_NAME=Laravel
@@ -185,10 +192,10 @@ class FrontController extends Controller
             Artisan::call('db:seed');
             //code...
         } catch (\Illuminate\Database\QueryException $ex) {
-            dd($ex->getMessage()); 
+            // dd($ex->getMessage()); 
             DB::rollback();
 
-            // return view('installation.step3');
+            return view('installation.step3');
         }
         DB::commit();
 

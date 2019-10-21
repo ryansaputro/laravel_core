@@ -27,6 +27,8 @@ Route::get('/build', function () {
 Auth::routes();
 
 
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 
 Route::get('/', 'Frontend\FrontController@index');
 Route::get('/step-1', 'Frontend\FrontController@step1');
@@ -34,11 +36,6 @@ Route::get('/step-2', 'Frontend\FrontController@step2');
 Route::post('/step-2', 'Frontend\FrontController@step2Checking')->name('step2');
 Route::post('/step-3', 'Frontend\FrontController@step3Checking')->name('step3');
 
-
-// Route::get('/some/route', function () {
-//     $exitCode = Artisan::call('route:cache');
-//     return 'Routes cache cleared';
-// });
 
 // // Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 // // Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
@@ -48,18 +45,18 @@ Route::post('/step-3', 'Frontend\FrontController@step3Checking')->name('step3');
 //         Route::resource($v->url, $v->uses_controller);
 //     }
 // });
-// Route::auth();
+Route::auth();
 
-// Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
-// // Route::get('/home', 'HomeController@index');
-// Route::post('administrator/menus/ajaxSave', ['uses' => 'Backend\MenuController@ajaxSave', 'middleware' => ['permission:menu-list']]);
-// Route::post('administrator/menus/ajaxEdit', ['uses' => 'Backend\MenuController@ajaxEdit', 'middleware' => ['permission:menu-edit']]);
-// Route::post('administrator/menus/ajaxDelete', ['uses' => 'Backend\MenuController@ajaxDelete', 'middleware' => ['permission:menu-delete']]);
-// Route::post('administrator/pages/ajaxFieldPages', ['uses' => 'Backend\PageController@ajaxFieldPages', 'middleware' => ['permission:pages-create']]);
-// $routesB = DB::table('routes')->select('*')->where('uses_controller', 'LIKE', '%Backend%')->get();
-// foreach($routesB as $k => $v){
-//     Route::resource($v->url, $v->uses_controller);
-// }
+// Route::get('/home', 'HomeController@index');
+Route::post('administrator/menus/ajaxSave', ['uses' => 'Backend\MenuController@ajaxSave', 'middleware' => ['permission:menu-list']]);
+Route::post('administrator/menus/ajaxEdit', ['uses' => 'Backend\MenuController@ajaxEdit', 'middleware' => ['permission:menu-edit']]);
+Route::post('administrator/menus/ajaxDelete', ['uses' => 'Backend\MenuController@ajaxDelete', 'middleware' => ['permission:menu-delete']]);
+Route::post('administrator/pages/ajaxFieldPages', ['uses' => 'Backend\PageController@ajaxFieldPages', 'middleware' => ['permission:pages-create']]);
+$routesB = DB::table('routes')->select('*')->where('uses_controller', 'LIKE', '%Backend%')->get();
+foreach($routesB as $k => $v){
+    Route::resource($v->url, $v->uses_controller);
+}
 
-// });
+});

@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
             // $roles = Role::pluck('display_name', 'id')->toArray();
             // $userRole = $user->roles->pluck('id', 'id')->toArray();
             // dd($user);
-            return redirect('/admin');
+            return redirect('/administrator/dashboard');
 
         }
 

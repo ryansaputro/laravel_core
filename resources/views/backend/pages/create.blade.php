@@ -67,7 +67,6 @@ Tambah Halaman
         </div>
 	</div>
 	{!! Form::close() !!}
-
 @endsection
 
 @push('scripts')
@@ -100,7 +99,7 @@ Tambah Halaman
 							'<select class="form-control" name="table" onchange="tableChange(this)">'+
 								'<option selected disabled>-pilih-</option>'+
 								'@foreach ($tables as $table)'+
-									'<option value="{{$table->Tables_in_adsProject}}">{{$table->Tables_in_adsProject}}</option>'+
+									'<option value="{{$table->Tables_in_hd_inventory}}">{{$table->Tables_in_hd_inventory}}</option>'+
 								'@endforeach'+
 							'</select>'+
 							'<strong>Kondisi:</strong>'+

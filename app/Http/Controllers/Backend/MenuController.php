@@ -40,7 +40,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Menu::orderBy('order', 'ASC')->where('menu_role', '<>', '17')->get();
+        $data = Menu::orderBy('order', 'ASC')->where('menu_role', '<>', '16')->get();
         return view('backend.menus.index', compact('data'));
     }
 

@@ -24,6 +24,26 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
   cursor: pointer;
   outline: none;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #7b55bc; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ab80e0; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 </style>
 <div class="sidebar-wrapper">
             <div class="logo">
@@ -40,21 +60,21 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
                 <ul class="nav">
                 @foreach ($menus as $key => $val)
                     @if ($val->id_parent == 0)
-                        <li class="{{in_array($val->id, $parent_id) ? 'dropdown-btn' : ''}} {{$active == $val->url ? 'active' : ''}}">
-                            <a href="{{$val->url}}" class="{{in_array($val->id, $parent_id) ? 'dropdown-toggle' : ''}}" data-toggle="{{in_array($val->id, $parent_id) ? 'dropdown' : ''}}" aria-expanded="false">
-                                <i class="{{in_array($val->id, $parent_id) ? 'fa fa-caret-down' : $val->icon}}"></i>
-                                <p>{{$val->name}}</p>
+                        <li data-toggle="tooltip" title="{{$val->name}}" class="nav_menu {{in_array($val->id, $parent_id) ? 'dropdown-btn' : ''}} {{$active == $val->url ? 'active' : ''}}">
+                            <a href="{{$val->url}}" class="link_menu {{in_array($val->id, $parent_id) ? 'dropdown-toggle' : ''}}" data-toggle="{{in_array($val->id, $parent_id) ? 'dropdown' : ''}}" aria-expanded="false">
+                                <i class="icon {{in_array($val->id, $parent_id) ? 'fa fa-caret-down' : $val->icon}}"></i>
+                                <p class="nameOfMenu">{{$val->name}}</p>
                             </a>
                             @if (in_array($val->id, $parent_id))
-                                <ul class="dropdown-container" style="margin-left:10px; background:#26262600;">
+                                <ul class="dropdown-container children" style="margin-left:25px; background:#26262600;">
                                     @php
-                                        $child = DB::table('menus')->select('*')->where('id_parent', $val->id)->orderBy('order', 'ASC')->get();
+                                        $child = DB::table('menus')->select('*')->where('id_parent', $val->id)->where('status', '1')->orderBy('order', 'ASC')->get();
                                     @endphp
                                         @foreach ($child as $item)
-                                            <li class="child {{$active == $item->url ? 'active' : ''}}">
+                                            <li data-toggle="tooltip" title="{{$item->name}}" class="child {{$active == $item->url ? 'active' : ''}}" style="display:block;">
                                                 <a href="{{$item->url}}" class="{{in_array($item->id, $parent_id) ? 'dropdown-toggle' : ''}}" data-toggle="{{in_array($item->id, $parent_id) ? 'dropdown' : ''}}" aria-expanded="false">
-                                                    <i class="{{in_array($item->id, $parent_id) ? 'fa fa-caret-down' : $item->icon}}"></i>
-                                                    <p>{{$item->name}}</p>
+                                                    <i class="icon-children {{in_array($item->id, $parent_id) ? 'fa fa-caret-down' : $item->icon}}"></i>
+                                                    <p class="nameOfMenu">{{$item->name}}</p>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -64,12 +84,17 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
                     
                     @endif
                 @endforeach
+
+                {{--  <li class="nav_menu" style="">
+                    
+                </li>  --}}
             </ul>
                 @include('backend.layouts.footer')
         </div>
+        
 @push('scripts')
     <script>
-        $('a.dropdown-toggle').on('click', function(){
+        $('.nav_menu').on('click', function(){
             if($('.dropdown-btn').hasClass('open') == false){
                 $('.dropdown-container').css('display', 'block');
             }else{
@@ -82,6 +107,49 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
                 $('.dropdown-container').css('display', 'block');
             }
         })
+
+
+        function hideMenu(a){
+            $('p.nameOfMenu').css('display', 'none');
+            $('.style').removeClass('fa fa-caret-left');
+            $('.style').addClass('fa fa-caret-right');
+            $(a).attr('onclick', 'showMenu(this)');
+            $(a).find('.hideMenus').text("");
+            $('.sidebar-wrapper').css('width', '110px');
+            $('.sidebar').css('width', '110px');
+            $('.nav_menu').css('padding-top', '20px');
+            $('.main-panel').css('width', 'calc(100% - 110px)');
+            $('.icon-children').css('margin-left', '13px');
+            $('.icon').css('margin-left', '5px');
+            $('.icon-children').css('margin-top', '10px');
+            $('.nav').find('li.active').find('a').css('height', '50px');
+            $('.nav').find('li').find('a').css('height', '50px');
+            $('.children').css('margin-left', '3px');
+            $('.children').find('li').find('a').css('padding-left', '0px');
+            $('.mainButton').css('margin-left', '110px');
+        }
+        
+        function showMenu(a){
+            $('p.nameOfMenu').css('display', 'block');
+            $(a).attr('onclick', 'hideMenu(this)');
+            $('.mainButton').css('margin-left', '260px');
+            $('.style').removeClass('fa fa-caret-right');
+            $('.style').addClass('fa fa-caret-left');
+            $('.sidebar').css('width', '260px');
+            $('.sidebar-wrapper').css('width', '260px');
+            $('.nav_menu').css('padding-top', 'inherit');
+            $('.main-panel').css('width', 'calc(100% - 260px)');
+            $('.nav').find('li.active').find('a').css('height', 'inherit');
+            $('.nav').find('li').find('a').css('height', 'inherit');
+            $('.children').css('margin-left', '25px');
+            $('.children').find('li').find('a').css('padding-left', 'inherit');
+             $('.icon-children').css('margin-left', 'inherit');
+             $('.icon-children').css('margin-top', 'inherit');
+             $('.icon').css('margin-left', 'inherit');
+
+        }
+
+        
     </script>
     
 @endpush

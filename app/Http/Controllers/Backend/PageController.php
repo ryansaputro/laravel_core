@@ -109,7 +109,6 @@ class PageController extends Controller
                 $query .= ($request->groupby != 'none' ? " GROUP BY " . $request->groupby : '');
                 $query .= ($request->orderby != 'none') ? " ORDER BY " . $request->orderby . ' ' . $request->orderbyAtoZ : '';
 
-                    // $query = "SELECT * from ".$request->table. ($request->condition != 'none' ? ' WHERE '. $request->condition. ' '.$request->operator.' '.$request->filter : '') . ($request->groupby != 'none' ? " GROUP BY " . $request->groupby : '') .' '.($request->orderby != 'none') ? " ORDER BY ".$request->orderby. ' '. $request->orderbyAtoZ : '';
         }
         DB::beginTransaction();
         try {

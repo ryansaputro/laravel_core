@@ -49,7 +49,9 @@
     -->
         @include('backend.layouts.navigation')
     </div>
-
+    <div class="mainButton" style="margin-left: 260px;background-color: #9367d6;width: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;font-size: 40px;position: absolute;z-index: 9999;padding-top: 15px;">
+        <a href="#" onclick="hideMenu(this)" class="menusControl"><i class="fa fa-caret-left style" style="color:#fff;"></i> <p class="hideMenus"></p></a>
+    </div>
     <div class="main-panel">
         @include('backend.layouts.top-navigation')
         <div class="content">

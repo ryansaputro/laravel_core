@@ -53,7 +53,7 @@ Sunting Halaman
                     <select class="form-control table" name="table" onchange="tableChange(this)">
                         <option selected disabled>-pilih-</option>
                         @foreach ($tables as $table)
-                            <option value="{{$table->Tables_in_adsProject}}" {{strpos($pages->custom_html, $table->Tables_in_adsProject) ? 'selected' : ''}}>{{$table->Tables_in_adsProject}}</option>
+                            <option value="{{$table->Tables_in_hd_inventory}}" {{strpos($pages->custom_html, $table->Tables_in_hd_inventory) ? 'selected' : ''}}>{{$table->Tables_in_hd_inventory}}</option>
                         @endforeach
                     </select>
                     <strong>Kondisi:</strong>
@@ -173,7 +173,7 @@ Sunting Halaman
 							'<select class="form-control" name="table" onchange="tableChange(this)">'+
 								'<option selected disabled>-pilih-</option>'+
 								'@foreach ($tables as $table)'+
-									'<option value="{{$table->Tables_in_adsProject}}">{{$table->Tables_in_adsProject}}</option>'+
+									'<option value="{{$table->Tables_in_hd_inventory}}">{{$table->Tables_in_hd_inventory}}</option>'+
 								'@endforeach'+
 							'</select>'+
 							'<strong>Kondisi:</strong>'+

@@ -33,7 +33,7 @@ class FrontController extends Controller
         if (DB::connection()->getDatabaseName()) {
             $data = DataApotek::all()->count();
             if ($data == 0)
-                return view('installation.step1');
+                return redirect('/step-1');
             else
                 return redirect('/login');
         } else {
@@ -46,10 +46,12 @@ class FrontController extends Controller
     {
         if (DB::connection()->getDatabaseName()) {
             $data = DataApotek::all()->count();
-            if ($data == 0)
+            // return view('installation.step1');
+            if ($data == 0){
                 return view('installation.step1');
-            else
-                return redirect('/');
+            }else{
+                return redirect('/login');
+            }
         } else {
             return view('installation.step1');
         }
@@ -79,11 +81,12 @@ class FrontController extends Controller
                 'username' => 'required',
             ]);
 
+            
             $new = base_path('.env');
             $del = unlink($new);
 
             $myfile = fopen($new, "w") or die("Unable to open file!");
-            $txt = 'APP_NAME=Laravel
+            $txt = 'APP_NAME=HelloDiggi
                     APP_ENV=local
                     APP_KEY=base64:oYIShHR4b/qAT8+Qk8vTrNlQiey5BOeRSDoqW+RACJQ=
                     APP_DEBUG=true
@@ -147,10 +150,13 @@ class FrontController extends Controller
         } catch (\Throwable $th) {
             
             DB::rollback();
-            return view('installation.step2');
+            // return view('installation.step2');
+            return back()->withInput();
         }
         
         DB::commit();
+        // return redirect('/login');
+
         return view('installation.step3');
         
     }
@@ -168,15 +174,28 @@ class FrontController extends Controller
         DB::beginTransaction();
         
         try {
+            
             $this->validate($request, [
-                'kode' => 'required|unique:hd-data_apotek|max:20',
+                'kode' => 'required|unique:hd_data_apotek|max:20',
                 'nama' => 'required',
-                'telepon' => 'required|unique:hd-data_apotek|max:12',
-                'email' => 'required|unique:hd-data_apotek',
+                'telepon' => 'required|unique:hd_data_apotek|max:12',
+                'email' => 'required|unique:hd_data_apotek',
                 'alamat' => 'required',
                 'noreg' => 'required',
                 'penanggung_jawab' => 'required',
             ]);
+
+            $path = base_path('.env');
+
+            if (file_exists($path)) {
+                file_put_contents($path, str_replace(
+                    'APP_NAME=HelloDiggi',
+                    'APP_NAME=' . $request->kode,
+                    file_get_contents($path)
+                ));
+            }
+
+
 
             DataApotek::create([
                 'kode' => $request->kode,
@@ -192,7 +211,7 @@ class FrontController extends Controller
             Artisan::call('db:seed');
             //code...
         } catch (\Illuminate\Database\QueryException $ex) {
-            // dd($ex->getMessage()); 
+            dd($ex->getMessage()); 
             DB::rollback();
 
             return view('installation.step3');
@@ -200,6 +219,7 @@ class FrontController extends Controller
         DB::commit();
 
         return view('installation.step4');
+
     }
 
     /**

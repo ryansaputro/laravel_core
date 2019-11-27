@@ -48,7 +48,7 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
 <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                    {{config('app.name')}}
+                    {{DB::table('hd_data_apotek')->select('nama')->value('nama') == '' ? config('app.name') : DB::table('hd_data_apotek')->select('nama')->value('nama')}}
                 </a>
             </div>
             @foreach ($menus as $item)
@@ -111,8 +111,8 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
 
         function hideMenu(a){
             $('p.nameOfMenu').css('display', 'none');
-            $('.style').removeClass('fa fa-caret-left');
-            $('.style').addClass('fa fa-caret-right');
+            $('.style').removeClass('fa fa-times');
+            $('.style').addClass('fa fa-bars');
             $(a).attr('onclick', 'showMenu(this)');
             $(a).find('.hideMenus').text("");
             $('.sidebar-wrapper').css('width', '110px');
@@ -126,15 +126,15 @@ $menus = DB::table('menus')->select('*')->where('menu_role', '17')->where('statu
             $('.nav').find('li').find('a').css('height', '50px');
             $('.children').css('margin-left', '3px');
             $('.children').find('li').find('a').css('padding-left', '0px');
-            $('.mainButton').css('margin-left', '110px');
+            $('.mainButton').css('margin-left', '65px');
         }
         
         function showMenu(a){
             $('p.nameOfMenu').css('display', 'block');
             $(a).attr('onclick', 'hideMenu(this)');
-            $('.mainButton').css('margin-left', '260px');
-            $('.style').removeClass('fa fa-caret-right');
-            $('.style').addClass('fa fa-caret-left');
+            $('.mainButton').css('margin-left', '220px');
+            $('.style').removeClass('fa fa-bars');
+            $('.style').addClass('fa fa-times');
             $('.sidebar').css('width', '260px');
             $('.sidebar-wrapper').css('width', '260px');
             $('.nav_menu').css('padding-top', 'inherit');

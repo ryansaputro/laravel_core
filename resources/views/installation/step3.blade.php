@@ -49,6 +49,15 @@ Home
             <label for="penanggung_jawab">Penanggung Jawab</label>
             <input type="text" class="form-control" id="penanggung_jawab" placeholder="Masukkan penanggung jawab apotek" name="penanggung_jawab">
           </div>
+          <div class="form-group">
+            <strong>Pilih Gambar:</strong>
+            <div class="col-md-12">
+              <input type="file" name="image" id="inputFile">
+            </div>
+            <div class="col-md-12 image_upload_preview" style="height:200px; width:100%;background-image:url('http://placehold.it/100x100'); background-size:cover; background-repeat:no-repeat;">
+              {{--  <img id="image_upload_preview" src="http://placehold.it/100x100" alt="your image" />  --}}
+            </div>
+          </div>
           <button type="submit" class="btn btn-primary">Selanjutnya</button>
         {!! Form::close() !!}
       </div>

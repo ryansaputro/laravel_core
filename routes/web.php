@@ -30,11 +30,15 @@ Auth::routes();
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 
-Route::get('/', 'Frontend\FrontController@index');
+Route::get('/', 'Frontend\FrontController@step1');
 Route::get('/step-1', 'Frontend\FrontController@step1');
-Route::get('/step-2', 'Frontend\FrontController@step2');
-Route::post('/step-2', 'Frontend\FrontController@step2Checking')->name('step2');
-Route::post('/step-3', 'Frontend\FrontController@step3Checking')->name('step3');
+// Route::post('/step-1', 'Frontend\FrontController@step1Checking');
+Route::post('/step-2', 'Frontend\FrontController@step2')->name('step-2');
+// Route::post('/step-2', function(){
+//     return "woe";
+// });
+Route::post('/step-3', 'Frontend\FrontController@step2Checking')->name('step2');
+Route::post('/step-4', 'Frontend\FrontController@step3Checking')->name('step3');
 
 
 // // Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');

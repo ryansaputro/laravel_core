@@ -5,7 +5,7 @@ User Management
 @endsection
 @section('new')
 @can('user-create')
-<a href="users/create" class="dropdown-toggle" style="border: 2px solid #9cd13a;padding: 5px; border-radius: 5px; color: #9cd13a;">
+<a href="users/create" class="dropdown-toggle" style="border: 2px solid #9cd13a;padding: auto; border-radius: 5px; color: #9cd13a;">
 	<i class="fa fa-plus"></i> Tambah
 	<p class="hidden-lg hidden-md">Dashboard</p>
 </a>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataApotek extends Model
 {
     // protected $guarded = [];
-    protected $table = 'hd-data_apotek';
+    protected $table = 'hd_data_apotek';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = true;

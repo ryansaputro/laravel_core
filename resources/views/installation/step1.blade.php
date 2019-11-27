@@ -13,7 +13,11 @@ Home
         <p class="card-text">
             Anda diharuskan membuat suatu "Database" baru.
         </p>
-        <a href="{{URL::to('/step-2')}}" class="btn btn-primary">Selanjutnya</a>
+        {!! Form::open(array('route' => 'step-2','method'=>'POST')) !!}
+          <input type="hidden" name="id" value="1">
+          {{--  <a href="{{URL::to('/step-2')}}" class="btn btn-primary">Selanjutnya</a>  --}}
+          <button class="btn btn-primary" name="submit" type="submit">Selanjutnya</button>
+        {!! Form::close() !!}
       </div>
     </div>
  </div>

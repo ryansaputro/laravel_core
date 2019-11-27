@@ -20,7 +20,9 @@ Home
       <div class="card-body">
         <h5 class="card-title" style="text-align:center;">Aplikasi ISA (Inventory System Apotek) v.1.0</h5>
         <p>Instalasi Software ISA telah sukses</p>
-     
+        <div>
+            <p><a href="{{URL::to('/login')}}">Mulai</a></p>
+        </div>
       </div>
     </div>
  </div>

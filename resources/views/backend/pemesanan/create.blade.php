@@ -157,6 +157,7 @@ Buat Pesanan
 						});
 						$('#id_barang').html(option);
 						$(a).attr('readonly', 'readonly');
+						$(a).attr('disabled', true);
 					}
 				}
 			});
@@ -233,6 +234,7 @@ Buat Pesanan
 		$('#id_vendor').prop('selectedIndex',0);
 		$('.allItem tr').remove();
 		$('#id_vendor').removeAttr('readonly');
+		$('#id_vendor').attr('disabled', false);
 	}
 
   </script>

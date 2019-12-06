@@ -516,8 +516,9 @@ input:focus {
 }
 
 .main-panel > .content {
-    padding: 30px 15px;
+    padding: 30px 0px;
     min-height: calc(100% - 123px);
+    background-color: #fff;
 }
 
 .main-panel > .footer {
@@ -1293,11 +1294,11 @@ fieldset[disabled] .btn-neutral.active {
     display: inline-block;
     position: relative;
     cursor: pointer;
-    padding-left: 24px;
+    padding-left: 0px;
     margin-bottom: 0;
 }
 
-.checkbox label::before,
+/* .checkbox label::before,
 .checkbox label::after {
     font-family: 'FontAwesome';
     content: "\f096";
@@ -1315,7 +1316,7 @@ fieldset[disabled] .btn-neutral.active {
     color: #DDDDDD;
     transition: color 0.2s linear;
     padding: 1px;
-}
+} */
 
 .checkbox label::after {
     content: "";
@@ -3867,3 +3868,27 @@ fieldset[disabled] .btn-neutral.active {
         -webkit-overflow-scrolling: touch;
     }
 }
+
+.upperTable {
+    border-bottom: 1px solid #e0e0e0;
+    margin-top: -20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    margin-left: -15px;
+    width: 1056px;
+    padding-left: 30px;
+    color: #827877;
+}
+
+input.action:hover {
+    color: red;
+}
+
+input.action {
+    color: #9a9a9a;
+}
+
+/* .container-fluid {
+    padding-right:0px !important;
+    padding-left:0px !important;
+} */

@@ -1,6 +1,6 @@
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
-                <div class="navbar-header"  style="margin-top:10px;">
+                <div class="navbar-header"  style="margin-top:30px;">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -15,11 +15,11 @@
                             @yield('new')
                         </li>
 
-                        <li>
+                        {{--  <li>
                             <a href="#">
                                 <img src="https://upload.wikimedia.org/wikipedia/id/8/89/Logo_Apotek_K-24.png" style="width:75px;margin-left:345px;">
                             </a>
-                        </li>
+                        </li>  --}}
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

@@ -19,6 +19,7 @@
 
     <!--  Light Bootstrap Table core CSS    -->
     <link href="{{ asset('/css/backend/light-bootstrap-dashboard.css?v=1.4.0') }}" rel="stylesheet"/>
+    <link href="{{ asset('/js/backend/datatables/select.dataTables.min.css') }}" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, dont include it in your project     -->
@@ -35,11 +36,13 @@
     <link href="{{ asset('/css/backend/datatables/material.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/css/backend/datatables/dataTables.material.min.css') }}" rel="stylesheet" />
     {{-- <link href="{{ asset('/css/backend/datatables/bootstrap.css') }}" rel="stylesheet" /> --}}
+    
 </head>
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="{{ asset('/images/sidebar-5.jpg') }}">
+    <div class="sidebar" data-color="azure" data-image="">
+    {{--  <div class="sidebar" data-color="azure" data-image="{{ asset('/images/sidebar-5.jpg') }}">  --}}
 
     <!--
 
@@ -75,6 +78,7 @@
 	<!--  Datatables Plugin -->
 	{{-- <script src="{{ asset('/js/backend/datatables/jquery-3.3.1.js') }}"></script> --}}
 	<script src="{{ asset('/js/backend/datatables/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('/js/backend/datatables/dataTables.select.min.js') }}"></script>
 	<script src="{{ asset('/js/backend/datatables/dataTables.material.min.js') }}"></script>
 
 	<!--  Charts Plugin -->
@@ -92,6 +96,7 @@
 
 	<!-- Light Bootstrap Table DEMO methods, dont include it in your project! -->
     <script src="{{ asset('/js/backend/demo.js') }}"></script>
+
     
     <!--custom js-->
      @stack('scripts')

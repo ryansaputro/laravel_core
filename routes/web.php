@@ -58,6 +58,9 @@ Route::post('administrator/menus/ajaxSave', ['uses' => 'Backend\MenuController@a
 Route::post('administrator/menus/ajaxEdit', ['uses' => 'Backend\MenuController@ajaxEdit', 'middleware' => ['permission:menu-edit']]);
 Route::post('administrator/menus/ajaxDelete', ['uses' => 'Backend\MenuController@ajaxDelete', 'middleware' => ['permission:menu-delete']]);
 Route::post('administrator/pages/ajaxFieldPages', ['uses' => 'Backend\PageController@ajaxFieldPages', 'middleware' => ['permission:pages-create']]);
+Route::post('administrator/pemesanan/ajaxVendorGetItem', ['uses' => 'Backend\PemesananController@ajaxVendorGetItem', 'middleware' => ['permission:pages-create']]);
+Route::post('administrator/pemesanan/ajaxBarangGetItem', ['uses' => 'Backend\PemesananController@ajaxBarangGetItem', 'middleware' => ['permission:pages-create']]);
+// Route::get('administrator/pemesanan/{pemesanan}/edit', ['uses' => 'Backend\PemesananController@edit', 'middleware' => ['permission:pages-edit']]);
 $routesB = DB::table('routes')->select('*')->where('uses_controller', 'LIKE', '%Backend%')->get();
 foreach($routesB as $k => $v){
     Route::resource($v->url, $v->uses_controller);

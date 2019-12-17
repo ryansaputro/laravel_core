@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        
         /*
          * Package Service Providers...
          */
@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
+        
         // user role
         Zizaco\Entrust\EntrustServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
@@ -184,6 +184,12 @@ return [
 
         //browser detect
         // \hisorange\BrowserDetect\ServiceProvider::class,
+
+        App\Providers\BulanServiceProvider::class,
+        Riskihajar\Terbilang\TerbilangServiceProvider::class,
+
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -240,8 +246,12 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'BulanHelp' => App\Helpers\Bulan::class,
+        'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
         //browser detect
         // 'Browser' => \hisorange\BrowserDetect\Facade::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         
 
     ],

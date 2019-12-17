@@ -28,13 +28,14 @@
 
     <!--     Fonts and icons     -->
     <link href="{{ asset('/css/backend/font-awesome.min.css') }}" rel="stylesheet">
-    <link href='{{ asset('/css/backend/font-css.css') }}' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('/css/backend/font-css.css') }}" rel='stylesheet' type='text/css'>
     {{--  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>  --}}
     <link href="{{ asset('/css/backend/pe-icon-7-stroke.css') }}" rel="stylesheet" />
     {{-- <link href="{{ asset('/css/backend/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" /> --}}
     <link href="{{ asset('/css/backend/datatables/material.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/css/backend/datatables/dataTables.material.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/css/backend/datatables/buttons.dataTables.min.css') }}" rel="stylesheet" />
     {{-- <link href="{{ asset('/css/backend/datatables/bootstrap.css') }}" rel="stylesheet" /> --}}
     
 </head>
@@ -52,9 +53,9 @@
     -->
         @include('backend.layouts.navigation')
     </div>
-    <div class="mainButton" style="margin-left: 220px;width: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;font-size: 25px;position: absolute;z-index: 9999;margin-top: 0px;">
+    {{--  <div class="mainButton" style="margin-left: 220px;width: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;font-size: 25px;position: absolute;z-index: 9999;margin-top: 0px;">
         <a href="#" onclick="hideMenu(this)" class="menusControl"><i class="fa fa-times style" style="color:#fff;"></i> <p class="hideMenus"></p></a>
-    </div>
+    </div>  --}}
     <div class="main-panel">
         @include('backend.layouts.top-navigation')
         <div class="content">
@@ -80,6 +81,11 @@
 	<script src="{{ asset('/js/backend/datatables/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/js/backend/datatables/dataTables.select.min.js') }}"></script>
 	<script src="{{ asset('/js/backend/datatables/dataTables.material.min.js') }}"></script>
+	<script src="{{ asset('/js/backend/datatables/dataTables.buttons.min.js') }}"></script>
+	<script src="{{ asset('/js/backend/datatables/jszip.min.js') }}"></script>
+	<script src="{{ asset('/js/backend/datatables/pdfmake.min.js') }}"></script>
+	<script src="{{ asset('/js/backend/datatables/vfs_fonts.js') }}"></script>
+	<script src="{{ asset('/js/backend/datatables/buttons.html5.min.js') }}"></script>
 
 	<!--  Charts Plugin -->
 	{{-- <script src="{{ asset('/js/backend/chartist.min.js') }}"></script> --}}

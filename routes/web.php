@@ -58,9 +58,13 @@ Route::post('administrator/menus/ajaxSave', ['uses' => 'Backend\MenuController@a
 Route::post('administrator/menus/ajaxEdit', ['uses' => 'Backend\MenuController@ajaxEdit', 'middleware' => ['permission:menu-edit']]);
 Route::post('administrator/menus/ajaxDelete', ['uses' => 'Backend\MenuController@ajaxDelete', 'middleware' => ['permission:menu-delete']]);
 Route::post('administrator/pages/ajaxFieldPages', ['uses' => 'Backend\PageController@ajaxFieldPages', 'middleware' => ['permission:pages-create']]);
-Route::post('administrator/pemesanan/ajaxVendorGetItem', ['uses' => 'Backend\PemesananController@ajaxVendorGetItem', 'middleware' => ['permission:pages-create']]);
-Route::post('administrator/pemesanan/ajaxBarangGetItem', ['uses' => 'Backend\PemesananController@ajaxBarangGetItem', 'middleware' => ['permission:pages-create']]);
-// Route::get('administrator/pemesanan/{pemesanan}/edit', ['uses' => 'Backend\PemesananController@edit', 'middleware' => ['permission:pages-edit']]);
+Route::post('administrator/pemesanan/ajaxVendorGetItem', ['uses' => 'Backend\PemesananController@ajaxVendorGetItem', 'middleware' => ['permission:pemesanan-list']]);
+Route::post('administrator/pemesanan/ajaxBarangGetItem', ['uses' => 'Backend\PemesananController@ajaxBarangGetItem', 'middleware' => ['permission:pemesanan-list']]);
+Route::post('administrator/pemesanan/ajaxBarangRevItem', ['uses' => 'Backend\PemesananController@ajaxBarangRevItem', 'middleware' => ['permission:pemesanan-list']]);
+Route::post('administrator/penerimaan/ajaxOrderGetItem', ['uses' => 'Backend\PenerimaanController@ajaxOrderGetItem', 'middleware' => ['permission:pemesanan-list']]);
+Route::get('administrator/daftar_barang/import', ['uses' => 'Backend\DaftarBarangController@import', 'middleware' => ['permission:daftar_barang-list']])->name('daftar_barang.import');
+Route::post('administrator/daftar_barang/import', ['uses' => 'Backend\DaftarBarangController@importStore', 'middleware' => ['permission:daftar_barang-list']])->name('daftar_barang.importStore');
+Route::post('administrator/daftar_barang/ajaxBarangUpdateFoto', ['uses' => 'Backend\DaftarBarangController@ajaxBarangUpdateFoto', 'middleware' => ['permission:daftar_barang-list']]);
 $routesB = DB::table('routes')->select('*')->where('uses_controller', 'LIKE', '%Backend%')->get();
 foreach($routesB as $k => $v){
     Route::resource($v->url, $v->uses_controller);

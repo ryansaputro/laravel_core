@@ -3,10 +3,10 @@
 namespace Laravel\Passport\Http\Middleware;
 
 use Closure;
-use League\OAuth2\Server\ResourceServer;
 use Illuminate\Auth\AuthenticationException;
 use Laravel\Passport\Exceptions\MissingScopeException;
 use League\OAuth2\Server\Exception\OAuthServerException;
+use League\OAuth2\Server\ResourceServer;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 
 class CheckClientCredentialsForAnyScope
@@ -16,7 +16,7 @@ class CheckClientCredentialsForAnyScope
      *
      * @var \League\OAuth2\Server\ResourceServer
      */
-    private $server;
+    protected $server;
 
     /**
      * Create a new middleware instance.

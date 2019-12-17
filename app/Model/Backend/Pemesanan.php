@@ -12,7 +12,7 @@ class Pemesanan extends Model
     protected $primaryKey = 'id_pemesanan';
     public $incrementing = true;
     public $timestamps = true;
-    public $fillable = ['id_pemesanan', 'no_pemesanan', 'dibuat_oleh', 'dibuat_tgl', 'status', 'mengetahui_oleh', 'id_vendor', 'created_at', 'updated_at'];
+    public $fillable = ['id_pemesanan', 'no_pemesanan', 'dibuat_oleh', 'dibuat_tgl', 'status', 'mengetahui_oleh', 'id_vendor', 'created_at', 'updated_at', 'catatan', 'referensi_id_pemesanan'];
 
 
 }

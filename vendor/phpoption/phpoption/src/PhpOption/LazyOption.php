@@ -18,6 +18,11 @@
 
 namespace PhpOption;
 
+/**
+ * @template T
+ *
+ * @extends Option<T>
+ */
 final class LazyOption extends Option
 {
     /** @var callable */
@@ -26,29 +31,27 @@ final class LazyOption extends Option
     /** @var array */
     private $arguments;
 
-    /** @var Option|null */
+    /** @var Option<T>|null */
     private $option;
 
     /**
-     * Helper Constructor.
+     * @template S
      *
      * @param callable $callback
-     * @param array $arguments
+     * @param array    $arguments
      *
-     * @return LazyOption
+     * @return LazyOption<S>
      */
-    public static function create($callback, array $arguments = array())
+    public static function create($callback, array $arguments = [])
     {
         return new self($callback, $arguments);
     }
 
     /**
-     * Constructor.
-     *
      * @param callable $callback
-     * @param array $arguments
+     * @param array    $arguments
      */
-    public function __construct($callback, array $arguments = array())
+    public function __construct($callback, array $arguments = [])
     {
         if (!is_callable($callback)) {
             throw new \InvalidArgumentException('Invalid callback given');
@@ -93,9 +96,6 @@ final class LazyOption extends Option
         return $this->option()->orElse($else);
     }
 
-    /**
-     * @deprecated Use forAll() instead.
-     */
     public function ifDefined($callable)
     {
         $this->option()->ifDefined($callable);
@@ -152,7 +152,7 @@ final class LazyOption extends Option
     }
 
     /**
-     * @return Option
+     * @return Option<T>
      */
     private function option()
     {
@@ -160,7 +160,8 @@ final class LazyOption extends Option
             $this->option = call_user_func_array($this->callback, $this->arguments);
             if (!$this->option instanceof Option) {
                 $this->option = null;
-                throw new \RuntimeException('Expected instance of \PhpOption\Option');
+
+                throw new \RuntimeException(sprintf('Expected instance of \%s', Option::class));
             }
         }
 

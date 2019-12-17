@@ -27,7 +27,7 @@ Buat Pesanan
 <div class="alert alert-info">
   <strong>Info!</strong> Sekali pemesanan hanya dapat dilakukan oleh satu vendor. Jika ingin mengganti vendor dapat mengklik <i class="fa fa-refresh" aria-hidden="true"></i> dan barang yang ada di list akan otomatis terhapus.
 </div>
-<form action="{{ route('pemesanan.store') }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('pemesanan.store') }}" class="myform" method="post" enctype="multipart/form-data">
 	@csrf
 	@if (session('success'))
 		<div class="alert alert-success">
@@ -85,7 +85,10 @@ Buat Pesanan
 	</div>
 	<div class="form-group col-xs-6 col-md-6">
 		<label for="harga" class="control-label">Harga</label>
-		<input type="text" readonly value='' class="form-control" id="harga" placeholder="harga">
+		<div class="input-group">
+			<input type="number" readonly value='' class="form-control" id="harga" placeholder="harga">
+			<span class="input-group-addon" ddata-toggle="tooltip" data-placement="right" title="klik untuk merubah harga" style="border-left: 1px solid #ddd;"><a class="rubahHarga" style="color:red;" href="#harga"  onclick="changeHarga(this)"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+		</div>
 	</div>
 	<div class="form-group col-xs-6 col-md-6" style="float:right;">
 		<a class="btn btn-primary btn-block AddItemtoList" onclick="AddItemtoList(this)">Masukkan ke daftar barang</a>
@@ -104,6 +107,7 @@ Buat Pesanan
 					<th>Nama</th>
 					<th width="20%">Jumlah</th>
 					<th>Satuan</th>
+					<th width="20%">Harga</th>
 					<th width="20%">Catatan</th>
 					<th>Aksi</th>
 				</tr>
@@ -125,15 +129,25 @@ Buat Pesanan
 
 </form>
 @endsection
+
 @push('scripts')
 {{--  <script type="text/javascript" src="{{ asset('/js/backend/texteditor/jquery.min.js') }}"></script>   --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
+	function changeHarga(a){
+		$('#harga').removeAttr('readonly');
+	}
+
+
 	var $j = jQuery.noConflict();
 	$('.refresh').on('mouseover', function(){
 		$j('[data-toggle="popover"]').popover(); 
-		console.log("hover me")  
+	});
+
+	$(document).ready(function(){
+		$('.AddItemtoList').css('display', 'none');
 	});
    
 	function vendorSelect(a){
@@ -170,21 +184,35 @@ Buat Pesanan
 		var barang = $('#id_barang :selected').text();
 		var qty = $('#qty').val();
 		var satuan = $('#id_satuan').val();
-		html = '<tr id="tr_'+id_barang+'"><td>'+barang+'<input type="hidden" value="'+id_barang+'" class="form-control" id="id_barang" name="id_barang[]"></td><td style="width:30%;"><input type="number" value="'+qty+'" class="form-control" id="qty" name="qty[]"></td><td>'+satuan+'</td><td style="width:30%;"><input type="text" value="" placeholder="masukkan catatan untuk barang ini" class="form-control" id="catatan" name="catatan[]"></td><td><a href="#" onclick="delItem(this)"  data-id="'+id_barang+'">Hapus</a></td></tr>';
+		var harga = $('#harga').val();
+		html = '<tr id="tr_'+id_barang+'"><td>'+barang+'<input type="hidden" value="'+id_barang+'" class="form-control" id="id_barang" name="id_barang[]"></td><td style="width:30%;"><input type="number" value="'+qty+'" class="form-control" id="qty" name="qty[]"></td><td>'+satuan+'</td><td>Rp. '+addCommas(harga)+'<input readonly type="hidden" value="'+harga+'" class="form-control" id="harga" name="harga[]"></td><td style="width:30%;"><input type="text" value="" placeholder="masukkan catatan untuk barang ini" class="form-control" id="catatan" name="keterangan[]"></td><td><a href="#" onclick="delItem(this)"  data-id="'+id_barang+'">Hapus</a></td></tr>';
 		
+		if(jQuery.inArray(id_barang.toString(), idBrg) == -1){
+			$('.listItem').append(html);
+			idBrg.push(id_barang);
+		}else{
+			$('.allItem #tr_'+id_barang+' #qty').select();
+			var old = $('.allItem #tr_'+id_barang+' #qty').val();
+			var baru = qty;
+			var add = parseInt(old)+parseInt(baru);
+			var max_qty = $('#qty').attr('max');
+
+			if(add > max_qty){
+				add = max_qty;
+			}else{
+				add = add;
+			}
+			$('.allItem #tr_'+id_barang+' #qty').val(add);
+		}
+
+		$('.AddItemtoList').css('display','none');
+		$('.submit').css('display', 'initial');
 		$('#id_barang').prop('selectedIndex',0);
 		$('#qty').val('0');
 		$('#harga').val('0');
 		$('#id_satuan').val('-');
-				
-		if(jQuery.inArray(id_barang.toString(), idBrg) == -1){
-			$('.listItem').append(html);
-			idBrg.push(id_barang);
-		}
+		$('#harga').attr('readonly', 'readonly');
 
-		$('.AddItemtoList').css('display','none');
-		
-		$('.submit').css('display', 'initial');
 	}
 
 	function delItem(a){
@@ -204,6 +232,10 @@ Buat Pesanan
 	}
 
 	function BarangSelect(a){
+		var id_barang = $('#id_barang').val();
+		if(id_barang != '-pilih barang-'){
+			$('#id_barang').css('display', 'inherit');
+		}
 		$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -230,6 +262,11 @@ Buat Pesanan
 	}
 
 	function ChangeVendor(a){
+		$('#id_barang').prop('selectedIndex',0);
+		$('#qty').val('0');
+		$('#harga').val('0');
+		$('#id_satuan').val('-');
+		$('.AddItemtoList').css('display', 'none');
 		idBrg = [];
 		$('#id_vendor').prop('selectedIndex',0);
 		$('.allItem tr').remove();
@@ -237,5 +274,20 @@ Buat Pesanan
 		$('#id_vendor').attr('disabled', false);
 	}
 
+	$('.myform').submit(function() {
+		$('#id_vendor').removeAttr('disabled');
+	});
+
+	function addCommas(nStr){
+		nStr += '';
+		x = nStr.split(',');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + '.' + '$2');
+		}
+		return x1 + x2;
+	}
   </script>
 @endpush

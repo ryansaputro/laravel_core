@@ -12,7 +12,7 @@ class PemesananDetail extends Model
     protected $primaryKey = 'id_pemesanan_detail';
     public $incrementing = true;
     public $timestamps = false;
-    public $fillable = ['id_pemesanan_detail', 'id_pemesanan', 'id_barang', 'qty', 'keterangan'];
+    public $fillable = ['id_pemesanan_detail', 'id_pemesanan', 'id_barang', 'qty', 'harga', 'keterangan'];
 
 
 }

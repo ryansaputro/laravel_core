@@ -5,7 +5,11 @@ Pemesanan
 @section('new')
 @endsection
 @section('content')
-
+<style>
+	.riwayat:hover{
+		color: #a99342;
+	}
+</style>
 	@if ($message = Session::get('success'))
 		<div class="alert alert-success">
 			<p>{{ $message }}</p>
@@ -25,7 +29,7 @@ Pemesanan
 			</div>
 		</div>
 	</div>  --}}
-		@can('banner-create')
+		@can('pemesanan-create')
 			<a style="margin-right:10px;" href="pemesanan/create">
 				Buat Pesanan
 			</a>
@@ -37,14 +41,14 @@ Pemesanan
 	<table class="mdl-data-table" id="myTable" style="width:100%">
 		<thead>
 			<tr>
-				<th>
+				{{--  <th>
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" value="">
 							<span class="cr" style="margin-top: 10px;"><i class="cr-icon fa fa-check"></i></span>
 						</label>
 					</div>
-				</th>
+				</th>  --}}
 				<th>No</th>
 				<th>Tanggal</th>
 				<th>No Pemesanan</th>
@@ -71,36 +75,48 @@ Pemesanan
 					$status = "sampah";
 				}else if($v->status == 5){
 					$color = "yellow";
-					$status = "barang belum lengkap";
+					$status = "belum lengkap";
+				}else if($v->status == 6){
+					$color = "#9a9a9a";
+					$status = "draft";
 				}else if($v->status == 6){
 					$color = "#9a9a9a";
 					$status = "draft";
 				}	
 			@endphp
 			<tr data-id="{{$key+1}}" class="tdAction">
-				<td>
+				{{--  <td>
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" value="">
 							<span class="cr"><i class="cr-icon fa fa-check"></i></span>
 						</label>
 					</div>
-				</td>
+				</td>  --}}
 				<td>{{ $key+1}}</td>
 				<td>{{ $v->dibuat_tgl}}</td>
 				<td>{{ $v->no_pemesanan}}</td>
 				<td>{{ $v->nama_vendor}}</td>
 				<td><label class="badge" style="background:{{$color}};">{{$status}}</label></td>
-				<td>Ryan</td>
+				<td>{{ $v->name}}</td>
 				<td>
-					@can('banner-edit')
-					<a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/pemesanan/'.$v->id_pemesanan.'/edit')}}">Edit</a>
-					@endcan
-					@can('banner-delete')
-					{{--  {!! Form::open(['method' => 'DELETE','route' => ['banner.destroy', $val->id],'style'=>'display:inline']) !!}  --}}
-					{!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!}
-					{!! Form::close() !!}
-					@endcan
+					@if(($v->status != '4') && ($v->status != '3')  && ($v->status != '5'))
+						@can('pemesanan-edit')
+						<a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/pemesanan/'.md5($v->id_pemesanan).'/edit')}}">Edit</a>
+						@endcan
+						@can('pemesanan-delete')
+						<form action="{{ route('pemesanan.update', ['id' => md5($v->id_pemesanan), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data">
+						@csrf
+						{{--  {!! Form::open(['method' => 'post','route' => ['pemesanan.update', $v->id_pemesanan, ],'style'=>'display:inline']) !!}  --}}
+						<input type="hidden" name="_method" value="PUT">
+						{!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!}
+						{{--  {!! Form::close() !!}  --}}
+						</form>
+						@endcan
+					@endif
+					{{--  @if($v->status == '2')  --}}
+					<a class="riwayat" style="display:none;" href="{{URL::to('administrator/pemesanan/'.md5($v->id_pemesanan))}}">Log</a>
+					{{--  @endif  --}}
 				</td>
 			</tr>
 			@endforeach
@@ -120,13 +136,9 @@ $(document).ready(function() {
 	"bAutoWidth": false ,
 	"dom": '<"toolbar">frtip',
         columnDefs: [
-            {
-                targets: [0, 1, 2 ],
-				className: 'mdl-data-table__cell--non-numeric',
-			},
 			{
 				width: "18%", 
-				targets: [7],
+				targets: [6],
 			},
 			{
 				targets: [0], 
@@ -158,10 +170,12 @@ $("div.toolbar").html('<i class="fa fa-line-chart" aria-hidden="true"></i> <b>Ov
 $('.tdAction').hover(function() {             
 	$(this).find('td').find('input.action').css('display', 'inherit');
 	$(this).find('td').find('.edit').css('display', 'contents');
+	$(this).find('td').find('.riwayat').css('display', 'contents');
 	$(this).addClass('current-row');
 }, function() {
 	$(this).find('td').find('input.action').css('display', 'none');
 	$(this).find('td').find('.edit').css('display', 'none');
+	$(this).find('td').find('.riwayat').css('display', 'none');
 	$(this).removeClass('current-row');
 });
 

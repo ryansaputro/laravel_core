@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2019 at 09:00 AM
--- Server version: 5.7.27-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.1
+-- Waktu pembuatan: 17 Des 2019 pada 20.13
+-- Versi server: 5.7.28-0ubuntu0.18.04.4
+-- Versi PHP: 7.2.24-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,19 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_barang`
+-- Struktur dari tabel `hd_barang`
 --
 
 CREATE TABLE `hd_barang` (
   `id_barang` int(11) NOT NULL,
   `kode_barang` varchar(20) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
-  `stock` int(11) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT '0',
   `stock_minimal` int(11) NOT NULL,
   `id_satuan` int(11) NOT NULL,
   `id_golongan_barang` int(11) NOT NULL,
   `id_jenis_barang` int(11) NOT NULL,
-  `deskripsi` text NOT NULL,
+  `deskripsi` text,
   `dibuat_oleh` int(11) NOT NULL,
   `status` enum('1','0') NOT NULL,
   `created_at` datetime NOT NULL,
@@ -45,18 +45,25 @@ CREATE TABLE `hd_barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_barang`
+-- Dumping data untuk tabel `hd_barang`
 --
 
 INSERT INTO `hd_barang` (`id_barang`, `kode_barang`, `nama_barang`, `stock`, `stock_minimal`, `id_satuan`, `id_golongan_barang`, `id_jenis_barang`, `deskripsi`, `dibuat_oleh`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'PRCT01', 'Minargip', 100, 10, 2, 2, 2, 'obat panas', 1, '1', '2019-12-02 00:00:00', '2019-12-02 00:00:00'),
 (2, 'PRC01', 'Procold', 100, 10, 1, 1, 1, 'obat flu', 1, '1', '2019-12-02 00:00:00', '2019-12-02 00:00:00'),
-(3, 'MX01', 'Mixagrip', 100, 10, 1, 2, 2, 'obat pilek', 1, '1', '2019-12-02 00:00:00', '2019-12-02 00:00:00');
+(3, 'MX01', 'Mixagrip', 100, 10, 1, 2, 2, 'obat pilek', 1, '1', '2019-12-02 00:00:00', '2019-12-02 00:00:00'),
+(5, 'OBT01', 'Adem Sari', 0, 100, 1, 1, 1, 'obat panas dalam', 1, '1', '2019-12-14 05:36:35', '2019-12-14 05:36:35'),
+(13, 'OBT02', 'Lasegar', 0, 120, 2, 1, 3, 'obat panas dalam', 1, '1', '2019-12-14 06:04:49', '2019-12-15 01:48:17'),
+(17, 'xxx', 'ini adalah xxx', 0, 0, 0, 0, 0, NULL, 0, '1', '2019-12-14 22:42:58', '2019-12-14 22:42:58'),
+(18, 'yyy', 'ini adalah yyy', 0, 0, 0, 0, 0, NULL, 0, '1', '2019-12-14 22:42:58', '2019-12-14 22:42:58'),
+(19, 'XXX-01', 'xxx', 0, 200, 1, 1, 1, 'ini adalah xxx', 1, '0', '2019-12-14 23:20:50', '2019-12-15 13:03:37'),
+(20, 'YYY-02', 'yyy', 0, 250, 2, 1, 2, 'ini adalah yyy', 1, '1', '2019-12-14 23:20:50', '2019-12-14 23:20:50'),
+(25, 'Test01', 'test', 0, 1, 1, 1, 1, 'testt', 1, '1', '2019-12-15 01:56:48', '2019-12-15 13:34:41');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_barang_foto`
+-- Struktur dari tabel `hd_barang_foto`
 --
 
 CREATE TABLE `hd_barang_foto` (
@@ -68,7 +75,7 @@ CREATE TABLE `hd_barang_foto` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_barang_golongan`
+-- Struktur dari tabel `hd_barang_golongan`
 --
 
 CREATE TABLE `hd_barang_golongan` (
@@ -83,7 +90,7 @@ CREATE TABLE `hd_barang_golongan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_barang_golongan`
+-- Dumping data untuk tabel `hd_barang_golongan`
 --
 
 INSERT INTO `hd_barang_golongan` (`id_golongan_barang`, `kode_golongan`, `nama_golongan`, `status`, `keterangan`, `dibuat_oleh`, `created_at`, `updated_at`) VALUES
@@ -93,7 +100,7 @@ INSERT INTO `hd_barang_golongan` (`id_golongan_barang`, `kode_golongan`, `nama_g
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_barang_jenis`
+-- Struktur dari tabel `hd_barang_jenis`
 --
 
 CREATE TABLE `hd_barang_jenis` (
@@ -108,7 +115,7 @@ CREATE TABLE `hd_barang_jenis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_barang_jenis`
+-- Dumping data untuk tabel `hd_barang_jenis`
 --
 
 INSERT INTO `hd_barang_jenis` (`id_jenis_barang`, `kode_jenis_barang`, `nama_jenis_barang`, `status`, `keterangan`, `dibuat_oleh`, `created_at`, `updated_at`) VALUES
@@ -119,7 +126,7 @@ INSERT INTO `hd_barang_jenis` (`id_jenis_barang`, `kode_jenis_barang`, `nama_jen
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_barang_satuan`
+-- Struktur dari tabel `hd_barang_satuan`
 --
 
 CREATE TABLE `hd_barang_satuan` (
@@ -135,7 +142,7 @@ CREATE TABLE `hd_barang_satuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_barang_satuan`
+-- Dumping data untuk tabel `hd_barang_satuan`
 --
 
 INSERT INTO `hd_barang_satuan` (`id_satuan`, `kode_satuan`, `nama_satuan`, `satuan_terkecil`, `isi`, `keterangan`, `status`, `created_at`, `updated_at`) VALUES
@@ -145,7 +152,7 @@ INSERT INTO `hd_barang_satuan` (`id_satuan`, `kode_satuan`, `nama_satuan`, `satu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_barang_vendor`
+-- Struktur dari tabel `hd_barang_vendor`
 --
 
 CREATE TABLE `hd_barang_vendor` (
@@ -164,7 +171,7 @@ CREATE TABLE `hd_barang_vendor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_barang_vendor`
+-- Dumping data untuk tabel `hd_barang_vendor`
 --
 
 INSERT INTO `hd_barang_vendor` (`id`, `id_barang`, `id_vendor`, `id_satuan`, `qty`, `harga_beli`, `harga_jual`, `tanggal_kadaluarsa`, `dibuat_oleh`, `created_at`, `updated_at`, `no_batch`) VALUES
@@ -174,7 +181,7 @@ INSERT INTO `hd_barang_vendor` (`id`, `id_barang`, `id_vendor`, `id_satuan`, `qt
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_berita_acara`
+-- Struktur dari tabel `hd_berita_acara`
 --
 
 CREATE TABLE `hd_berita_acara` (
@@ -191,7 +198,7 @@ CREATE TABLE `hd_berita_acara` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_berita_acara_detail`
+-- Struktur dari tabel `hd_berita_acara_detail`
 --
 
 CREATE TABLE `hd_berita_acara_detail` (
@@ -206,7 +213,7 @@ CREATE TABLE `hd_berita_acara_detail` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_data_apotek`
+-- Struktur dari tabel `hd_data_apotek`
 --
 
 CREATE TABLE `hd_data_apotek` (
@@ -221,10 +228,17 @@ CREATE TABLE `hd_data_apotek` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `hd_data_apotek`
+--
+
+INSERT INTO `hd_data_apotek` (`id_apotek`, `kode`, `nama`, `telepon`, `email`, `alamat`, `penanggung_jawab`, `created_at`, `updated_at`) VALUES
+(1, 'RS', 'RYAN SEHAT', '085649184363', 'ryansaputro52@gmail.com', 'Jakarta', 'Ryan', '2019-12-07 00:00:00', '2019-12-07 00:00:00');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_diskon`
+-- Struktur dari tabel `hd_diskon`
 --
 
 CREATE TABLE `hd_diskon` (
@@ -244,7 +258,7 @@ CREATE TABLE `hd_diskon` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_diskon_detail`
+-- Struktur dari tabel `hd_diskon_detail`
 --
 
 CREATE TABLE `hd_diskon_detail` (
@@ -257,7 +271,7 @@ CREATE TABLE `hd_diskon_detail` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_gudang`
+-- Struktur dari tabel `hd_gudang`
 --
 
 CREATE TABLE `hd_gudang` (
@@ -275,36 +289,46 @@ CREATE TABLE `hd_gudang` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_pemesanan`
+-- Struktur dari tabel `hd_pemesanan`
 --
 
 CREATE TABLE `hd_pemesanan` (
   `id_pemesanan` int(11) NOT NULL,
-  `no_pemesanan` varchar(20) NOT NULL,
+  `no_pemesanan` varchar(30) NOT NULL,
   `dibuat_oleh` int(11) NOT NULL,
   `dibuat_tgl` datetime NOT NULL,
-  `status` enum('1','2','3','4','5','6') NOT NULL COMMENT '1 -> sukses, 2->revisi, 3-> selesai, 4->sampah, 5->barang belum lengkap) jika status 3 tidak bisa rubah ke 4',
+  `status` enum('1','2','3','4','5','6','7') NOT NULL COMMENT '1 -> sukses, 2->revisi, 3-> selesai, 4->sampah, 5->barang belum lengkap, 6->draf, 7->file asli sebelum revisi) jika status 3 tidak bisa rubah ke 4',
   `mengetahui_oleh` int(11) NOT NULL,
   `id_vendor` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  `catatan` text NOT NULL,
+  `referensi_id_pemesanan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_pemesanan`
+-- Dumping data untuk tabel `hd_pemesanan`
 --
 
-INSERT INTO `hd_pemesanan` (`id_pemesanan`, `no_pemesanan`, `dibuat_oleh`, `dibuat_tgl`, `status`, `mengetahui_oleh`, `id_vendor`, `created_at`, `updated_at`) VALUES
-(3, '001ORDER04122019', 1, '2019-12-04 00:00:00', '1', 0, 1, '2019-12-04 21:56:01', '2019-12-04 21:56:01'),
-(4, '002ORDER04122019', 1, '2019-12-05 00:00:00', '1', 0, 1, '2019-12-04 23:16:12', '2019-12-04 23:16:12'),
-(5, '003ORDER04122019', 1, '2019-12-04 00:00:00', '1', 0, 1, '2019-12-04 23:45:41', '2019-12-04 23:45:41'),
-(6, '004ORDER04122019', 1, '2019-12-04 00:00:00', '1', 0, 1, '2019-12-04 23:47:01', '2019-12-04 23:47:01'),
-(7, '005ORDER06122019', 1, '2019-12-06 00:00:00', '1', 0, 1, '2019-12-06 08:41:39', '2019-12-06 08:41:39');
+INSERT INTO `hd_pemesanan` (`id_pemesanan`, `no_pemesanan`, `dibuat_oleh`, `dibuat_tgl`, `status`, `mengetahui_oleh`, `id_vendor`, `created_at`, `updated_at`, `catatan`, `referensi_id_pemesanan`) VALUES
+(1, '001ORDER08122019', 1, '2019-12-08 00:00:00', '3', 0, 1, '2019-12-08 00:09:40', '2019-12-08 21:45:26', 'segera diproses', NULL),
+(2, '002ORDER08122019', 1, '2019-12-08 00:00:00', '7', 0, 1, '2019-12-08 00:10:37', '2019-12-08 00:10:59', 'oke', NULL),
+(3, '002ORDER08122019REV001', 1, '2019-12-08 00:00:00', '4', 0, 1, '2019-12-08 00:10:59', '2019-12-08 00:27:18', 'oke', 2),
+(4, '003ORDER08122019', 1, '2019-12-08 00:00:00', '7', 0, 1, '2019-12-08 00:14:43', '2019-12-08 00:15:20', 'oke', NULL),
+(5, '003ORDER08122019REV001', 1, '2019-12-08 00:00:00', '7', 0, 1, '2019-12-08 00:15:20', '2019-12-08 00:21:11', 'oke', 4),
+(6, '003ORDER08122019REV002', 1, '2019-12-08 00:00:00', '3', 0, 1, '2019-12-08 00:21:11', '2019-12-08 22:55:58', 'oke', 5),
+(7, '004ORDER08122019', 1, '2019-12-08 00:00:00', '7', 0, 1, '2019-12-08 00:22:11', '2019-12-08 00:22:31', 'segera diproses', NULL),
+(8, '004ORDER08122019REV001', 1, '2019-12-08 00:00:00', '3', 0, 1, '2019-12-08 00:22:31', '2019-12-08 22:58:29', 'segera diproses', 7),
+(9, '005ORDER08122019', 1, '2019-12-08 00:00:00', '7', 0, 1, '2019-12-08 08:05:21', '2019-12-08 08:06:18', 'segera diproses ya gaes', NULL),
+(10, '005ORDER08122019REV001', 1, '2019-12-08 00:00:00', '2', 0, 1, '2019-12-08 08:06:18', '2019-12-08 08:06:18', 'segera diproses ya gaes', 9),
+(11, '006ORDER09122019', 1, '2019-12-09 00:00:00', '1', 0, 1, '2019-12-09 07:08:47', '2019-12-09 07:08:47', 'segera diproses', NULL),
+(12, '007ORDER09122019', 1, '2019-12-09 00:00:00', '7', 0, 1, '2019-12-09 08:20:23', '2019-12-09 08:21:26', 'segera diproses', NULL),
+(13, '007ORDER09122019REV001', 1, '2019-12-09 00:00:00', '3', 0, 1, '2019-12-09 08:21:26', '2019-12-09 08:43:51', 'segera diproses', 12);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_pemesanan_detail`
+-- Struktur dari tabel `hd_pemesanan_detail`
 --
 
 CREATE TABLE `hd_pemesanan_detail` (
@@ -312,28 +336,46 @@ CREATE TABLE `hd_pemesanan_detail` (
   `id_pemesanan` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
   `keterangan` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_pemesanan_detail`
+-- Dumping data untuk tabel `hd_pemesanan_detail`
 --
 
-INSERT INTO `hd_pemesanan_detail` (`id_pemesanan_detail`, `id_pemesanan`, `id_barang`, `qty`, `keterangan`) VALUES
-(3, 3, 3, 100, NULL),
-(4, 3, 1, 120, NULL),
-(5, 4, 3, 100, NULL),
-(6, 5, 3, 100, NULL),
-(7, 5, 1, 120, NULL),
-(8, 6, 3, 100, NULL),
-(9, 6, 1, 120, NULL),
-(10, 7, 1, 120, NULL),
-(11, 7, 3, 100, NULL);
+INSERT INTO `hd_pemesanan_detail` (`id_pemesanan_detail`, `id_pemesanan`, `id_barang`, `qty`, `harga`, `keterangan`) VALUES
+(1, 1, 3, 100, 10000, 'diskon 5000'),
+(2, 1, 1, 120, 15500, '-'),
+(3, 2, 3, 100, 15000, NULL),
+(4, 2, 1, 120, 15500, NULL),
+(5, 3, 3, 10, 15000, NULL),
+(6, 3, 1, 20, 15500, NULL),
+(7, 4, 3, 100, 10000, 'mixagrip dikon 5000'),
+(8, 4, 1, 120, 15500, 'ga diskon'),
+(9, 5, 3, 50, 10000, 'mixagrip dikon 5000'),
+(10, 5, 1, 100, 15500, 'ga diskon'),
+(11, 6, 3, 50, 10000, 'mixagrip dikon 5000'),
+(12, 6, 1, 10, 15500, 'ga diskon'),
+(13, 7, 3, 10, 10000, 'mixagrip dikon 5000'),
+(14, 7, 1, 120, 15500, 'ga diskon'),
+(15, 8, 3, 100, 10000, 'mixagrip dikon 5000'),
+(16, 8, 1, 120, 15500, 'ga diskon'),
+(17, 9, 3, 100, 10000, 'barang ini sedang diskon'),
+(18, 9, 1, 120, 15500, NULL),
+(19, 10, 3, 10, 10000, 'barang ini sedang diskon'),
+(20, 10, 1, 20, 15500, NULL),
+(21, 11, 3, 100, 5000, 'diskon 10 ribu'),
+(22, 11, 1, 20, 15500, NULL),
+(23, 12, 3, 10, 10000, 'ada diskon'),
+(24, 12, 1, 20, 15500, NULL),
+(25, 13, 3, 100, 10000, 'ada diskon'),
+(26, 13, 1, 20, 15500, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_penerimaan`
+-- Struktur dari tabel `hd_penerimaan`
 --
 
 CREATE TABLE `hd_penerimaan` (
@@ -342,16 +384,32 @@ CREATE TABLE `hd_penerimaan` (
   `no_faktur` varchar(50) NOT NULL,
   `id_pemesanan` int(11) NOT NULL,
   `diterima_oleh` int(11) NOT NULL,
-  `mengetahui_oleh` int(11) NOT NULL,
+  `mengetahui_oleh` int(11) DEFAULT NULL,
   `tanggal_penerimaan` datetime NOT NULL,
+  `catatan` text NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `hd_penerimaan`
+--
+
+INSERT INTO `hd_penerimaan` (`id_penerimaan`, `no_penerimaan`, `no_faktur`, `id_pemesanan`, `diterima_oleh`, `mengetahui_oleh`, `tanggal_penerimaan`, `catatan`, `created_at`, `updated_at`) VALUES
+(2, '001RECEIVE08122019', '100020003000', 1, 1, NULL, '2019-12-08 00:00:00', 'mantap', '2019-12-08 21:45:26', '2019-12-08 21:45:26'),
+(3, '002RECEIVE08122019', '21212121212', 6, 1, NULL, '2019-12-08 00:00:00', 'mantap', '2019-12-08 22:17:50', '2019-12-08 22:17:50'),
+(4, '003RECEIVE08122019', '212121212123', 6, 1, NULL, '2019-12-08 00:00:00', 'mantap', '2019-12-08 22:22:27', '2019-12-08 22:22:27'),
+(5, '004RECEIVE08122019', '21212121212', 6, 1, NULL, '2019-12-08 00:00:00', 'oke', '2019-12-08 22:55:58', '2019-12-08 22:55:58'),
+(6, '005RECEIVE08122019', '21212121212', 8, 1, NULL, '2019-12-08 00:00:00', 'mantap', '2019-12-08 22:56:58', '2019-12-08 22:56:58'),
+(7, '006RECEIVE08122019', '212121212123', 8, 1, NULL, '2019-12-08 00:00:00', 'mantap', '2019-12-08 22:58:29', '2019-12-08 22:58:29'),
+(8, '007RECEIVE09122019', '21212121212', 13, 1, NULL, '2019-12-09 00:00:00', 'mantap', '2019-12-09 08:23:14', '2019-12-09 08:23:14'),
+(9, '008RECEIVE09122019', '41331211323', 13, 1, NULL, '2019-12-09 00:00:00', 'mantap', '2019-12-09 08:43:27', '2019-12-09 08:43:27'),
+(10, '009RECEIVE09122019', '41331211323', 13, 1, NULL, '2019-12-09 00:00:00', 'mantap', '2019-12-09 08:43:51', '2019-12-09 08:43:51');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_penerimaan_detail`
+-- Struktur dari tabel `hd_penerimaan_detail`
 --
 
 CREATE TABLE `hd_penerimaan_detail` (
@@ -359,17 +417,39 @@ CREATE TABLE `hd_penerimaan_detail` (
   `id_penerimaan` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `keterangan` text NOT NULL,
+  `keterangan` text,
   `id_rak` int(11) NOT NULL,
   `tanggal_kadaluarsa` datetime NOT NULL,
   `no_batch` varchar(20) NOT NULL,
-  `barcode` varchar(20) NOT NULL
+  `barcode` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `hd_penerimaan_detail`
+--
+
+INSERT INTO `hd_penerimaan_detail` (`id_penerimaan_detail`, `id_penerimaan`, `id_barang`, `qty`, `keterangan`, `id_rak`, `tanggal_kadaluarsa`, `no_batch`, `barcode`) VALUES
+(1, 2, 3, 100, NULL, 3, '2020-01-01 00:00:00', '12130362', NULL),
+(2, 2, 1, 120, NULL, 5, '2020-01-02 00:00:00', '12130363', NULL),
+(3, 3, 3, 30, NULL, 3, '2020-01-03 00:00:00', '111111', NULL),
+(4, 3, 1, 5, NULL, 5, '2020-01-04 00:00:00', '222222', NULL),
+(5, 4, 3, 10, NULL, 3, '2020-01-01 00:00:00', '1212121', NULL),
+(6, 4, 1, 2, NULL, 4, '2020-01-02 00:00:00', '32323232', NULL),
+(7, 5, 3, 10, NULL, 3, '2020-01-01 00:00:00', '131313', NULL),
+(8, 5, 1, 3, NULL, 5, '2020-01-02 00:00:00', '21321313', NULL),
+(9, 6, 3, 50, NULL, 3, '2020-01-01 00:00:00', '12121212', NULL),
+(10, 6, 1, 60, NULL, 5, '2020-01-02 00:00:00', '121212121', NULL),
+(11, 7, 3, 50, NULL, 5, '2019-12-31 00:00:00', '1121212', NULL),
+(12, 7, 1, 60, NULL, 4, '2020-01-01 00:00:00', '12121312', NULL),
+(13, 8, 3, 50, NULL, 3, '2020-01-01 00:00:00', '123', NULL),
+(14, 8, 1, 20, NULL, 5, '2020-01-02 00:00:00', '321', NULL),
+(15, 9, 3, 25, NULL, 3, '2020-01-01 00:00:00', '313131313', NULL),
+(16, 10, 3, 25, NULL, 5, '2020-01-03 00:00:00', '1441141414', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_rak`
+-- Struktur dari tabel `hd_rak`
 --
 
 CREATE TABLE `hd_rak` (
@@ -384,10 +464,19 @@ CREATE TABLE `hd_rak` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `hd_rak`
+--
+
+INSERT INTO `hd_rak` (`id_rak`, `kode_rak`, `id_gudang`, `nama_rak`, `status`, `keterangan`, `dibuat_oleh`, `created_at`, `updated_at`) VALUES
+(3, 'RDPN1', 1, 'Rak Depan 01', '1', '', 1, '2019-12-08 00:00:00', '2019-12-08 00:00:00'),
+(4, 'RDPN2', 2, 'Rak Depan 02', '1', '', 1, '2019-12-08 00:00:00', '2019-12-08 00:00:00'),
+(5, 'RBLK1', 1, 'Rak Belakang 01', '1', '', 1, '2019-12-08 00:00:00', '2019-12-08 00:00:00');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_retur_barang`
+-- Struktur dari tabel `hd_retur_barang`
 --
 
 CREATE TABLE `hd_retur_barang` (
@@ -407,7 +496,7 @@ CREATE TABLE `hd_retur_barang` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_retur_barang_detail`
+-- Struktur dari tabel `hd_retur_barang_detail`
 --
 
 CREATE TABLE `hd_retur_barang_detail` (
@@ -422,7 +511,7 @@ CREATE TABLE `hd_retur_barang_detail` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_stock_opname`
+-- Struktur dari tabel `hd_stock_opname`
 --
 
 CREATE TABLE `hd_stock_opname` (
@@ -443,7 +532,7 @@ CREATE TABLE `hd_stock_opname` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_stock_opname_detail`
+-- Struktur dari tabel `hd_stock_opname_detail`
 --
 
 CREATE TABLE `hd_stock_opname_detail` (
@@ -459,7 +548,7 @@ CREATE TABLE `hd_stock_opname_detail` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hd_vendor`
+-- Struktur dari tabel `hd_vendor`
 --
 
 CREATE TABLE `hd_vendor` (
@@ -477,7 +566,7 @@ CREATE TABLE `hd_vendor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hd_vendor`
+-- Dumping data untuk tabel `hd_vendor`
 --
 
 INSERT INTO `hd_vendor` (`id_vendor`, `kode_vendor`, `nama_vendor`, `alamat_vendor`, `tlp_vendor`, `pimpinan`, `status`, `keterangan`, `dibuat_oleh`, `created_at`, `updated_at`) VALUES
@@ -487,7 +576,7 @@ INSERT INTO `hd_vendor` (`id_vendor`, `kode_vendor`, `nama_vendor`, `alamat_vend
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log`
+-- Struktur dari tabel `log`
 --
 
 CREATE TABLE `log` (
@@ -501,7 +590,7 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `log`
+-- Dumping data untuk tabel `log`
 --
 
 INSERT INTO `log` (`id`, `id_data`, `table_data`, `field`, `values`, `event`, `created_at`) VALUES
@@ -1048,12 +1137,60 @@ INSERT INTO `log` (`id`, `id_data`, `table_data`, `field`, `values`, `event`, `c
 (543, 35, 'menu', 'icon', 'pe-7s-news-paper', 'UPDATE', '2019-10-29 04:36:52'),
 (544, 6, 'menu', 'status', '1', 'UPDATE', '2019-10-29 06:29:20'),
 (545, 5, 'menu', 'status', '1', 'UPDATE', '2019-10-29 06:29:26'),
-(546, 28, 'routes', 'DELETE', '/administrator/item', 'DELETE', '2019-12-02 14:13:06');
+(546, 28, 'routes', 'DELETE', '/administrator/item', 'DELETE', '2019-12-02 14:13:06'),
+(547, 23, 'menu', 'url', '/administrator/reception', 'UPDATE', '2019-12-08 01:12:28'),
+(548, 32, 'menu', 'name', 'Barang', 'UPDATE', '2019-12-12 13:02:43'),
+(549, 4, 'menu', 'rgt', '40', 'UPDATE', '2019-12-12 13:09:43'),
+(550, 41, 'menu', 'rgt', '15', 'UPDATE', '2019-12-12 13:09:43'),
+(551, 41, 'menu', 'lft', '14', 'UPDATE', '2019-12-12 13:09:43'),
+(552, 41, 'menu', 'order', '7', 'UPDATE', '2019-12-12 13:09:43'),
+(553, 39, 'menu', 'rgt', '17', 'UPDATE', '2019-12-12 13:09:43'),
+(554, 39, 'menu', 'lft', '16', 'UPDATE', '2019-12-12 13:09:43'),
+(555, 39, 'menu', 'order', '8', 'UPDATE', '2019-12-12 13:09:43'),
+(556, 38, 'menu', 'rgt', '19', 'UPDATE', '2019-12-12 13:09:43'),
+(557, 38, 'menu', 'lft', '18', 'UPDATE', '2019-12-12 13:09:43'),
+(558, 38, 'menu', 'order', '9', 'UPDATE', '2019-12-12 13:09:43'),
+(559, 33, 'menu', 'rgt', '21', 'UPDATE', '2019-12-12 13:09:43'),
+(560, 33, 'menu', 'lft', '20', 'UPDATE', '2019-12-12 13:09:43'),
+(561, 33, 'menu', 'order', '10', 'UPDATE', '2019-12-12 13:09:43'),
+(562, 40, 'menu', 'rgt', '23', 'UPDATE', '2019-12-12 13:09:43'),
+(563, 40, 'menu', 'lft', '22', 'UPDATE', '2019-12-12 13:09:43'),
+(564, 40, 'menu', 'order', '11', 'UPDATE', '2019-12-12 13:09:43'),
+(565, 37, 'menu', 'rgt', '25', 'UPDATE', '2019-12-12 13:09:43'),
+(566, 37, 'menu', 'lft', '24', 'UPDATE', '2019-12-12 13:09:43'),
+(567, 37, 'menu', 'order', '12', 'UPDATE', '2019-12-12 13:09:43'),
+(568, 36, 'menu', 'rgt', '27', 'UPDATE', '2019-12-12 13:09:43'),
+(569, 36, 'menu', 'lft', '26', 'UPDATE', '2019-12-12 13:09:43'),
+(570, 36, 'menu', 'order', '13', 'UPDATE', '2019-12-12 13:09:43'),
+(571, 35, 'menu', 'rgt', '29', 'UPDATE', '2019-12-12 13:09:43'),
+(572, 35, 'menu', 'lft', '28', 'UPDATE', '2019-12-12 13:09:43'),
+(573, 35, 'menu', 'order', '14', 'UPDATE', '2019-12-12 13:09:43'),
+(574, 2, 'menu', 'rgt', '31', 'UPDATE', '2019-12-12 13:09:43'),
+(575, 2, 'menu', 'lft', '30', 'UPDATE', '2019-12-12 13:09:43'),
+(576, 2, 'menu', 'order', '15', 'UPDATE', '2019-12-12 13:09:43'),
+(577, 3, 'menu', 'rgt', '33', 'UPDATE', '2019-12-12 13:09:43'),
+(578, 3, 'menu', 'lft', '32', 'UPDATE', '2019-12-12 13:09:43'),
+(579, 3, 'menu', 'order', '16', 'UPDATE', '2019-12-12 13:09:43'),
+(580, 21, 'menu', 'rgt', '35', 'UPDATE', '2019-12-12 13:09:43'),
+(581, 21, 'menu', 'lft', '34', 'UPDATE', '2019-12-12 13:09:43'),
+(582, 21, 'menu', 'order', '17', 'UPDATE', '2019-12-12 13:09:43'),
+(583, 5, 'menu', 'rgt', '37', 'UPDATE', '2019-12-12 13:09:43'),
+(584, 5, 'menu', 'lft', '36', 'UPDATE', '2019-12-12 13:09:43'),
+(585, 5, 'menu', 'order', '18', 'UPDATE', '2019-12-12 13:09:43'),
+(586, 6, 'menu', 'rgt', '39', 'UPDATE', '2019-12-12 13:09:44'),
+(587, 6, 'menu', 'lft', '38', 'UPDATE', '2019-12-12 13:09:44'),
+(588, 6, 'menu', 'order', '19', 'UPDATE', '2019-12-12 13:09:44'),
+(589, 15, 'menu', 'rgt', '42', 'UPDATE', '2019-12-12 13:09:44'),
+(590, 15, 'menu', 'lft', '41', 'UPDATE', '2019-12-12 13:09:44'),
+(591, 15, 'menu', 'order', '20', 'UPDATE', '2019-12-12 13:09:44'),
+(592, 41, 'menu', 'icon', 'pe-7s-gift', 'UPDATE', '2019-12-12 13:12:05'),
+(593, 32, 'menu', 'url', '/administrator/item', 'UPDATE', '2019-12-12 13:13:53'),
+(594, 32, 'menu', 'url', '/administrator/daftar-barang', 'UPDATE', '2019-12-12 13:18:23');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menus`
+-- Struktur dari tabel `menus`
 --
 
 CREATE TABLE `menus` (
@@ -1075,34 +1212,35 @@ CREATE TABLE `menus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `menus`
+-- Dumping data untuk tabel `menus`
 --
 
 INSERT INTO `menus` (`id`, `icon`, `name`, `depth`, `rgt`, `lft`, `id_parent`, `url`, `description`, `status`, `order`, `menu_role`, `created_at`, `updated_at`, `created_by`) VALUES
 (1, 'pe-7s-graph', 'Beranda', 0, 2, 1, 0, '/administrator/dashboard', '0', '1', 0, 17, '2019-05-26 00:00:00', '2019-06-04 15:09:33', 2),
-(2, 'pe-7s-user', 'Pengguna', 1, 31, 30, 4, '/administrator/users', '0', '1', 15, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(3, 'pe-7s-settings', 'Role', 1, 33, 32, 4, '/administrator/roles', '0', '1', 16, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(4, 'pe-7s-settings', 'Master Data', 0, 40, 13, 0, '#', '0', '1', 6, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(5, 'pe-7s-menu', 'Menu', 1, 37, 36, 4, '/administrator/menus', '0', '0', 18, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(6, 'pe-7s-news-paper', 'Halaman', 1, 39, 38, 4, '/administrator/pages', '0', '0', 19, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(15, 'pe-7s-helm', 'Log Aktivitas', 0, 42, 41, 0, '/administrator/history', '0', '1', 20, 17, '2019-05-28 00:00:00', '2019-10-29 11:31:32', 2),
-(21, 'pe-7s-eyedropper', 'Permission', 1, 35, 34, 4, '/administrator/permission', '0', '1', 17, 17, '2019-06-04 15:05:19', '2019-10-29 11:31:32', 1),
+(2, 'pe-7s-user', 'Pengguna', 1, 33, 32, 4, '/administrator/users', '0', '1', 16, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(3, 'pe-7s-settings', 'Role', 1, 35, 34, 4, '/administrator/roles', '0', '1', 17, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(4, 'pe-7s-settings', 'Master Data', 0, 42, 13, 0, '#', '0', '1', 6, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(5, 'pe-7s-menu', 'Menu', 1, 39, 38, 4, '/administrator/menus', '0', '0', 19, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(6, 'pe-7s-news-paper', 'Halaman', 1, 41, 40, 4, '/administrator/pages', '0', '0', 20, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(15, 'pe-7s-helm', 'Log Aktivitas', 0, 44, 43, 0, '/administrator/history', '0', '1', 21, 17, '2019-05-28 00:00:00', '2019-12-12 20:09:44', 2),
+(21, 'pe-7s-eyedropper', 'Permission', 1, 37, 36, 4, '/administrator/permission', '0', '1', 18, 17, '2019-06-04 15:05:19', '2019-12-12 20:09:43', 1),
 (22, 'pe-7s-note2', 'Pemesanan', 0, 4, 3, 0, '/administrator/pemesanan', NULL, '1', 1, 17, '2019-10-29 10:51:22', '2019-10-29 11:00:16', 1),
-(23, 'pe-7s-news-paper', 'Penerimaan', 0, 6, 5, 0, '/administrator/reception', '0', '1', 2, 17, '2019-05-26 00:00:00', '2019-10-29 11:07:13', 2),
+(23, 'pe-7s-news-paper', 'Penerimaan', 0, 6, 5, 0, '/administrator/penerimaan', '0', '1', 2, 17, '2019-05-26 00:00:00', '2019-10-29 11:07:13', 2),
 (24, 'pe-7s-hourglass', 'Stock Opname', 0, 12, 11, 0, '/administrator/stockopname', '0', '1', 5, 17, '2019-05-26 00:00:00', '2019-10-29 11:17:47', 2),
 (25, 'pe-7s-plugin', 'Berita Acara', 0, 10, 9, 0, '/administrator/official-report', '0', '1', 4, 17, '2019-05-26 00:00:00', '2019-10-29 11:17:47', 2),
-(32, 'pe-7s-gift', 'Barang', 1, 15, 14, 4, '/administrator/item', '0', '1', 7, 17, '2019-05-26 00:00:00', '2019-10-29 11:26:37', 2),
-(33, 'pe-7s-door-lock', 'Satuan', 1, 21, 20, 4, '/administrator/item-unit', '0', '1', 10, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 26),
+(32, 'pe-7s-gift', 'Daftar Barang', 1, 15, 14, 4, '/administrator/daftar_barang', '0', '1', 7, 17, '2019-05-26 00:00:00', '2019-10-29 11:26:37', 2),
+(33, 'pe-7s-door-lock', 'Satuan', 1, 23, 22, 4, '/administrator/item-unit', '0', '1', 11, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 26),
 (34, 'pe-7s-back-2', 'Retur', 0, 8, 7, 0, '/administrator/official-return', '0', '1', 3, 17, '2019-05-26 00:00:00', '2019-10-29 11:17:47', 2),
-(35, 'pe-7s-scissors', 'Diskon', 1, 29, 28, 4, '/administrator/discount', '0', '1', 14, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(36, 'pe-7s-user', 'Vendor', 1, 27, 26, 4, '/administrator/vendor', '0', '1', 13, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 26),
-(37, 'pe-7s-box1', 'Rak', 1, 25, 24, 4, '/administrator/rack', '0', '1', 12, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(38, 'pe-7s-science', 'Golongan Barang', 1, 19, 18, 4, '/administrator/item-class', '0', '1', 9, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(39, 'pe-7s-magic-wand', 'Jenis Barang', 1, 17, 16, 4, '/administrator/item-type', '0', '1', 8, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2),
-(40, 'pe-7s-culture', 'Gudang', 1, 23, 22, 4, '/administrator/warehouse', '0', '1', 11, 17, '2019-05-26 00:00:00', '2019-10-29 11:31:32', 2);
+(35, 'pe-7s-scissors', 'Diskon', 1, 31, 30, 4, '/administrator/discount', '0', '1', 15, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(36, 'pe-7s-user', 'Vendor', 1, 29, 28, 4, '/administrator/vendor', '0', '1', 14, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 26),
+(37, 'pe-7s-box1', 'Rak', 1, 27, 26, 4, '/administrator/rack', '0', '1', 13, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(38, 'pe-7s-science', 'Golongan Barang', 1, 21, 20, 4, '/administrator/item-class', '0', '1', 10, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(39, 'pe-7s-magic-wand', 'Jenis Barang', 1, 19, 18, 4, '/administrator/item-type', '0', '1', 9, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(40, 'pe-7s-culture', 'Gudang', 1, 25, 24, 4, '/administrator/warehouse', '0', '1', 12, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2),
+(41, 'pe-7s-shopbag', 'Barang Vendor', 1, 17, 16, 4, '/administrator/barang_vendor', '0', '1', 8, 17, '2019-05-26 00:00:00', '2019-12-12 20:09:43', 2);
 
 --
--- Triggers `menus`
+-- Trigger `menus`
 --
 DELIMITER $$
 CREATE TRIGGER `logMenusAfterDelete` AFTER DELETE ON `menus` FOR EACH ROW BEGIN
@@ -1202,7 +1340,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -1212,7 +1350,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -1233,7 +1371,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_permissions`
+-- Struktur dari tabel `model_has_permissions`
 --
 
 CREATE TABLE `model_has_permissions` (
@@ -1245,7 +1383,7 @@ CREATE TABLE `model_has_permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_roles`
+-- Struktur dari tabel `model_has_roles`
 --
 
 CREATE TABLE `model_has_roles` (
@@ -1255,7 +1393,7 @@ CREATE TABLE `model_has_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `model_has_roles`
+-- Dumping data untuk tabel `model_has_roles`
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
@@ -1265,7 +1403,7 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pages`
+-- Struktur dari tabel `pages`
 --
 
 CREATE TABLE `pages` (
@@ -1280,7 +1418,7 @@ CREATE TABLE `pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pages`
+-- Dumping data untuk tabel `pages`
 --
 
 INSERT INTO `pages` (`id`, `name`, `url`, `pages_type`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
@@ -1291,7 +1429,7 @@ INSERT INTO `pages` (`id`, `name`, `url`, `pages_type`, `status`, `created_by`, 
 (11, 'Pemesanan', '/pemesanan', 'query', '1', 1, '2019-10-29 10:47:03', '2019-10-29 10:47:03');
 
 --
--- Triggers `pages`
+-- Trigger `pages`
 --
 DELIMITER $$
 CREATE TRIGGER `logPagesAfterDelete` AFTER DELETE ON `pages` FOR EACH ROW BEGIN
@@ -1338,7 +1476,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pages_detail`
+-- Struktur dari tabel `pages_detail`
 --
 
 CREATE TABLE `pages_detail` (
@@ -1348,7 +1486,7 @@ CREATE TABLE `pages_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pages_detail`
+-- Dumping data untuk tabel `pages_detail`
 --
 
 INSERT INTO `pages_detail` (`id`, `id_page`, `custom_html`) VALUES
@@ -1359,7 +1497,7 @@ INSERT INTO `pages_detail` (`id`, `id_page`, `custom_html`) VALUES
 (7, 11, 'SELECT * from hd_pemesanan');
 
 --
--- Triggers `pages_detail`
+-- Trigger `pages_detail`
 --
 DELIMITER $$
 CREATE TRIGGER `logPagesDetailAfterDelete` AFTER DELETE ON `pages_detail` FOR EACH ROW BEGIN
@@ -1389,7 +1527,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Struktur dari tabel `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -1401,7 +1539,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Struktur dari tabel `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -1413,7 +1551,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `permissions`
+-- Dumping data untuk tabel `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -1448,10 +1586,22 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (90, 'article-list', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
 (91, 'article-create', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
 (92, 'article-edit', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
-(93, 'article-delete', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49');
+(93, 'article-delete', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(94, 'pemesanan-list', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(95, 'pemesanan-create', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(96, 'pemesanan-edit', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(97, 'pemesanan-delete', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(98, 'penerimaan-list', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(99, 'penerimaan-create', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(100, 'penerimaan-edit', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(101, 'penerimaan-delete', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(102, 'daftar_barang-list', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(103, 'daftar_barang-create', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(104, 'daftar_barang-edit', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49'),
+(105, 'daftar_barang-delete', 'web', '2019-06-13 06:29:49', '2019-06-13 06:29:49');
 
 --
--- Triggers `permissions`
+-- Trigger `permissions`
 --
 DELIMITER $$
 CREATE TRIGGER `logPermissionAfterUpdate` AFTER UPDATE ON `permissions` FOR EACH ROW BEGIN
@@ -1479,7 +1629,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Struktur dari tabel `roles`
 --
 
 CREATE TABLE `roles` (
@@ -1491,7 +1641,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `roles`
+-- Dumping data untuk tabel `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -1501,7 +1651,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_has_permissions`
+-- Struktur dari tabel `role_has_permissions`
 --
 
 CREATE TABLE `role_has_permissions` (
@@ -1510,7 +1660,7 @@ CREATE TABLE `role_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `role_has_permissions`
+-- Dumping data untuk tabel `role_has_permissions`
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
@@ -1545,12 +1695,24 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (90, 17),
 (91, 17),
 (92, 17),
-(93, 17);
+(93, 17),
+(94, 17),
+(95, 17),
+(96, 17),
+(97, 17),
+(98, 17),
+(99, 17),
+(100, 17),
+(101, 17),
+(102, 17),
+(103, 17),
+(104, 17),
+(105, 17);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `routes`
+-- Struktur dari tabel `routes`
 --
 
 CREATE TABLE `routes` (
@@ -1564,13 +1726,13 @@ CREATE TABLE `routes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `routes`
+-- Dumping data untuk tabel `routes`
 --
 
 INSERT INTO `routes` (`id`, `url`, `name_as`, `uses_controller`, `created_by`, `created_at`, `updated_at`) VALUES
 (1, 'administrator/users', 'user', 'Backend\\UserController', 2, '2019-05-26 00:00:00', '2019-05-26 00:00:00'),
 (2, 'administrator/roles', 'roles', 'Backend\\RoleController', 2, '2019-05-26 00:00:00', '2019-05-26 00:00:00'),
-(3, 'administrator/dashboard', 'dashboard', 'Backend\\AdministratorController', 2, '2019-05-26 00:00:00', '2019-05-26 00:00:00'),
+(3, 'administrator/dashboard', 'dashboard', 'Backend\\DashboardController', 2, '2019-05-26 00:00:00', '2019-05-26 00:00:00'),
 (4, 'administrator/menus', 'menus', 'Backend\\MenuController', 2, '2019-05-26 00:00:00', '2019-05-26 00:00:00'),
 (5, '/home', 'Home', 'Frontend\\FrontController', 2, '2019-05-27 00:00:00', '2019-05-27 00:00:00'),
 (6, '/administrator/meta', 'meta', 'Backend\\MetaController', 2, '2019-05-27 00:00:00', '2019-05-27 00:00:00'),
@@ -1584,10 +1746,12 @@ INSERT INTO `routes` (`id`, `url`, `name_as`, `uses_controller`, `created_by`, `
 (24, '/administrator/pemesanan', 'pemesanan', 'Backend\\PemesananController', 2, '2019-06-12 00:00:00', '2019-06-12 00:00:00'),
 (25, 'administrator/article', 'article', 'Backend\\ArticleController', 2, '2019-06-13 00:00:00', '2019-06-13 00:00:00'),
 (26, '/transaksi', 'transaksi', 'Frontend\\CustomPageController', 1, '2019-08-23 18:00:27', '2019-08-23 18:00:27'),
-(27, '/order', 'Pemesanan', 'Frontend\\CustomPageController', 1, '2019-10-29 10:47:03', '2019-10-29 10:47:03');
+(27, '/order', 'Pemesanan', 'Frontend\\CustomPageController', 1, '2019-10-29 10:47:03', '2019-10-29 10:47:03'),
+(28, '/administrator/penerimaan', 'penerimaan', 'Backend\\PenerimaanController', 2, '2019-06-12 00:00:00', '2019-06-12 00:00:00'),
+(29, '/administrator/daftar_barang', 'daftar barang', 'Backend\\DaftarBarangController', 2, '2019-06-12 00:00:00', '2019-06-12 00:00:00');
 
 --
--- Triggers `routes`
+-- Trigger `routes`
 --
 DELIMITER $$
 CREATE TRIGGER `logRoutesAfterDelete` AFTER DELETE ON `routes` FOR EACH ROW BEGIN
@@ -1604,7 +1768,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -1618,7 +1782,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -1626,7 +1790,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `creat
 (2, 'user', 'user@user.com', '$2y$10$NDkAeiA.XYhS2soPupCjx.GsPTIr3hdbubSp5Tdu.mNucK9NQsd.O', NULL, '2019-05-26 00:48:25', '2019-06-28 20:32:43');
 
 --
--- Triggers `users`
+-- Trigger `users`
 --
 DELIMITER $$
 CREATE TRIGGER `logUserAfterUpdate` AFTER UPDATE ON `users` FOR EACH ROW BEGIN
@@ -1655,8 +1819,8 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `v_barang_vendor`
--- (See below for the actual view)
+-- Stand-in struktur untuk tampilan `v_barang_vendor`
+-- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_barang_vendor` (
 `id_vendor` int(11)
@@ -1666,23 +1830,24 @@ CREATE TABLE `v_barang_vendor` (
 ,`no_batch` varchar(100)
 ,`nama_barang` varchar(100)
 ,`nama_satuan` varchar(20)
+,`id_satuan` int(11)
 );
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `v_barang_vendor`
+-- Struktur untuk view `v_barang_vendor`
 --
 DROP TABLE IF EXISTS `v_barang_vendor`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_barang_vendor`  AS  select `a`.`id_vendor` AS `id_vendor`,`a`.`id_barang` AS `id_barang`,`a`.`harga_beli` AS `harga_beli`,`a`.`qty` AS `qty`,`a`.`no_batch` AS `no_batch`,`b`.`nama_barang` AS `nama_barang`,`c`.`nama_satuan` AS `nama_satuan` from ((`hd_barang_vendor` `a` join `hd_barang` `b` on((`a`.`id_barang` = `b`.`id_barang`))) join `hd_barang_satuan` `c` on((`a`.`id_satuan` = `c`.`id_satuan`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_barang_vendor`  AS  select `a`.`id_vendor` AS `id_vendor`,`a`.`id_barang` AS `id_barang`,`a`.`harga_beli` AS `harga_beli`,`a`.`qty` AS `qty`,`a`.`no_batch` AS `no_batch`,`b`.`nama_barang` AS `nama_barang`,`c`.`nama_satuan` AS `nama_satuan`,`c`.`id_satuan` AS `id_satuan` from ((`hd_barang_vendor` `a` join `hd_barang` `b` on((`a`.`id_barang` = `b`.`id_barang`))) join `hd_barang_satuan` `c` on((`a`.`id_satuan` = `c`.`id_satuan`))) ;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `hd_barang`
+-- Indeks untuk tabel `hd_barang`
 --
 ALTER TABLE `hd_barang`
   ADD PRIMARY KEY (`id_barang`),
@@ -1691,32 +1856,31 @@ ALTER TABLE `hd_barang`
   ADD KEY `id_jenis_barang` (`id_jenis_barang`);
 
 --
--- Indexes for table `hd_barang_foto`
+-- Indeks untuk tabel `hd_barang_foto`
 --
 ALTER TABLE `hd_barang_foto`
-  ADD PRIMARY KEY (`id_barang_foto`),
-  ADD UNIQUE KEY `id_barang` (`id_barang`);
+  ADD PRIMARY KEY (`id_barang_foto`);
 
 --
--- Indexes for table `hd_barang_golongan`
+-- Indeks untuk tabel `hd_barang_golongan`
 --
 ALTER TABLE `hd_barang_golongan`
   ADD PRIMARY KEY (`id_golongan_barang`);
 
 --
--- Indexes for table `hd_barang_jenis`
+-- Indeks untuk tabel `hd_barang_jenis`
 --
 ALTER TABLE `hd_barang_jenis`
   ADD PRIMARY KEY (`id_jenis_barang`);
 
 --
--- Indexes for table `hd_barang_satuan`
+-- Indeks untuk tabel `hd_barang_satuan`
 --
 ALTER TABLE `hd_barang_satuan`
   ADD PRIMARY KEY (`id_satuan`);
 
 --
--- Indexes for table `hd_barang_vendor`
+-- Indeks untuk tabel `hd_barang_vendor`
 --
 ALTER TABLE `hd_barang_vendor`
   ADD PRIMARY KEY (`id`),
@@ -1725,13 +1889,13 @@ ALTER TABLE `hd_barang_vendor`
   ADD KEY `vendor` (`id_vendor`);
 
 --
--- Indexes for table `hd_berita_acara`
+-- Indeks untuk tabel `hd_berita_acara`
 --
 ALTER TABLE `hd_berita_acara`
   ADD PRIMARY KEY (`id_berita_acara`);
 
 --
--- Indexes for table `hd_berita_acara_detail`
+-- Indeks untuk tabel `hd_berita_acara_detail`
 --
 ALTER TABLE `hd_berita_acara_detail`
   ADD PRIMARY KEY (`id_berita_acara_detail`),
@@ -1739,7 +1903,7 @@ ALTER TABLE `hd_berita_acara_detail`
   ADD KEY `id_barang` (`id_barang`);
 
 --
--- Indexes for table `hd_data_apotek`
+-- Indeks untuk tabel `hd_data_apotek`
 --
 ALTER TABLE `hd_data_apotek`
   ADD PRIMARY KEY (`id_apotek`),
@@ -1748,13 +1912,13 @@ ALTER TABLE `hd_data_apotek`
   ADD UNIQUE KEY `kode` (`kode`);
 
 --
--- Indexes for table `hd_diskon`
+-- Indeks untuk tabel `hd_diskon`
 --
 ALTER TABLE `hd_diskon`
   ADD PRIMARY KEY (`id_diskon`);
 
 --
--- Indexes for table `hd_diskon_detail`
+-- Indeks untuk tabel `hd_diskon_detail`
 --
 ALTER TABLE `hd_diskon_detail`
   ADD PRIMARY KEY (`id_diskon_detail`),
@@ -1764,13 +1928,13 @@ ALTER TABLE `hd_diskon_detail`
   ADD KEY `id_barang_2` (`id_barang`);
 
 --
--- Indexes for table `hd_gudang`
+-- Indeks untuk tabel `hd_gudang`
 --
 ALTER TABLE `hd_gudang`
   ADD PRIMARY KEY (`id_gudang`);
 
 --
--- Indexes for table `hd_pemesanan`
+-- Indeks untuk tabel `hd_pemesanan`
 --
 ALTER TABLE `hd_pemesanan`
   ADD PRIMARY KEY (`id_pemesanan`),
@@ -1778,23 +1942,22 @@ ALTER TABLE `hd_pemesanan`
   ADD KEY `id_vendor` (`id_vendor`);
 
 --
--- Indexes for table `hd_pemesanan_detail`
+-- Indeks untuk tabel `hd_pemesanan_detail`
 --
 ALTER TABLE `hd_pemesanan_detail`
   ADD PRIMARY KEY (`id_pemesanan_detail`),
   ADD KEY `id_barang` (`id_barang`);
 
 --
--- Indexes for table `hd_penerimaan`
+-- Indeks untuk tabel `hd_penerimaan`
 --
 ALTER TABLE `hd_penerimaan`
   ADD PRIMARY KEY (`id_penerimaan`),
   ADD UNIQUE KEY `no_penerimaan` (`no_penerimaan`) USING BTREE,
-  ADD UNIQUE KEY `no_faktur` (`no_faktur`),
   ADD KEY `id_pemesanan` (`id_pemesanan`);
 
 --
--- Indexes for table `hd_penerimaan_detail`
+-- Indeks untuk tabel `hd_penerimaan_detail`
 --
 ALTER TABLE `hd_penerimaan_detail`
   ADD PRIMARY KEY (`id_penerimaan_detail`),
@@ -1803,14 +1966,14 @@ ALTER TABLE `hd_penerimaan_detail`
   ADD KEY `id_penerimaan` (`id_penerimaan`);
 
 --
--- Indexes for table `hd_rak`
+-- Indeks untuk tabel `hd_rak`
 --
 ALTER TABLE `hd_rak`
   ADD PRIMARY KEY (`id_rak`),
   ADD KEY `id_gudang` (`id_gudang`);
 
 --
--- Indexes for table `hd_retur_barang`
+-- Indeks untuk tabel `hd_retur_barang`
 --
 ALTER TABLE `hd_retur_barang`
   ADD PRIMARY KEY (`id_retur_barang`),
@@ -1818,7 +1981,7 @@ ALTER TABLE `hd_retur_barang`
   ADD KEY `id_penerimaan` (`id_penerimaan`);
 
 --
--- Indexes for table `hd_retur_barang_detail`
+-- Indeks untuk tabel `hd_retur_barang_detail`
 --
 ALTER TABLE `hd_retur_barang_detail`
   ADD PRIMARY KEY (`id_retur_barang_detail`),
@@ -1827,13 +1990,13 @@ ALTER TABLE `hd_retur_barang_detail`
   ADD KEY `id_satuan` (`id_satuan`);
 
 --
--- Indexes for table `hd_stock_opname`
+-- Indeks untuk tabel `hd_stock_opname`
 --
 ALTER TABLE `hd_stock_opname`
   ADD PRIMARY KEY (`id_stock_opname`);
 
 --
--- Indexes for table `hd_stock_opname_detail`
+-- Indeks untuk tabel `hd_stock_opname_detail`
 --
 ALTER TABLE `hd_stock_opname_detail`
   ADD PRIMARY KEY (`id_stock_opname_detail`),
@@ -1841,302 +2004,288 @@ ALTER TABLE `hd_stock_opname_detail`
   ADD KEY `id_barang` (`id_barang`);
 
 --
--- Indexes for table `hd_vendor`
+-- Indeks untuk tabel `hd_vendor`
 --
 ALTER TABLE `hd_vendor`
   ADD PRIMARY KEY (`id_vendor`);
 
 --
--- Indexes for table `log`
+-- Indeks untuk tabel `log`
 --
 ALTER TABLE `log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `menus`
+-- Indeks untuk tabel `menus`
 --
 ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `model_has_permissions`
+-- Indeks untuk tabel `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
   ADD KEY `model_has_permissions_model_type_model_id_index` (`model_type`,`model_id`);
 
 --
--- Indexes for table `model_has_roles`
+-- Indeks untuk tabel `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_type_model_id_index` (`model_type`,`model_id`);
 
 --
--- Indexes for table `pages`
+-- Indeks untuk tabel `pages`
 --
 ALTER TABLE `pages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pages_detail`
+-- Indeks untuk tabel `pages_detail`
 --
 ALTER TABLE `pages_detail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_resets`
+-- Indeks untuk tabel `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `permissions`
+-- Indeks untuk tabel `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roles`
+-- Indeks untuk tabel `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `role_has_permissions`
+-- Indeks untuk tabel `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `routes`
+-- Indeks untuk tabel `routes`
 --
 ALTER TABLE `routes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `hd_barang`
+-- AUTO_INCREMENT untuk tabel `hd_barang`
 --
 ALTER TABLE `hd_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `hd_barang_foto`
+-- AUTO_INCREMENT untuk tabel `hd_barang_foto`
 --
 ALTER TABLE `hd_barang_foto`
   MODIFY `id_barang_foto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_barang_golongan`
+-- AUTO_INCREMENT untuk tabel `hd_barang_golongan`
 --
 ALTER TABLE `hd_barang_golongan`
   MODIFY `id_golongan_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `hd_barang_jenis`
+-- AUTO_INCREMENT untuk tabel `hd_barang_jenis`
 --
 ALTER TABLE `hd_barang_jenis`
   MODIFY `id_jenis_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `hd_barang_satuan`
+-- AUTO_INCREMENT untuk tabel `hd_barang_satuan`
 --
 ALTER TABLE `hd_barang_satuan`
   MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `hd_barang_vendor`
+-- AUTO_INCREMENT untuk tabel `hd_barang_vendor`
 --
 ALTER TABLE `hd_barang_vendor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `hd_berita_acara`
+-- AUTO_INCREMENT untuk tabel `hd_berita_acara`
 --
 ALTER TABLE `hd_berita_acara`
   MODIFY `id_berita_acara` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_berita_acara_detail`
+-- AUTO_INCREMENT untuk tabel `hd_berita_acara_detail`
 --
 ALTER TABLE `hd_berita_acara_detail`
   MODIFY `id_berita_acara_detail` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_data_apotek`
+-- AUTO_INCREMENT untuk tabel `hd_data_apotek`
 --
 ALTER TABLE `hd_data_apotek`
-  MODIFY `id_apotek` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_apotek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `hd_diskon`
+-- AUTO_INCREMENT untuk tabel `hd_diskon`
 --
 ALTER TABLE `hd_diskon`
   MODIFY `id_diskon` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_diskon_detail`
+-- AUTO_INCREMENT untuk tabel `hd_diskon_detail`
 --
 ALTER TABLE `hd_diskon_detail`
   MODIFY `id_diskon_detail` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_gudang`
+-- AUTO_INCREMENT untuk tabel `hd_gudang`
 --
 ALTER TABLE `hd_gudang`
   MODIFY `id_gudang` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_pemesanan`
+-- AUTO_INCREMENT untuk tabel `hd_pemesanan`
 --
 ALTER TABLE `hd_pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `hd_pemesanan_detail`
+-- AUTO_INCREMENT untuk tabel `hd_pemesanan_detail`
 --
 ALTER TABLE `hd_pemesanan_detail`
-  MODIFY `id_pemesanan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pemesanan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `hd_penerimaan`
+-- AUTO_INCREMENT untuk tabel `hd_penerimaan`
 --
 ALTER TABLE `hd_penerimaan`
-  MODIFY `id_penerimaan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penerimaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `hd_penerimaan_detail`
+-- AUTO_INCREMENT untuk tabel `hd_penerimaan_detail`
 --
 ALTER TABLE `hd_penerimaan_detail`
-  MODIFY `id_penerimaan_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penerimaan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `hd_rak`
+-- AUTO_INCREMENT untuk tabel `hd_rak`
 --
 ALTER TABLE `hd_rak`
-  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `hd_retur_barang`
+-- AUTO_INCREMENT untuk tabel `hd_retur_barang`
 --
 ALTER TABLE `hd_retur_barang`
   MODIFY `id_retur_barang` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_retur_barang_detail`
+-- AUTO_INCREMENT untuk tabel `hd_retur_barang_detail`
 --
 ALTER TABLE `hd_retur_barang_detail`
   MODIFY `id_retur_barang_detail` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_stock_opname`
+-- AUTO_INCREMENT untuk tabel `hd_stock_opname`
 --
 ALTER TABLE `hd_stock_opname`
   MODIFY `id_stock_opname` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_stock_opname_detail`
+-- AUTO_INCREMENT untuk tabel `hd_stock_opname_detail`
 --
 ALTER TABLE `hd_stock_opname_detail`
   MODIFY `id_stock_opname_detail` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hd_vendor`
+-- AUTO_INCREMENT untuk tabel `hd_vendor`
 --
 ALTER TABLE `hd_vendor`
   MODIFY `id_vendor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `log`
+-- AUTO_INCREMENT untuk tabel `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=547;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
 
 --
--- AUTO_INCREMENT for table `menus`
+-- AUTO_INCREMENT untuk tabel `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `pages`
+-- AUTO_INCREMENT untuk tabel `pages`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `pages_detail`
+-- AUTO_INCREMENT untuk tabel `pages_detail`
 --
 ALTER TABLE `pages_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `permissions`
+-- AUTO_INCREMENT untuk tabel `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `routes`
+-- AUTO_INCREMENT untuk tabel `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `hd_barang`
---
-ALTER TABLE `hd_barang`
-  ADD CONSTRAINT `hd_barang_ibfk_1` FOREIGN KEY (`id_satuan`) REFERENCES `hd_barang_satuan` (`id_satuan`),
-  ADD CONSTRAINT `hd_barang_ibfk_2` FOREIGN KEY (`id_golongan_barang`) REFERENCES `hd_barang_golongan` (`id_golongan_barang`),
-  ADD CONSTRAINT `hd_barang_ibfk_3` FOREIGN KEY (`id_jenis_barang`) REFERENCES `hd_barang_jenis` (`id_jenis_barang`);
-
---
--- Constraints for table `hd_barang_foto`
---
-ALTER TABLE `hd_barang_foto`
-  ADD CONSTRAINT `hd_barang_foto_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `hd_barang` (`id_barang`);
-
---
--- Constraints for table `hd_barang_vendor`
+-- Ketidakleluasaan untuk tabel `hd_barang_vendor`
 --
 ALTER TABLE `hd_barang_vendor`
   ADD CONSTRAINT `barang` FOREIGN KEY (`id_barang`) REFERENCES `hd_barang` (`id_barang`),
@@ -2144,14 +2293,14 @@ ALTER TABLE `hd_barang_vendor`
   ADD CONSTRAINT `vendor` FOREIGN KEY (`id_vendor`) REFERENCES `hd_vendor` (`id_vendor`);
 
 --
--- Constraints for table `hd_berita_acara_detail`
+-- Ketidakleluasaan untuk tabel `hd_berita_acara_detail`
 --
 ALTER TABLE `hd_berita_acara_detail`
   ADD CONSTRAINT `hd_berita_acara_detail_ibfk_1` FOREIGN KEY (`id_berita_acara`) REFERENCES `hd_berita_acara` (`id_berita_acara`),
   ADD CONSTRAINT `hd_berita_acara_detail_ibfk_2` FOREIGN KEY (`id_barang`) REFERENCES `hd_barang` (`id_barang`);
 
 --
--- Constraints for table `hd_diskon_detail`
+-- Ketidakleluasaan untuk tabel `hd_diskon_detail`
 --
 ALTER TABLE `hd_diskon_detail`
   ADD CONSTRAINT `hd_diskon_detail_ibfk_1` FOREIGN KEY (`id_diskon`) REFERENCES `hd_diskon` (`id_diskon`),
@@ -2159,19 +2308,19 @@ ALTER TABLE `hd_diskon_detail`
   ADD CONSTRAINT `hd_diskon_detail_ibfk_3` FOREIGN KEY (`id_vendor`) REFERENCES `hd_vendor` (`id_vendor`);
 
 --
--- Constraints for table `hd_pemesanan`
+-- Ketidakleluasaan untuk tabel `hd_pemesanan`
 --
 ALTER TABLE `hd_pemesanan`
   ADD CONSTRAINT `hd_pemesanan_ibfk_1` FOREIGN KEY (`id_vendor`) REFERENCES `hd_vendor` (`id_vendor`);
 
 --
--- Constraints for table `hd_penerimaan`
+-- Ketidakleluasaan untuk tabel `hd_penerimaan`
 --
 ALTER TABLE `hd_penerimaan`
   ADD CONSTRAINT `hd_penerimaan_ibfk_1` FOREIGN KEY (`id_pemesanan`) REFERENCES `hd_pemesanan` (`id_pemesanan`);
 
 --
--- Constraints for table `hd_penerimaan_detail`
+-- Ketidakleluasaan untuk tabel `hd_penerimaan_detail`
 --
 ALTER TABLE `hd_penerimaan_detail`
   ADD CONSTRAINT `hd_penerimaan_detail_ibfk_2` FOREIGN KEY (`id_barang`) REFERENCES `hd_barang` (`id_barang`),
@@ -2179,20 +2328,14 @@ ALTER TABLE `hd_penerimaan_detail`
   ADD CONSTRAINT `hd_penerimaan_detail_ibfk_4` FOREIGN KEY (`id_rak`) REFERENCES `hd_rak` (`id_rak`);
 
 --
--- Constraints for table `hd_rak`
---
-ALTER TABLE `hd_rak`
-  ADD CONSTRAINT `hd_rak_ibfk_1` FOREIGN KEY (`id_gudang`) REFERENCES `hd_gudang` (`id_gudang`);
-
---
--- Constraints for table `hd_retur_barang`
+-- Ketidakleluasaan untuk tabel `hd_retur_barang`
 --
 ALTER TABLE `hd_retur_barang`
   ADD CONSTRAINT `hd_retur_barang_ibfk_1` FOREIGN KEY (`id_pemesanan`) REFERENCES `hd_pemesanan` (`id_pemesanan`),
   ADD CONSTRAINT `hd_retur_barang_ibfk_2` FOREIGN KEY (`id_penerimaan`) REFERENCES `hd_penerimaan` (`id_penerimaan`);
 
 --
--- Constraints for table `hd_retur_barang_detail`
+-- Ketidakleluasaan untuk tabel `hd_retur_barang_detail`
 --
 ALTER TABLE `hd_retur_barang_detail`
   ADD CONSTRAINT `hd_retur_barang_detail_ibfk_1` FOREIGN KEY (`id_retur_barang`) REFERENCES `hd_retur_barang` (`id_retur_barang`),
@@ -2200,26 +2343,26 @@ ALTER TABLE `hd_retur_barang_detail`
   ADD CONSTRAINT `hd_retur_barang_detail_ibfk_3` FOREIGN KEY (`id_satuan`) REFERENCES `hd_barang_satuan` (`id_satuan`);
 
 --
--- Constraints for table `hd_stock_opname_detail`
+-- Ketidakleluasaan untuk tabel `hd_stock_opname_detail`
 --
 ALTER TABLE `hd_stock_opname_detail`
   ADD CONSTRAINT `hd_stock_opname_detail_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `hd_barang` (`id_barang`),
   ADD CONSTRAINT `id_stock_opname` FOREIGN KEY (`id_stock_opname`) REFERENCES `hd_stock_opname` (`id_stock_opname`);
 
 --
--- Constraints for table `model_has_permissions`
+-- Ketidakleluasaan untuk tabel `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `model_has_roles`
+-- Ketidakleluasaan untuk tabel `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `role_has_permissions`
+-- Ketidakleluasaan untuk tabel `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,

@@ -10,6 +10,15 @@ Daftar Barang
 		color: #a99342;
 	}
 </style>
+	<div class="upperTable">
+		@can('daftar_barang-create')
+		<a style="margin-right:10px;" href="{{URL::to('administrator/daftar_barang/create')}}">
+			Buat Daftar Barang
+		</a>
+		@endcan
+		<a href="{{URL::to('administrator/daftar_barang/import')}}" style="margin-right:10px;margin-left:10px;">Upload Barang</a>
+		<a href="{{ asset('/template/template.xls') }}" target="_blank" style="margin-left:10px;">Download Template</a>
+	</div>
 	@if ($message = Session::get('success'))
 		<div class="alert alert-success">
 			<p>{{ $message }}</p>
@@ -19,15 +28,6 @@ Daftar Barang
 			<p>{{ $message }}</p>
 		</div>
 	@endif
-	<div class="upperTable">
-		@can('daftar_barang-create')
-			<a style="margin-right:10px;" href="daftar_barang/create">
-				Buat Daftar Barang
-			</a>
-		@endcan
-		<a href="{{URL::to('administrator/daftar_barang/import')}}" style="margin-right:10px;margin-left:10px;">Upload Barang</a>
-		<a href="{{ asset('/template/template.xls') }}" target="_blank" style="margin-left:10px;">Download Template</a>
-	</div>
 	
 	<table class="mdl-data-table" id="myTable" style="width:100%">
 		<thead>
@@ -38,6 +38,7 @@ Daftar Barang
 				<th>Golongan</th>
 				<th>Jenis</th>
 				<th>Stok Minimal</th>
+				<th>Status</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -50,19 +51,20 @@ Daftar Barang
 				<td>{{ $v->nama_golongan}}</td>
 				<td>{{ $v->nama_jenis_barang}}</td>
 				<td>{{ $v->stock_minimal}}</td>
+				<td>{{ $v->status == '1' ? 'Aktif' : 'Tidak Aktif'}}</td>
 				<td>
 						@can('daftar_barang-edit')
 						 <a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang).'/edit')}}">Edit</a> 
 						@endcan
-						@can('daftar_barang-edit')
-						 <form action="{{ route('daftar_barang.update', ['id' => md5($v->id_barang), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data"> 
-						@csrf
-						 {{-- {!! Form::open(['method' => 'post','route' => ['pemesanan.update', $v->id_pemesanan, ],'style'=>'display:inline']) !!}  --}}
-						 <input type="hidden" name="_method" value="PUT"> 
-						 {!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!} 
-						{{--  {!! Form::close() !!}  --}}
-						</form> 
+						@if($v->status == '1')
+						@can('daftar_barang-delete')
+							<form action="{{ route('daftar_barang.update', ['id' => md5($v->id_barang), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data"> 
+							@csrf
+							<input type="hidden" name="_method" value="PUT"> 
+							{!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!} 
+							</form> 
 						@endcan
+						@endif
 					{{--  @if($v->status == '2')  --}}
 					{{-- <a class="riwayat" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang))}}">Log</a> --}}
 					{{--  @endif  --}}
@@ -86,7 +88,7 @@ $(document).ready(function() {
 	"dom": '<"toolbar">frtip',
         columnDefs: [
 			{
-                "targets": 6,
+                "targets": 7,
                 "width": "15%"
             },
 			{

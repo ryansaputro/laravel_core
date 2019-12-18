@@ -217,6 +217,7 @@ class ComposerStaticInit07157f992e37165e5b9e19eb628f3447
         array (
             'Intervention\\Image\\' => 19,
             'Illuminate\\Html\\' => 16,
+            'Illuminate\\Container\\' => 21,
             'Illuminate\\' => 11,
         ),
         'G' => 
@@ -536,6 +537,10 @@ class ComposerStaticInit07157f992e37165e5b9e19eb628f3447
         array (
             0 => __DIR__ . '/..' . '/illuminate/html',
         ),
+        'Illuminate\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/container',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -690,6 +695,7 @@ class ComposerStaticInit07157f992e37165e5b9e19eb628f3447
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Imports\\BarangImport' => __DIR__ . '/../..' . '/app/Imports/BarangImport.php',
         'App\\Model\\Backend\\ArticleMedia' => __DIR__ . '/../..' . '/app/Model/Backend/ArticleMedia.php',
         'App\\Model\\Backend\\Barang' => __DIR__ . '/../..' . '/app/Model/Backend/Barang.php',
         'App\\Model\\Backend\\BarangVendor' => __DIR__ . '/../..' . '/app/Model/Backend/BarangVendor.php',
@@ -1663,11 +1669,11 @@ class ComposerStaticInit07157f992e37165e5b9e19eb628f3447
         'Illuminate\\Console\\Scheduling\\ScheduleFinishCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleFinishCommand.php',
         'Illuminate\\Console\\Scheduling\\ScheduleRunCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Scheduling/ScheduleRunCommand.php',
         'Illuminate\\Console\\Scheduling\\SchedulingMutex' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Scheduling/SchedulingMutex.php',
-        'Illuminate\\Container\\BoundMethod' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Container/BoundMethod.php',
-        'Illuminate\\Container\\Container' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Container/Container.php',
-        'Illuminate\\Container\\ContextualBindingBuilder' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Container/ContextualBindingBuilder.php',
-        'Illuminate\\Container\\EntryNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Container/EntryNotFoundException.php',
-        'Illuminate\\Container\\RewindableGenerator' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Container/RewindableGenerator.php',
+        'Illuminate\\Container\\BoundMethod' => __DIR__ . '/..' . '/illuminate/container/BoundMethod.php',
+        'Illuminate\\Container\\Container' => __DIR__ . '/..' . '/illuminate/container/Container.php',
+        'Illuminate\\Container\\ContextualBindingBuilder' => __DIR__ . '/..' . '/illuminate/container/ContextualBindingBuilder.php',
+        'Illuminate\\Container\\EntryNotFoundException' => __DIR__ . '/..' . '/illuminate/container/EntryNotFoundException.php',
+        'Illuminate\\Container\\RewindableGenerator' => __DIR__ . '/..' . '/illuminate/container/RewindableGenerator.php',
         'Illuminate\\Contracts\\Auth\\Access\\Authorizable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Auth/Access/Authorizable.php',
         'Illuminate\\Contracts\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Auth/Access/Gate.php',
         'Illuminate\\Contracts\\Auth\\Authenticatable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Auth/Authenticatable.php',

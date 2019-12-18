@@ -9,10 +9,10 @@ class FotoBarang extends Model
 {
 
     protected $table = 'hd_barang_foto';
-    protected $primaryKey = 'id_barang_foto';
+    protected $primaryKey = 'ID';
     public $incrementing = true;
     public $timestamps = false;
-    public $fillable = ['id_barang_foto', 'id_barang', 'image'];
+    public $fillable = ['ID', 'id_barang', 'image'];
 
 
 }

@@ -92,9 +92,8 @@ Buat Daftar Barang
 			</ul>
 		</div>
 	@endif
-	{{-- {{ route('daftar_barang.update', ['id_barang' => md5($barang->id_barang)]) }} --}}
-<form action="" class="myform" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="_method" value="PUT">
+<form class="myform" method="post" action="{{ route('daftar_barang.update', ['id' => md5($barang->id_barang)]) }}" enctype="multipart/form-data">
+	<input type="hidden" name="_method" value="PATCH">
 	@csrf
 
 	@if (session('success'))
@@ -105,6 +104,7 @@ Buat Daftar Barang
 
 	<div class="form-group col-xs-3 col-md-3">
         <label for="kode_barang" class="control-label">Kode Barang</label>
+        <input type="hidden" class="form-control" id="kode_barang" value="{{md5($barang->id_barang)}}" required name="id">
         <input type="text" class="form-control" id="kode_barang" value="{{$barang->kode_barang}}" required name="kode_barang">
     </div>
 	<div class="form-group col-xs-3 col-md-3">
@@ -168,7 +168,7 @@ Buat Daftar Barang
 			<div class="input-group">
 				<div class="custom-file">
 					<input type="file" id="inputGroupFile0{{$i}}" name="image[{{$i}}]" onchange="changeImage(this)" data-id="{{$i}}" class="upload-image imgInp custom-file-input" aria-describedby="inputGroupFileAddon0{{$i}}">
-					<label class="custom-file-label-{{$i}}" for="inputGroupFile0{{$i}}">unggah foto</label>
+					<label class="custom-file-label-{{$i}}" for="inputGroupFile0{{$i}}">{{isset($foto[$i-1]->image) ? $foto[$i-1]->image.' (ganti foto)' : 'unggah foto'}}</label>
 				</div>
 			</div>
 		</div>
@@ -198,6 +198,23 @@ Buat Daftar Barang
 	function changeImage(a){
 		id = $(a).attr('data-id'); 
 		readURL(a, id);   
+		var formData = new FormData($('form')[2]);
+				$.ajax({
+					url:"{{ route('daftar_barang.update', ['id' => md5($barang->id_barang)]) }}",
+					method:"POST",
+					data:formData,
+					dataType:'JSON',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success:function(resp)
+					{
+						$.each(resp.data, function(k,v){
+							$('.custom-file-label-'+k).text(v)
+						});
+					}
+				});
+
 	}
 
 
@@ -223,75 +240,5 @@ Buat Daftar Barang
 	}
 	
 
-	function gantiFoto(e){
-		alert("hai")
-		
-	}
-
-	$('#inputGroupFile01').on('input change', function(){
-		alert('has change');
-		$('.myform').attr('action', '{{URL::to("administrator/daftar_barang/ajaxBarangUpdateFoto")}}');
-		var formData = new FormData($('form')[2]);
-			console.log(formData)
-			$.ajax({
-			url:"{{URL::to('administrator/daftar_barang/ajaxBarangUpdateFoto')}}",
-			method:"POST",
-			data:formData,
-			dataType:'JSON',
-			contentType: false,
-			cache: false,
-			processData: false,
-			success:function(data)
-			{
-				console.log(data)
-			}
-			})
-
-	})
-
-	    {{--  $("input[type=file]").change(function(e){
-			e.preventDefault();    
-			var formData = new FormData(this);
-		
-			$.ajax({
-				url: "{{URL::to('administrator/daftar_barang/ajaxBarangUpdateFoto')}}",
-				type: 'POST',
-				data: formData,
-				success: function (data) {
-					alert(data)
-				},
-				cache: false,
-				contentType: false,
-				processData: false
-			});
-			
-			$('.upload-image').on('input', function(){
-				alert("diganti foto")
-			});
-
-		});  --}}
-
-		{{--  $(document).ready(function(){
-			
-			$('.myform').on('submit', function(event){
-			event.preventDefault();
-			var formData = new FormData($('form')[2]);
-			console.log(formData)
-			$.ajax({
-			url:"{{URL::to('administrator/daftar_barang/ajaxBarangUpdateFoto')}}",
-			method:"POST",
-			data:formData,
-			dataType:'JSON',
-			contentType: false,
-			cache: false,
-			processData: false,
-			success:function(data)
-			{
-				console.log(data)
-			}
-			})
-			});
-
-		});  --}}
 </script>
 @endpush

@@ -64,7 +64,8 @@ Route::post('administrator/pemesanan/ajaxBarangRevItem', ['uses' => 'Backend\Pem
 Route::post('administrator/penerimaan/ajaxOrderGetItem', ['uses' => 'Backend\PenerimaanController@ajaxOrderGetItem', 'middleware' => ['permission:pemesanan-list']]);
 Route::get('administrator/daftar_barang/import', ['uses' => 'Backend\DaftarBarangController@import', 'middleware' => ['permission:daftar_barang-list']])->name('daftar_barang.import');
 Route::post('administrator/daftar_barang/import', ['uses' => 'Backend\DaftarBarangController@importStore', 'middleware' => ['permission:daftar_barang-list']])->name('daftar_barang.importStore');
-Route::post('administrator/daftar_barang/ajaxBarangUpdateFoto', ['uses' => 'Backend\DaftarBarangController@ajaxBarangUpdateFoto', 'middleware' => ['permission:daftar_barang-list']]);
+Route::put('administrator/daftar_barang/import', ['uses' => 'Backend\DaftarBarangController@importStore', 'middleware' => ['permission:daftar_barang-list']])->name('daftar_barang.importStore');
+// Route::post('administrator/daftar_barang/ajaxBarangUpdateFoto', ['uses' => 'Backend\DaftarBarangController@ajaxBarangUpdateFoto', 'middleware' => ['permission:daftar_barang-list']]);
 $routesB = DB::table('routes')->select('*')->where('uses_controller', 'LIKE', '%Backend%')->get();
 foreach($routesB as $k => $v){
     Route::resource($v->url, $v->uses_controller);

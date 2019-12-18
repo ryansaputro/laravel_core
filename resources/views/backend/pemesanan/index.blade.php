@@ -10,6 +10,24 @@ Pemesanan
 		color: #a99342;
 	}
 </style>
+	<div class="upperTable">
+		{{--  <div class="col-sm-1">
+			<div class="checkbox">
+				<label>
+						<input type="checkbox" value="">
+						<span class="cr"><i class="cr-icon fa fa-check"></i></span>
+					</label>
+				</div>
+			</div>
+		</div>  --}}
+		@can('pemesanan-create')
+		<a style="margin-right:10px;" href="pemesanan/create">
+			Buat Pesanan
+		</a>
+		@endcan
+		<a href="" style="margin-right:10px;margin-left:10px;">Edit</a>
+		<a href="" style="margin-left:10px;">Hapus</a>
+	</div>
 	@if ($message = Session::get('success'))
 		<div class="alert alert-success">
 			<p>{{ $message }}</p>
@@ -19,24 +37,6 @@ Pemesanan
 			<p>{{ $message }}</p>
 		</div>
 	@endif
-	<div class="upperTable">
-		{{--  <div class="col-sm-1">
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" value="">
-					<span class="cr"><i class="cr-icon fa fa-check"></i></span>
-				</label>
-			</div>
-		</div>
-	</div>  --}}
-		@can('pemesanan-create')
-			<a style="margin-right:10px;" href="pemesanan/create">
-				Buat Pesanan
-			</a>
-		@endcan
-		<a href="" style="margin-right:10px;margin-left:10px;">Edit</a>
-		<a href="" style="margin-left:10px;">Hapus</a>
-	</div>
 	
 	<table class="mdl-data-table" id="myTable" style="width:100%">
 		<thead>

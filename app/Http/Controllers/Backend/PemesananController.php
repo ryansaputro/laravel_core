@@ -131,7 +131,7 @@ class PemesananController extends Controller
             'id_vendor' => 'required',
             'qty' => 'array',
             'qty.*' => 'required',
-            'id_barang' => 'array',
+            // 'id_barang' => 'array',
             'id_barang.*' => 'required',
             'status' => 'required',
         ];

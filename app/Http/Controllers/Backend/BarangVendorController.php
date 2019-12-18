@@ -37,7 +37,7 @@ use App\Imports\BarangImport;
 
 
 
-class DaftarBarangController extends Controller
+class BarangVendorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -71,7 +71,7 @@ class DaftarBarangController extends Controller
 
                 ->orderBy('hd_barang.created_at', 'DESC')
                 ->get();
-        return view('backend.daftar-barang.index', compact('data'));
+        return view('backend.barang-vendor.index', compact('data'));
     }
 
 
@@ -85,7 +85,15 @@ class DaftarBarangController extends Controller
         $satuan = Satuan::where('status','1')->get();
         $golongan = Golongan::where('status','1')->get();
         $jenis = Jenis::where('status','1')->get();
-        return view('backend.daftar-barang.create', compact('golongan', 'jenis', 'satuan'));
+        $barang = DB::table('hd_barang')
+                ->select('hd_barang.*', 'hd_barang_golongan.nama_golongan', 'hd_barang_jenis.nama_jenis_barang')
+                ->join('hd_barang_golongan', 'hd_barang.id_golongan_barang', 'hd_barang_golongan.id_golongan_barang')
+                ->join('hd_barang_jenis', 'hd_barang.id_jenis_barang', 'hd_barang_jenis.id_jenis_barang')
+                ->where('hd_barang.status', '1')
+                ->orderBy('hd_barang.created_at', 'DESC')
+                ->get();
+        $vendor = Vendor::where('status', '1')->get();
+        return view('backend.barang-vendor.create', compact('golongan', 'jenis', 'satuan', 'barang', 'vendor'));
     }
 
 
@@ -195,7 +203,7 @@ class DaftarBarangController extends Controller
      */
     public function import()
     {
-        return view('backend.daftar-barang.import');
+        return view('backend.barang-vendor.import');
     }
 
 
@@ -242,7 +250,7 @@ class DaftarBarangController extends Controller
         $satuan = Satuan::where('status', '1')->get();
         $golongan = Golongan::where('status', '1')->get();
         $jenis = Jenis::where('status', '1')->get();
-        return view('backend.daftar-barang.edit', compact('barang', 'foto', 'satuan', 'golongan', 'jenis'));
+        return view('backend.barang-vendor.edit', compact('barang', 'foto', 'satuan', 'golongan', 'jenis'));
     }
 
     public function update(Request $request, $id)

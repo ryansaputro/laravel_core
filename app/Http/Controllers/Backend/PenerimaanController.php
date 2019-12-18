@@ -136,13 +136,13 @@ class PenerimaanController extends Controller
             'no_pemesanan' => 'required',
             'qty' => 'array',
             'qty.*' => 'required',
-            'id_barang' => 'array',
+            // 'id_barang' => 'array',
             'id_barang.*' => 'required',
             'id_rak' => 'array',
             'id_rak.*' => 'required',
             'no_batch' => 'array',
             'no_batch.*' => 'required',
-            'tanggal_kadaluarsa' => 'array',
+            // 'tanggal_kadaluarsa' => 'array',
             'tanggal_kadaluarsa.*' => 'required',
         ];
 

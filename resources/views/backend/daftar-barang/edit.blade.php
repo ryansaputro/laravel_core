@@ -102,16 +102,16 @@ Buat Daftar Barang
 		</div>
 	@endif
 
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="kode_barang" class="control-label">Kode Barang</label>
         <input type="hidden" class="form-control" id="kode_barang" value="{{md5($barang->id_barang)}}" required name="id">
         <input type="text" class="form-control" id="kode_barang" value="{{$barang->kode_barang}}" required name="kode_barang">
     </div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="nama_barang" class="control-label">Nama Barang</label>
         <input type="text" value='{{$barang->nama_barang}}' class="form-control" id="nama_barang" required name="nama_barang">
     </div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="id_satuan" class="control-label">Satuan</label>
 			<select data-live-search="true" class="form-control" id="id_satuan" required name="id_satuan">
 				<option disabled>-pilih satuan-</option>
@@ -120,7 +120,7 @@ Buat Daftar Barang
 				@endforeach
 			</select>
 	</div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="id_golongan_barang" class="control-label">Golongan</label>
 			<select data-live-search="true" class="form-control" id="id_golongan_barang" required name="id_golongan_barang">
 				<option disabled>-pilih golongan-</option>
@@ -129,16 +129,16 @@ Buat Daftar Barang
 				@endforeach
 			</select>
 	</div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="stock_minimal" class="control-label">Stok Minimal</label>
         <input type="number" value='{{$barang->stock_minimal}}' class="form-control" id="stock_minimal" required name="stock_minimal">
     </div>
 	<div class="vl"></div>
-    <div class="form-group col-xs-3 col-md-3">
+    <div class="form-group col-md-3">
 		<label for="dibuat_oleh" class="control-label">Dibuat Oleh</label>
         <input type="text" value='{{$barang->name}}' readonly class="form-control" id="dibuat_oleh_receive" placeholder="dibuat_oleh">
     </div>
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group  col-md-6">
 		<label for="id_jenis_barang" class="control-label">Jenis Barang</label>
 			<select data-live-search="true" class="form-control" id="id_jenis_barang" required name="id_jenis_barang">
 				<option disabled selected>-pilih jenis barang-</option>
@@ -147,7 +147,7 @@ Buat Daftar Barang
 				@endforeach
 			</select>
 	</div>
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group  col-md-6">
 		<label for="status" class="control-label">Status</label>
 			<select data-live-search="true" class="form-control" id="status" required name="status">
 				<option disabled selected>-pilih status-</option>
@@ -156,14 +156,14 @@ Buat Daftar Barang
 			</select>
 
 	</div>
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group  col-md-6">
 		<label for="status" class="control-label">Deskripsi</label>
 		<textarea class="form-control" id="deskripsi" name="deskripsi">{{$barang->deskripsi}}</textarea>
 	</div>
 
-	<div class="form-group col-xs-12 col-md-12">
+	<div class="form-group  col-md-12">
 		@for($i=1; $i<=3; $i++)
-		<div class="form-group col-xs-4 col-md-4">
+		<div class="form-group col-md-4">
 			<div class="img_contain" id='img_contain{{$i}}' style="background-image:url({{isset($foto[$i-1]->image) ? asset('images/list-barang/'.$foto[$i-1]->image) : 'https://image.flaticon.com/icons/png/512/994/994920.png'}})"></div>
 			<div class="input-group">
 				<div class="custom-file">

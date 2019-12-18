@@ -28,51 +28,52 @@ Daftar Barang
 			<p>{{ $message }}</p>
 		</div>
 	@endif
-	
-	<table class="mdl-data-table" id="myTable" style="width:100%">
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>Kode Barang</th>
-				<th>Nama Barang</th>
-				<th>Golongan</th>
-				<th>Jenis</th>
-				<th>Stok Minimal</th>
-				<th>Status</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach ($data as $key => $v)
-			<tr data-id="{{$key+1}}" class="tdAction">
-				<td>{{ $key+1}}</td>
-				<td>{{ $v->kode_barang}}</td>
-				<td>{{ $v->nama_barang}}</td>
-				<td>{{ $v->nama_golongan}}</td>
-				<td>{{ $v->nama_jenis_barang}}</td>
-				<td>{{ $v->stock_minimal}}</td>
-				<td>{{ $v->status == '1' ? 'Aktif' : 'Tidak Aktif'}}</td>
-				<td>
-						@can('daftar_barang-edit')
-						 <a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang).'/edit')}}">Edit</a> 
-						@endcan
-						@if($v->status == '1')
-						@can('daftar_barang-delete')
-							<form action="{{ route('daftar_barang.update', ['id' => md5($v->id_barang), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data"> 
-							@csrf
-							<input type="hidden" name="_method" value="PUT"> 
-							{!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!} 
-							</form> 
-						@endcan
-						@endif
-					{{--  @if($v->status == '2')  --}}
-					{{-- <a class="riwayat" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang))}}">Log</a> --}}
-					{{--  @endif  --}}
-				</td>
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="mdl-data-table" id="myTable" style="width:100%">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Kode Barang</th>
+					<th>Nama Barang</th>
+					<th>Golongan</th>
+					<th>Jenis</th>
+					<th>Stok Minimal</th>
+					<th>Status</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach ($data as $key => $v)
+				<tr data-id="{{$key+1}}" class="tdAction">
+					<td>{{ $key+1}}</td>
+					<td>{{ $v->kode_barang}}</td>
+					<td>{{ $v->nama_barang}}</td>
+					<td>{{ $v->nama_golongan}}</td>
+					<td>{{ $v->nama_jenis_barang}}</td>
+					<td>{{ $v->stock_minimal}}</td>
+					<td>{{ $v->status == '1' ? 'Aktif' : 'Tidak Aktif'}}</td>
+					<td>
+							@can('daftar_barang-edit')
+							<a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang).'/edit')}}">Edit</a> 
+							@endcan
+							@if($v->status == '1')
+							@can('daftar_barang-delete')
+								<form action="{{ route('daftar_barang.update', ['id' => md5($v->id_barang), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data"> 
+								@csrf
+								<input type="hidden" name="_method" value="PUT"> 
+								{!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!} 
+								</form> 
+							@endcan
+							@endif
+						{{--  @if($v->status == '2')  --}}
+						{{-- <a class="riwayat" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang))}}">Log</a> --}}
+						{{--  @endif  --}}
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 @endsection
 
 @push('scripts')

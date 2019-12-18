@@ -35,16 +35,16 @@ Buat Pesanan
 		</div>
 	@endif
 
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="no_pemesanan" class="control-label">No Pemesanan</label>
         <input type="text" value='{{$no_pemesanan}}' class="form-control" id="no_pemesanan" required name="no_pemesanan">
     </div>
-    <div class="form-group col-xs-3 col-md-3"  style="border-right: 2px solid #ddd;">
+    <div class="form-group col-md-3"  style="border-right: 2px solid #ddd;">
         <label for="dibuat_tgl" class="control-label">Tanggal Pemesanan</label>
         <input type="date" value="{{old('dibuat_tanggal')}}" class="form-control" id="dibuat_tgl" required name="dibuat_tgl">
 	</div>
 	<div class="vl"></div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="id_vendor" class="control-label">Vendor</label>
 		<div class="input-group">
 			<select data-live-search="true" class="form-control" id="id_vendor" required name="id_vendor" onchange="vendorSelect(this)">
@@ -56,26 +56,26 @@ Buat Pesanan
 			<span class="input-group-addon" ddata-toggle="tooltip" data-placement="right" title="klik untuk mengganti vendor" style="border-left: 1px solid #ddd;"><a class="refresh" style="color:red;" href="#id_vendor" onclick="ChangeVendor(this)"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
 		</div>
     </div>
-    <div class="form-group col-xs-3 col-md-3">
+    <div class="form-group col-md-3">
         <label for="id_barang" class="control-label">Nama Barang</label>
 		<select data-live-search="true" class="form-control" id="id_barang" onchange="BarangSelect(this)" required name="id_barang">
 			<option disabled selected>-pilih barang-</option>
 		</select>
 
     </div>
-    <div class="form-group col-xs-6 col-md-6">
+    <div class="form-group col-md-6">
 		<label for="dibuat_oleh" class="control-label">Dibuat Oleh</label>
         <input type="text" value='{{Auth::user()->name}}' readonly class="form-control" id="dibuat_oleh" placeholder="dibuat_oleh">
     </div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="qty" class="control-label">Jumlah Pemesanan</label>
 		<input type="number" value='' class="form-control" id="qty" required name="qty">
 	</div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="id_satuan" class="control-label">Satuan</label>
 		<input type="text" value='' readonly class="form-control" id="id_satuan" placeholder="id_satuan">
 	</div>
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group col-md-6">
 		<label for="name" class="control-label">Status</label>
 		<select class="form-control" id="status" required name="status">
 			<option disabled selected>-pilih status-</option>
@@ -83,39 +83,41 @@ Buat Pesanan
 			<option value="6">draft</option>
 		</select>
 	</div>
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group col-md-6">
 		<label for="harga" class="control-label">Harga</label>
 		<div class="input-group">
 			<input type="number" readonly value='' class="form-control" id="harga" placeholder="harga">
 			<span class="input-group-addon" ddata-toggle="tooltip" data-placement="right" title="klik untuk merubah harga" style="border-left: 1px solid #ddd;"><a class="rubahHarga" style="color:red;" href="#harga"  onclick="changeHarga(this)"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
 		</div>
 	</div>
-	<div class="form-group col-xs-6 col-md-6" style="float:right;">
+	<div class="form-group col-md-6" style="float:right;">
 		<a class="btn btn-primary btn-block AddItemtoList" onclick="AddItemtoList(this)">Masukkan ke daftar barang</a>
 	</div>
 
-	<div class="form-group col-xs-6 col-md-6" style="float:right;">
+	<div class="form-group col-md-6" style="float:right;">
 		<label for="catatan" class="control-label">Catatan</label>
 		<input type="text" value='' class="form-control" id="catatan" required name="catatan">
 	</div>
 
-	<div class="form-group col-xs-12 col-md-12">
+	<div class="form-group col-md-12">
 		<label for="name" class="control-label">Daftar Barang</label>
-		<table class="table table-stripped listItem">
-			<thead>
-				<tr>
-					<th>Nama</th>
-					<th width="20%">Jumlah</th>
-					<th>Satuan</th>
-					<th width="20%">Harga</th>
-					<th width="20%">Catatan</th>
-					<th>Aksi</th>
-				</tr>
-			</thead>
-			<tbody class="allItem">
+			<div class="table-responsive">
+				<table class="table table-stripped listItem">
+					<thead>
+						<tr>
+							<th>Nama</th>
+							<th width="20%">Jumlah</th>
+							<th>Satuan</th>
+							<th width="20%">Harga</th>
+							<th width="20%">Catatan</th>
+							<th>Aksi</th>
+						</tr>
+					</thead>
+					<tbody class="allItem">
 
-			</tbody>
-		</table>
+					</tbody>
+				</table>
+			</div>
 	</div>
 
 	<div class="row">

@@ -32,16 +32,16 @@ Buat Penerimaan
 		</div>
 	@endif
 
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="no_penerimaan" class="control-label">No Penerimaan</label>
         <input type="text" value='{{$no_penerimaan}}' class="form-control" id="no_penerimaan" required name="no_penerimaan">
     </div>
-    <div class="form-group col-xs-3 col-md-3"  style="border-right: 2px solid #ddd;">
+    <div class="form-group col-md-3"  style="border-right: 2px solid #ddd;">
         <label for="dibuat_tgl" class="control-label">Tanggal Penerimaan</label>
         <input type="date" value="{{date('Y-m-d')}}" readonly class="form-control" id="dibuat_tgl_penerimaan" required name="dibuat_tgl">
 	</div>
 	<div class="vl"></div>
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group  col-md-6">
 		<label for="no_pemesanan" class="control-label">No Pemesanan</label>
 			<select data-live-search="true" class="form-control" id="no_pemesanan" required name="no_pemesanan" onchange="PesananSelect(this)">
 				<option disabled selected>-pilih no pemesanan-</option>
@@ -50,55 +50,57 @@ Buat Penerimaan
 				@endforeach
 			</select>
     </div>
-    <div class="form-group col-xs-3 col-md-3">
+    <div class="form-group col-md-3">
 		<label for="no_faktur" class="control-label">No Faktur</label>
         <input type="text" value='' required name="no_faktur" class="form-control" id="no_faktur" placeholder="no_faktur">
     </div>
-    <div class="form-group col-xs-3 col-md-3">
+    <div class="form-group col-md-3">
 		<label for="dibuat_oleh" class="control-label">Dibuat Oleh</label>
         <input type="text" value='{{Auth::user()->name}}' readonly class="form-control" id="dibuat_oleh_receive" placeholder="dibuat_oleh">
     </div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="dibuat_tgl" class="control-label">Tanggal Pemesanan</label>
 		<input type="text" value='' readonly class="form-control" id="dibuat_tgl" required name="dibuat_tgl">
 	</div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="dibuat_oleh" class="control-label">Dibuat Oleh</label>
 		<input type="text" value='' readonly class="form-control" id="dibuat_oleh" placeholder="dibuat_oleh">
 	</div>
-		<div class="form-group col-xs-6 col-md-6">
+		<div class="form-group  col-md-6">
 		<label for="catatan" class="control-label">Catatan</label>
 		<input type="text" value='' class="form-control" id="catatan" required name="catatan">
 	</div>
 
-	<div class="form-group col-xs-6 col-md-6">
+	<div class="form-group  col-md-6">
 		<label for="id_vendor" class="control-label">Vendor</label>
 			<input type="text" readonly value='' class="form-control" id="id_vendor" placeholder="id_vendor">
 	</div>
-	<div class="form-group col-xs-6 col-md-6" style="float:right;">
+	<div class="form-group  col-md-6" style="float:right;">
 		<a class="btn btn-primary btn-block AddItemtoList">Tampilkan ke daftar barang</a>
 	</div>
 
-
-	<div class="form-group col-xs-12 col-md-12">
+	
+	<div class="form-group col-md-12">
 		<label for="name" class="control-label">Daftar Barang</label>
-		<table class="table table-stripped listItem">
-			<thead>
-				<tr>
-					<th>Nama</th>
-					<th>Jumlah</th>
-					<th>Satuan</th>
-					<th>Harga</th>
-					<th>Catatan</th>
-					<th>Rak</th>
-					<th>No Batch</th>
-					<th>Tanggal Kadaluarsa</th>
-				</tr>
-			</thead>
-			<tbody class="allItem">
+		<div class="table-responsive">
+			<table class="table table-stripped listItem">
+				<thead>
+					<tr>
+						<th>Nama</th>
+						<th>Jumlah</th>
+						<th>Satuan</th>
+						<th>Harga</th>
+						<th>Catatan</th>
+						<th>Rak</th>
+						<th>No Batch</th>
+						<th>Tanggal Kadaluarsa</th>
+					</tr>
+				</thead>
+				<tbody class="allItem">
 
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<div class="row">

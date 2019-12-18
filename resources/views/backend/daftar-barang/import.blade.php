@@ -52,7 +52,7 @@ Import  Barang
 		<strong>Info!</strong> Format harus berekstensi (.xls) atau (.xlsx).
 	</div>
 
-	<div class="form-group col-xs-12 col-md-12">
+	<div class="form-group  col-md-12">
 		<p style="position: absolute;margin-top:0px;">Telusuri komputer Anda: </p><input type="file" required style="margin-left: 200px;" name="import_file" class=""> <p  style="position: absolute;margin-top: -22px;margin-left: 450px;">(Batas ukuran: 2 Mb)</p>
 	</div>
 	<div class="col-lg-12 margin-tb">
@@ -62,7 +62,7 @@ Import  Barang
 		</div>
 	</div>
 
-	<div class="form-group col-xs-12 col-md-12">
+	<div class="form-group  col-md-12">
 		<p>Usahakan ketika sedang mengupload tidak keluar dari halaman agar barang terupload dengan sempurna.</p>
 	</div>
 </form>

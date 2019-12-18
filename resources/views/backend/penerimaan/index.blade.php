@@ -28,48 +28,50 @@ Penerimaan
 			<p>{{ $message }}</p>
 		</div>
 	@endif
-	<table class="mdl-data-table" id="myTable" style="width:100%">
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>Tanggal</th>
-				<th>No Penerimaan</th>
-				<th>No Pemesanan</th>
-				<th>No Faktur</th>
-				<th>Diterima Oleh</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach ($data as $key => $v)
-			<tr data-id="{{$key+1}}" class="tdAction">
-				<td>{{ $key+1}}</td>
-				<td>{{ $v->tanggal_penerimaan}}</td>
-				<td>{{ $v->no_penerimaan}}</td>
-				<td>{{ $v->no_pemesanan}}</td>
-				<td>{{ $v->no_faktur}}</td>
-				<td>{{ $v->name}}</td>
-				<td>
-						@can('penerimaan-edit')
-						{{--  <a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/pemesanan/'.md5($v->id_pemesanan).'/edit')}}">Edit</a>  --}}
-						@endcan
-						@can('penerimaan-delete')
-						{{--  <form action="{{ route('pemesanan.update', ['id' => md5($v->id_pemesanan), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data">  --}}
-						@csrf
-						{{--  {!! Form::open(['method' => 'post','route' => ['pemesanan.update', $v->id_pemesanan, ],'style'=>'display:inline']) !!}  --}}
-						{{--  <input type="hidden" name="_method" value="PUT">  --}}
-						{{--  {!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!}  --}}
-						{{--  {!! Form::close() !!}  --}}
-						{{--  </form>  --}}
-						@endcan
-					{{--  @if($v->status == '2')  --}}
-					<a class="riwayat" style="display:none;" href="{{URL::to('administrator/penerimaan/'.md5($v->id_pemesanan))}}">Log</a>
-					{{--  @endif  --}}
-				</td>
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="mdl-data-table" id="myTable" style="width:100%">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Tanggal</th>
+					<th>No Penerimaan</th>
+					<th>No Pemesanan</th>
+					<th>No Faktur</th>
+					<th>Diterima Oleh</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach ($data as $key => $v)
+				<tr data-id="{{$key+1}}" class="tdAction">
+					<td>{{ $key+1}}</td>
+					<td>{{ $v->tanggal_penerimaan}}</td>
+					<td>{{ $v->no_penerimaan}}</td>
+					<td>{{ $v->no_pemesanan}}</td>
+					<td>{{ $v->no_faktur}}</td>
+					<td>{{ $v->name}}</td>
+					<td>
+							@can('penerimaan-edit')
+							{{--  <a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/pemesanan/'.md5($v->id_pemesanan).'/edit')}}">Edit</a>  --}}
+							@endcan
+							@can('penerimaan-delete')
+							{{--  <form action="{{ route('pemesanan.update', ['id' => md5($v->id_pemesanan), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data">  --}}
+							@csrf
+							{{--  {!! Form::open(['method' => 'post','route' => ['pemesanan.update', $v->id_pemesanan, ],'style'=>'display:inline']) !!}  --}}
+							{{--  <input type="hidden" name="_method" value="PUT">  --}}
+							{{--  {!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!}  --}}
+							{{--  {!! Form::close() !!}  --}}
+							{{--  </form>  --}}
+							@endcan
+						{{--  @if($v->status == '2')  --}}
+						<a class="riwayat" style="display:none;" href="{{URL::to('administrator/penerimaan/'.md5($v->id_pemesanan))}}">Log</a>
+						{{--  @endif  --}}
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 @endsection
 
 @push('scripts')

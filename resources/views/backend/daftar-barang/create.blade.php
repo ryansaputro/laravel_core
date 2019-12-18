@@ -100,15 +100,15 @@ Buat Daftar Barang
 		</div>
 	@endif
 
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="kode_barang" class="control-label">Kode Barang</label>
         <input type="text" value='' class="form-control" id="kode_barang" required name="kode_barang">
     </div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="nama_barang" class="control-label">Nama Barang</label>
         <input type="text" value='' class="form-control" id="nama_barang" required name="nama_barang">
     </div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="id_satuan" class="control-label">Satuan</label>
 			<select data-live-search="true" class="form-control" id="id_satuan" required name="id_satuan">
 				<option disabled selected>-pilih satuan-</option>
@@ -117,7 +117,7 @@ Buat Daftar Barang
 				@endforeach
 			</select>
 	</div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
 		<label for="id_golongan_barang" class="control-label">Golongan</label>
 			<select data-live-search="true" class="form-control" id="id_golongan_barang" required name="id_golongan_barang">
 				<option disabled selected>-pilih golongan-</option>
@@ -126,12 +126,12 @@ Buat Daftar Barang
 				@endforeach
 			</select>
 	</div>
-	<div class="form-group col-xs-3 col-md-3">
+	<div class="form-group col-md-3">
         <label for="stock_minimal" class="control-label">Stok Minimal</label>
         <input type="number" value='' class="form-control" id="stock_minimal" required name="stock_minimal">
     </div>
 	<div class="vl"></div>
-    <div class="form-group col-xs-3 col-md-3">
+    <div class="form-group col-md-3">
 		<label for="dibuat_oleh" class="control-label">Dibuat Oleh</label>
         <input type="text" value='{{Auth::user()->name}}' readonly class="form-control" id="dibuat_oleh_receive" placeholder="dibuat_oleh">
     </div>
@@ -158,9 +158,9 @@ Buat Daftar Barang
 		<textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
 	</div>
 
-	<div class="form-group col-xs-12 col-md-12">
+	<div class="form-group col-md-12">
 		@for($i=1; $i<=3; $i++)
-		<div class="form-group col-xs-4 col-md-4">
+		<div class="form-groupcol-md-4">
 			<div class="img_contain" id='img_contain{{$i}}' style="background-image:url('https://image.flaticon.com/icons/png/512/994/994920.png')"></div>
 			<div class="input-group">
 				<div class="custom-file">

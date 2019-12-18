@@ -3875,7 +3875,7 @@ fieldset[disabled] .btn-neutral.active {
     padding-bottom: 10px;
     margin-bottom: 10px;
     margin-left: -15px;
-    width: 1056px;
+    width: 100%;
     padding-left: 30px;
     color: #827877;
 }

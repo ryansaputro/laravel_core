@@ -11,13 +11,13 @@ Barang Vendor
 	}
 </style>
 	<div class="upperTable">
-		@can('daftar_barang-create')
+		@can('barang_vendor-create')
 		<a style="margin-right:10px;" href="{{URL::to('administrator/barang_vendor/create')}}">
 			Buat Barang Vendor
 		</a>
 		@endcan
-		<a href="{{URL::to('administrator/daftar_barang/import')}}" style="margin-right:10px;margin-left:10px;">Upload Barang</a>
-		<a href="{{ asset('/template/template.xls') }}" target="_blank" style="margin-left:10px;">Download Template</a>
+		{{--  <a href="{{URL::to('administrator/barang_vendor/import')}}" style="margin-right:10px;margin-left:10px;">Upload Barang</a>  --}}
+		{{--  <a href="{{ asset('/template/template.xls') }}" target="_blank" style="margin-left:10px;">Download Template</a>  --}}
 	</div>
 	@if ($message = Session::get('success'))
 		<div class="alert alert-success">
@@ -33,11 +33,12 @@ Barang Vendor
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Kode Barang</th>
+					<th>Vendor</th>
 					<th>Nama Barang</th>
-					<th>Golongan</th>
-					<th>Jenis</th>
-					<th>Stok Minimal</th>
+					<th>Qty</th>
+					<th>Satuan</th>
+					<th>Harga Beli</th>
+					<th>Harga Jual</th>
 					<th>Status</th>
 					<th></th>
 				</tr>
@@ -46,19 +47,20 @@ Barang Vendor
 				@foreach ($data as $key => $v)
 				<tr data-id="{{$key+1}}" class="tdAction">
 					<td>{{ $key+1}}</td>
-					<td>{{ $v->kode_barang}}</td>
+					<td>{{ $v->nama_vendor}}</td>
 					<td>{{ $v->nama_barang}}</td>
-					<td>{{ $v->nama_golongan}}</td>
-					<td>{{ $v->nama_jenis_barang}}</td>
-					<td>{{ $v->stock_minimal}}</td>
+					<td>{{ $v->qty}}</td>
+					<td>{{ $v->nama_satuan}}</td>
+					<td>{{ $v->harga_beli}}</td>
+					<td>{{ $v->harga_jual}}</td>
 					<td>{{ $v->status == '1' ? 'Aktif' : 'Tidak Aktif'}}</td>
 					<td>
-							@can('daftar_barang-edit')
-							 <a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang).'/edit')}}">Edit</a> 
+							@can('barang_vendor-edit')
+							 <a class="edit" id="{{$key+1}}" style="display:none;" href="{{URL::to('administrator/barang_vendor/'.md5($v->id_barang_vendor).'/edit')}}">Edit</a> 
 							@endcan
 							@if($v->status == '1')
 							@can('daftar_barang-delete')
-								<form action="{{ route('daftar_barang.update', ['id' => md5($v->id_barang), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data"> 
+								<form action="{{ route('barang_vendor.update', ['id' => md5($v->id_barang_vendor), 'key' => 'delete']) }}" class="myform" method="post" style="display:inline;" enctype="multipart/form-data"> 
 								@csrf
 								<input type="hidden" name="_method" value="PUT"> 
 								{!! Form::submit('Delete', ['class' => 'btn btn-default', 'style' => 'display:none;border: none;background: none;', 'id' => $key+1, 'class' => 'action']) !!} 
@@ -66,7 +68,7 @@ Barang Vendor
 							@endcan
 							@endif
 						{{--  @if($v->status == '2')  --}}
-						{{-- <a class="riwayat" style="display:none;" href="{{URL::to('administrator/daftar_barang/'.md5($v->id_barang))}}">Log</a> --}}
+						{{-- <a class="riwayat" style="display:none;" href="{{URL::to('administrator/barang_vendor/'.md5($v->id_barang))}}">Log</a> --}}
 						{{--  @endif  --}}
 					</td>
 				</tr>
@@ -89,7 +91,7 @@ $(document).ready(function() {
 	"dom": '<"toolbar">frtip',
         columnDefs: [
 			{
-                "targets": 7,
+                "targets": 8,
                 "width": "15%"
             },
 			{

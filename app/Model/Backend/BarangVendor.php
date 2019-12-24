@@ -12,7 +12,7 @@ class BarangVendor extends Model
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = true;
-    public $fillable = ['id', 'id_barang', 'id_vendor', 'id_satuan', 'qty', 'harga_beli', 'harga_jual', 'tanggal_kadaluarsa', 'dibuat_oleh', 'created_at', 'updated_at'];
+    public $fillable = ['id', 'id_barang', 'id_vendor', 'id_satuan', 'qty', 'harga_beli', 'harga_jual', 'tanggal_kadaluarsa', 'status',  'dibuat_oleh', 'created_at', 'updated_at'];
 
 
 }

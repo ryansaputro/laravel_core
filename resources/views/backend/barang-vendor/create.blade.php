@@ -103,7 +103,7 @@ Buat Daftar Barang
 			</ul>
 		</div>
 	@endif
-<form action="{{ route('daftar_barang.store') }}" class="myform" method="post" enctype="multipart/form-data">
+<form action="{{ route('barang_vendor.store') }}" class="myform" method="post" enctype="multipart/form-data">
 	@csrf
 	@if (session('success'))
 		<div class="alert alert-success">
@@ -114,22 +114,20 @@ Buat Daftar Barang
 <table class="table mdl-data-table">
 	<thead>
 		<tr>
-			<th>No</th>
 			<th>Barang</th>
 			<th>Vendor</th>
 			<th>Satuan</th>
 			<th>Qty</th>
 			<th>Harga Beli</th>
 			<th>Harga Jual</th>
-			<th>Tanggal Kadaluarsa</th>
-			<th>Tambah</th>
+			<th>Status</th>
+			<th>Aksi</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr class="tr_clone">
-			<td>1</td>
+		<tr class="tr_clone" data-id="1">
 			<td>
-			<select data-live-search="true" class="form-control" id="id_barang" required name="id_barang">
+			<select data-live-search="true" class="form-control" id="id_barang" required name="id_barang[]">
 				<option disabled selected>-pilih barang-</option>
 				@foreach($barang AS $k => $v)
 				<option value="{{$v->id_barang}}">{{$v->nama_barang}} ({{$v->kode_barang}})</option>
@@ -137,7 +135,7 @@ Buat Daftar Barang
 			</select>
 			</td>
 			<td>
-				<select data-live-search="true" class="form-control" id="id_vendor" required name="id_vendor" onchange="vendorSelect(this)">
+				<select data-live-search="true" class="form-control" id="id_vendor" required name="id_vendor[]">
 					<option disabled selected>-pilih vendor-</option>
 					@foreach($vendor AS $k => $v)
 					<option value="{{$v->id_vendor}}">{{$v->nama_vendor}}</option>
@@ -145,7 +143,7 @@ Buat Daftar Barang
 				</select>
 			</td>
 			<td>
-				<select data-live-search="true" class="form-control" id="id_satuan" required name="id_satuan">
+				<select data-live-search="true" class="form-control" id="id_satuan" required name="id_satuan[]">
 					<option disabled selected>-pilih satuan-</option>
 					@foreach($satuan AS $k => $v)
 					<option value="{{$v->id_satuan}}">{{$v->nama_satuan}}({{$v->kode_satuan}})</option>
@@ -153,28 +151,34 @@ Buat Daftar Barang
 				</select>
 			</td>
 			<td>
-				<input type="number" value='' class="form-control" id="qty" required name="qty">
+				<input type="number" value='' class="form-control" id="qty" required name="qty[]">
 			</td>
 			<td>
-				<input type="number" value='' class="form-control" id="harga_beli" required name="harga_beli">
+				<input type="number" value='' class="form-control" id="harga_beli" required name="harga_beli[]">
 			</td>
 			<td>
-				<input type="number" value='' class="form-control" id="harga_jual" required name="harga_jual">
+				<input type="number" value='' class="form-control" id="harga_jual" required name="harga_jual[]">
 			</td>
 			<td>
-				<input type="number" value='' class="form-control" id="tanggal_kadaluarsa" required name="tanggal_kadaluarsa">
+				<select class="form-control" id="status" required name="status[]">
+					<option value="1">Aktif</option>
+					<option value="0">Tidak Aktif</option>
+				</select>
 			</td>
-			<td>
-				<a class="btn btn-warning tr_clone_add">Tambah Daftar</a>
+			{{--  <td>
+				<input type="number" value='' class="form-control" id="tanggal_kadaluarsa" required name="tanggal_kadaluarsa[]">
+			</td>  --}}
+			<td class="aksi">
+				
 			</td>
 		</tr>
 	</tbody>
-
 </table>
 	<div class="row">
-	    <div class="col-lg-12 margin-tb" style="position: fixed;right: 0px;width: 300px;padding: 10px;margin-top: 70px;">
+	    <div class="col-lg-12 margin-tb">
 	        <div class="pull-right">
-				<a class="btn btn-primary" href="{{ route('daftar_barang.index') }}"> Batalkan</a>
+				<a class="btn btn-warning tr_clone_add">Tambah Daftar</a>
+				<a class="btn btn-danger" href="{{ route('daftar_barang.index') }}"> Batalkan</a>
 				<button type="submit" class="btn btn-primary submit">Simpan</button>
 	        </div>
 	    </div>
@@ -218,8 +222,8 @@ Buat Daftar Barang
 	}
 
 	function vendorSelect(a){
-		$(a).attr('readonly', 'readonly');
-		$(a).attr('disabled', true);
+		{{--  $(a).attr('readonly', 'readonly');  --}}
+		{{--  $(a).attr('disabled', true);  --}}
 	}
 
 	function ChangeVendor(a){
@@ -232,15 +236,29 @@ Buat Daftar Barang
 		$('#id_vendor').prop('selectedIndex',0);
 		$('.allItem tr').remove();
 		$('#id_vendor').removeAttr('readonly');
-		$('#id_vendor').attr('disabled', false);
+		{{--  $('#id_vendor').attr('disabled', false);  --}}
 	}	
 
 	$(".tr_clone_add").on('click', function() {
-		var $tr    = $(this).closest('.tr_clone');
-		console.log($tr)
-		var $clone = $tr.clone();
-		$clone.find(':text').val('');
+		var getId = $('.tr_clone').last().attr('data-id');
+		var no = parseInt(getId)+1;
+		var $tr    = $('.tr_clone').last();
+		var $clone = $tr.clone().attr('data-id',no).attr('id', 'tr_'+no).attr('value', '');
+		var aksi = '<a class="btn btn-danger btn-sm hapus" data-id="'+no+'" onclick="hapusRow(this)">Hapus</a>';
 		$tr.after($clone);
+		$('.tr_clone').last().find('td.aksi').html(aksi);
 	});
+
+	$(document).ready(function(){
+		if($('.tr_clone').last().find('td.no').text() == '1'){
+			$('.tr_clone').last().find('td.aksi').html("-");
+		}
+
+	});
+
+	function hapusRow(a){
+		var id = $(a).attr('data-id');
+		$('#tr_'+id).remove();
+	}
 </script>
 @endpush

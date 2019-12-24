@@ -160,7 +160,7 @@ Buat Daftar Barang
 
 	<div class="form-group col-md-12">
 		@for($i=1; $i<=3; $i++)
-		<div class="form-groupcol-md-4">
+		<div class="form-group col-md-4">
 			<div class="img_contain" id='img_contain{{$i}}' style="background-image:url('https://image.flaticon.com/icons/png/512/994/994920.png')"></div>
 			<div class="input-group">
 				<div class="custom-file">

@@ -88,6 +88,7 @@ class PemesananController extends Controller
         $data = DB::table('v_barang_vendor')
                 ->select('*')
                 ->where('id_vendor', $request->data)
+                ->where('status', '1')
                 ->get();
         return response()->json(["status" => 200, 'data' => $data]);
     }
@@ -97,6 +98,7 @@ class PemesananController extends Controller
         $data = DB::table('v_barang_vendor')
                 ->select('*')
                 ->where('id_barang', $request->data)
+                ->where('status', '1')
                 ->get();
         return response()->json(["status" => 200, 'data' => $data]);
     }

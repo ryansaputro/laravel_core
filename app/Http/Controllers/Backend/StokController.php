@@ -37,7 +37,7 @@ use App\Imports\BarangImport;
 
 
 
-class BarangVendorController extends Controller
+class StokController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -60,21 +60,39 @@ class BarangVendorController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index()
     {
         
         $data = DB::table('hd_barang')
-                ->select('hd_vendor.nama_vendor', 'hd_barang.*', 'hd_barang_golongan.nama_golongan', 'hd_barang_jenis.nama_jenis_barang', 'hd_barang_vendor.id AS id_barang_vendor', 'hd_barang_vendor.harga_beli', 'hd_barang_vendor.qty', 'hd_barang_vendor.harga_jual', 'hd_barang_satuan.nama_satuan')
+                ->select('hd_stock.*', 'hd_barang.stock_minimal', 'hd_barang.nama_barang', 'hd_barang_golongan.nama_golongan', 'hd_barang_jenis.nama_jenis_barang','hd_barang_satuan.nama_satuan', DB::raw('SUM(hd_stock.qty) AS stok'))
                 ->join('hd_barang_golongan', 'hd_barang.id_golongan_barang', 'hd_barang_golongan.id_golongan_barang')
                 ->join('hd_barang_jenis', 'hd_barang.id_jenis_barang', 'hd_barang_jenis.id_jenis_barang')
                 ->join('hd_barang_satuan', 'hd_barang.id_satuan', 'hd_barang_satuan.id_satuan')
                 ->join('hd_barang_vendor', 'hd_barang.id_barang', 'hd_barang_vendor.id_barang')
-                ->join('hd_vendor', 'hd_vendor.id_vendor', 'hd_barang_vendor.id_vendor')
-                ->where('hd_barang_vendor.status', '1')
+                ->join('hd_stock', 'hd_stock.id_barang', '=', 'hd_barang.id_barang')
+                ->orderBy('hd_barang.created_at', 'DESC')
+                ->orderBy('hd_barang.id_barang', 'DESC')
+                ->groupBy('hd_stock.id_barang')
+                ->get();
+        return view('backend.stok.index', compact('data'));
+    }
 
+
+    public function detail($id)
+    {
+        
+        $data = DB::table('hd_barang')
+                ->select('hd_vendor.nama_vendor', 'hd_stock.*', 'hd_barang.stock_minimal', 'hd_barang.nama_barang', 'hd_barang_golongan.nama_golongan', 'hd_barang_jenis.nama_jenis_barang','hd_barang_satuan.nama_satuan')
+                ->join('hd_barang_golongan', 'hd_barang.id_golongan_barang', 'hd_barang_golongan.id_golongan_barang')
+                ->join('hd_barang_jenis', 'hd_barang.id_jenis_barang', 'hd_barang_jenis.id_jenis_barang')
+                ->join('hd_barang_satuan', 'hd_barang.id_satuan', 'hd_barang_satuan.id_satuan')
+                ->join('hd_barang_vendor', 'hd_barang.id_barang', 'hd_barang_vendor.id_barang')
+                ->join('hd_vendor', 'hd_barang_vendor.id_vendor', 'hd_vendor.id_vendor')
+                ->join('hd_stock', 'hd_stock.id_barang', '=', 'hd_barang.id_barang')
+                ->where(DB::raw('md5(hd_stock.id_barang)'), $id)
                 ->orderBy('hd_barang.created_at', 'DESC')
                 ->get();
-        return view('backend.barang-vendor.index', compact('data'));
+        return view('backend.stok.detail', compact('data'));
     }
 
 

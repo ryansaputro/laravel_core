@@ -30,19 +30,19 @@ class DashboardController extends Controller
     {
         $users = User::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))
             ->get();
-        $chart = Charts::database($users, 'bar', 'highcharts')
+        $chart = Charts::database($users, 'area', 'fusioncharts')
             ->title("Monthly new Register Users")
             ->elementLabel("Total Users")
-            ->dimensions(1000, 500)
+            // ->dimensions(500, 500)
             ->responsive(false)
             ->groupByMonth(date('Y'), true);
 
-        $pie = Charts::database($users, 'pie', 'highcharts')
-            ->title('My nice chart')
-            ->labels(['First', 'Second', 'Third'])
-            ->values([5, 10, 20])
-            ->dimensions(1000, 500)
-            ->responsive(false);
+        $pie = Charts::multi('bar', 'fusioncharts')
+                ->colors(['#ff0000', '#00ff00', '#0000ff'])
+                ->labels(['Pemesanan', 'Penerimaan', 'Invoice'])
+                ->dataset('Test 1', [1, 2, 3])
+                ->dataset('Test 2', [0, 6, 0])
+                ->dataset('Test 3', [3, 4, 1]);
 
 
         return view('backend.dashboard.index', compact('chart','pie'));
